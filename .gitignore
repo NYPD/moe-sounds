@@ -1,12 +1,29 @@
-*.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+#################
+## Grunt Stuff            ##
+#################
+node_modules
+.sass-cache
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#################
+## Eclipse Stuff        ##
+#################
+build
+classes
+.project
+.classpath
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+
+######################
+## Windows detritus             ##
+######################
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac crap
+.DS_Store
+/target/
