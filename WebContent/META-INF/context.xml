@@ -1,12 +1,12 @@
 <Context>
-  <Resource name="jdbc/ds_moe_sounds" 
-    auth="Container" 
+  <Resource name="jdbc/ds_moe_sounds"
+    auth="Container"
     type="javax.sql.DataSource"
-    maxActive="50" 
-    maxIdle="30" 
+    maxActive="50"
+    maxIdle="30"
     maxWait="10000"
-    username="sdsd" 
-    password="sdsd" 
+    username="pimp"
+    password="pimp" 
     driverClassName="com.mysql.jdbc.Driver"
     url="jdbc:mysql://casa.erikmunoz.me:3306/moe_sounds?allowMultiQueries=true"/>
 </Context>
