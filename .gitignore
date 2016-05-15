@@ -12,7 +12,7 @@ build
 classes
 .project
 .classpath
-WebContent/META-INF/*
+WebContent/META-INF/context.xml
 
 ######################
 ## Windows detritus             ##
