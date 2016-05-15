@@ -12,6 +12,7 @@ build
 classes
 .project
 .classpath
+.settings
 WebContent/META-INF/context.xml
 
 ######################
