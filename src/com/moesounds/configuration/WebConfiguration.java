@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -13,7 +14,7 @@ import com.moesounds.controller.Controller;
 import com.moesounds.interceptor.Interceptor;
 
 /**
-* This class is use to configure Spring MVC.
+* This class is used to configure Spring MVC.
 *
 * @author NYPD
 */
@@ -22,12 +23,20 @@ import com.moesounds.interceptor.Interceptor;
 @ComponentScan(basePackageClasses={Controller.class, Interceptor.class})
 @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter {	
+	
 	@Bean
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
 		return resolver;
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+	    registry.addResourceHandler("/images/**").addResourceLocations("/images/");
+	    registry.addResourceHandler("/js/**").addResourceLocations("/js/");
 	}
 
 //    @Override

@@ -3,6 +3,7 @@ package com.moesounds.configuration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import com.moesounds.dao.DAO;
 import com.moesounds.service.Service;
@@ -11,7 +12,6 @@ import com.moesounds.service.Service;
 @Import(value={LoggingConfiguration.class, MyBatisConfiguration.class})
 @ComponentScan(basePackageClasses={DAO.class, Service.class})
 public class ApplicationConfiguration {
-	
 	
 	
 //	@Bean
