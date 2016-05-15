@@ -14,10 +14,10 @@ import com.moesounds.annotation.ProductionProfile;
 @ProductionProfile
 public class JndiDataSourceConfiguration {
 
-//  @Bean
-//  public DataSource getPmsDataSource() throws NamingException {	
-//	Context context = new InitialContext();
-//  	return (DataSource) context.lookup("java:comp/env/jdbc/ds_pms");
-//  }
+  @Bean
+  public DataSource getMoeSoundsDataSource() throws NamingException {	
+	Context context = new InitialContext();
+  	return (DataSource) context.lookup("java:comp/env/jdbc/ds_moe_sounds");
+  }
 	
 }

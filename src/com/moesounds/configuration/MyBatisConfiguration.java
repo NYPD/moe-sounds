@@ -23,9 +23,9 @@ import com.moesounds.domain.TypeAlias;
 @Configuration
 @Import({JndiDataSourceConfiguration.class})
 @EnableTransactionManagement
-@MapperScan(basePackageClasses=Mapper.class, annotationClass=DefaultDatabase.class )
-public class MyBatisConfiguration
-{
+@MapperScan(basePackageClasses = Mapper.class, annotationClass = DefaultDatabase.class )
+public class MyBatisConfiguration {
+	
 	@Autowired
 	private DataSource dataSource;
 	
@@ -41,6 +41,7 @@ public class MyBatisConfiguration
 
 	@Bean
 	public SqlSessionFactory sessionFactory() throws Exception {
+		
 		DataSource dataSource = getDataSource();
 		String typeAliasesPackage = TypeAlias.class.getPackage().getName();
 
