@@ -18,11 +18,10 @@ import com.moesounds.interceptor.Interceptor;
 * @author NYPD
 */
 @Configuration
-//@Import(value={ApplicationConfiguration.class})
+@Import(value={ApplicationConfiguration.class})
 @ComponentScan(basePackageClasses={Controller.class, Interceptor.class})
 @EnableWebMvc
-public class WebConfiguration extends WebMvcConfigurerAdapter
-{	
+public class WebConfiguration extends WebMvcConfigurerAdapter {	
 	@Bean
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();

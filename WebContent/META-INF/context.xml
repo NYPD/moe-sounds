@@ -1,12 +1,12 @@
 <Context>
-<!--   <Resource name="jdbc/ds_pms"  -->
-<!--     auth="Container"  -->
-<!--     type="javax.sql.DataSource" -->
-<!--     maxActive="50"  -->
-<!--     maxIdle="30"  -->
-<!--     maxWait="10000" -->
-<!--     username="temp"  -->
-<!--     password="temp"  -->
-<!--     driverClassName="com.mysql.jdbc.Driver" -->
-<!--     url="jdbc:mysql://yourServerURL.com:3306/pms?allowMultiQueries=true"/> -->
+  <Resource name="jdbc/ds_moe_sounds"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxActive="50"
+    maxIdle="30"
+    maxWait="10000"
+    username="pimp69"
+    password="pimp69"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://casa.erikmunoz.me:3306/moe_sounds?allowMultiQueries=true"/>
 </Context>
