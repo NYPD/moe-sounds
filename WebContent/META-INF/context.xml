@@ -5,8 +5,8 @@
     maxActive="50"
     maxIdle="30"
     maxWait="10000"
-    username="pimp"
-    password="pimp" 
+    username="pimp69"
+    password="pimp69"
     driverClassName="com.mysql.jdbc.Driver"
     url="jdbc:mysql://casa.erikmunoz.me:3306/moe_sounds?allowMultiQueries=true"/>
 </Context>
