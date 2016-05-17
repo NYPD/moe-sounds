@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -17,7 +16,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.moesounds.annotation.DefaultDatabase;
+import com.moesounds.annotation.MoeSoundsDatabase;
+import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.dao.Mapper;
 import com.moesounds.domain.TypeAlias;
 
@@ -27,13 +27,13 @@ import com.moesounds.domain.TypeAlias;
  * @author NYPD
  */
 @Configuration
-@Import({JndiDataSourceConfiguration.class})
+@Import({JndiConfiguration.class})
 @EnableTransactionManagement
-@MapperScan(basePackageClasses = Mapper.class, annotationClass = DefaultDatabase.class)
+@MapperScan(basePackageClasses = Mapper.class, annotationClass = MoeSoundsDatabase.class)
 public class MyBatisConfiguration {
 	
 	@Autowired
-	@Qualifier("MoeSoundsDataSource")
+	@MoeSoundsDataSource
 	private DataSource dataSource;
 	
 	@Bean

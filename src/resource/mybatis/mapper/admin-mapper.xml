@@ -2,14 +2,15 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moesounds.dao.UserDAO">
+<mapper namespace="com.moesounds.dao.AdminDAO">
 
   <select id="getAllUsers" resultType="User">
     SELECT 
             user_id,
-            nickname
+            nickname,
+            google_id
     FROM 
-            moe_sounds.Users
+            moe_sounds.user
   </select>
   
 </mapper>

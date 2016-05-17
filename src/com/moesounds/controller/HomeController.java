@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.annotation.DefaultController;
-import com.moesounds.dao.UserDAO;
+import com.moesounds.dao.AdminDAO;
 import com.moesounds.domain.User;
 
 @DefaultController
 public class HomeController {
 
 	@Autowired
-	private UserDAO userDAO;
+	private AdminDAO userDAO;
 	
 	@RequestMapping(value = {"/home", "/"})
 	public ModelAndView getHomePage() {

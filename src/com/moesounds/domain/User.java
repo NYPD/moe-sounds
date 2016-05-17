@@ -1,26 +1,28 @@
 package com.moesounds.domain;
 
+/**
+ * Represents a user for the Moe Sounds web application. Primary use is for admin verification. 
+ * @author NYPD
+ */
 public class User {
 
-	public int userId;
-	public String nickname;
+	private int userId;
+	private String nickname;
+	private String googleId;
 	
 	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 	public String getNickname() {
 		return nickname;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public String getGoogleId() {
+		return googleId;
 	}
 	
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", nickname=" + nickname + "]";
+		return "User [userId=" + userId + ", nickname=" + nickname + ", googleId=" + googleId + "]";
 	}
 	
 }

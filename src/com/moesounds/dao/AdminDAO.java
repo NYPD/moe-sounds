@@ -2,11 +2,11 @@ package com.moesounds.dao;
 
 import java.util.List;
 
-import com.moesounds.annotation.DefaultDatabase;
+import com.moesounds.annotation.MoeSoundsDatabase;
 import com.moesounds.domain.User;
 
-@DefaultDatabase
-public interface UserDAO {
+@MoeSoundsDatabase
+public interface AdminDAO {
 
 	public List<User> getAllUsers();
 }

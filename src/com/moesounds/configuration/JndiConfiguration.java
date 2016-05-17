@@ -5,10 +5,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.annotation.ProductionProfile;
 
 /**
@@ -18,10 +18,10 @@ import com.moesounds.annotation.ProductionProfile;
  */
 @Configuration
 @ProductionProfile
-public class JndiDataSourceConfiguration {
+public class JndiConfiguration {
 
   @Bean
-  @Qualifier("MoeSoundsDataSource")
+  @MoeSoundsDataSource
   public DataSource getMoeSoundsDataSource() throws NamingException {	
 	Context context = new InitialContext();
   	return (DataSource) context.lookup("java:comp/env/jdbc/ds_moe_sounds");
