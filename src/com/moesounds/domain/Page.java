@@ -6,16 +6,23 @@ public class Page {
 	private String pageName;
 	private String css;
 	private long clickCount;
+	private PageMedia pageMedia;
 	
+	
+
+	/** Mybatis **/
+	protected Page(){};
+	
+	public Page(String pageName, String css) {
+		this.pageName = pageName;
+		this.css = css;
+	}
 	
 	public int getPageId() {
 		return pageId;
 	}
 	public String getPageName() {
 		return pageName;
-	}
-	public void setPageName(String pageName) {
-		this.pageName = pageName;
 	}
 	public String getCss() {
 		return css;
@@ -26,14 +33,17 @@ public class Page {
 	public long getClickCount() {
 		return clickCount;
 	}
-	public void setClickCount(long clickCount) {
-		this.clickCount = clickCount;
+	public PageMedia getPageMedia() {
+		return pageMedia;
 	}
-	
+	public void setPageMedia(PageMedia pageMedia) {
+		this.pageMedia = pageMedia;
+	}
 	
 	@Override
 	public String toString() {
 		return "Page [pageId=" + pageId + ", pageName=" + pageName + ", css=" + css + ", clickCount=" + clickCount
 				+ "]";
 	}
+	
 }

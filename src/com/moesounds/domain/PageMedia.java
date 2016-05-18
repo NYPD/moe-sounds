@@ -12,6 +12,12 @@ public class PageMedia {
 	private byte[] backgroundInner;
 	private String soundFileLocation;
 	
+	protected PageMedia() {};
+	
+	public PageMedia(Page page) {
+		this.pageId = page.getPageId();
+	}
+	
 	public int getPageMediaId() {
 		return pageMediaId;
 	}
