@@ -3,7 +3,7 @@
   
   <groupId>moe-sounds</groupId>
   <artifactId>moe-sounds</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.0</version>
   <packaging>war</packaging>
   
   <issueManagement>
@@ -123,6 +123,7 @@
   
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <finalName>${project.artifactId}##${project.version}</finalName>
     
     <plugins>
       <plugin>
