@@ -22,8 +22,21 @@
     <form id="form1" method="post" action="/spring-mvc-file-upload/rest/cont/upload" enctype="multipart/form-data">
  
       <!-- File input -->    
-      <input type="text" name="name"><br/>
-      <input name="file" id="file" type="file" /><br/>
+      <label>Page Name</label><input type="text" name="pageName"><br/>
+      <label>CSS</label><textarea rows="10" cols="60" name="css"></textarea><br/>
+      
+      <img class="carouselImageSmall" src="data:image/png;base64,${encodeBase64String}" height="200" alt="Image preview...">
+      <input name="carouselImageSmall" id="file" type="file" /><br/>
+      
+      <img class="carouselImageBig" src="" height="200" alt="Image preview...">
+      <input name="carouselImageBig" id="file" type="file" /><br/>
+      
+      <img class="backgroundPage" src="" height="200" alt="Image preview...">
+      <input name="backgroundPage" id="file" type="file" /><br/>
+      
+      <img class="backgroundInner" src="" height="200" alt="Image preview...">
+      <input name="backgroundInner" id="file" type="file" /><br/>
+      
      
       <input type="button" value="Upload" class="button"/>
     </form>
@@ -49,8 +62,24 @@
     	    data: formData
     	    
     	  }).done(function(data) {
-    	    alert(data);
+    	    alert("Save successfullllll");
     	  });
+    	  
+    	});
+    	
+    	$('input[type="file"]').on('change', function() {
+    	  
+    	  var className = this.name;
+    	  var imageFile = this.files[0];
+    	  
+    	  
+    	  var reader  = new FileReader();
+    	  
+    	  reader.readAsDataURL(imageFile);
+    	  
+    	  $(reader).on('load' ,function(event) {
+          	$('img.' + className).attr("src", event.target.result);
+      	  });
     	  
     	});
     

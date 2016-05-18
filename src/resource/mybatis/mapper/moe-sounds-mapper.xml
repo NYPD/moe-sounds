@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moesounds.dao.MoeSoundsDAO">
+
+
+  <select id="getLastPageMedia" resultType="PageMedia">
+    SELECT
+            pageMedia.page_media_id,
+            pageMedia.page_id,
+            pageMedia.carousel_image_small
+    FROM
+            moe_sounds.page_media pageMedia
+    ORDER BY
+          pageMedia.page_media_id DESC
+    LIMIT 1
+  
+  </select>
+
+  <insert id="insertPage" useGeneratedKeys="true" keyProperty="pageId">
+    INSERT INTO moe_sounds.page (
+        page_name,
+        css
+    )
+    
+    VALUES (
+        #{pageName},
+        #{css}
+    )
+  </insert>
+  
+  <insert id="insertPageMedia">
+    INSERT INTO moe_sounds.page_media (
+        page_id,
+        carousel_image_small,
+        carousel_image_big,
+        background_page,
+        background_inner,
+        sound_file_location
+    )
+    
+    VALUES (
+        #{pageId},
+        #{carouselImageSmall},
+        #{carouselImageBig},
+        #{backgroundPage},
+        #{backgroundInner},
+        'cheese'
+    )
+  </insert>
+  
+  
+  
+</mapper>
