@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PageForm {
 	
-	private int pageId;
+	private Integer pageId;
 	private String pageName;
 	private String css;
 	private MultipartFile carouselImageSmall;
@@ -12,12 +12,11 @@ public class PageForm {
 	private MultipartFile backgroundPage;
 	private MultipartFile backgroundInner;
 	private MultipartFile soundFile;
-	private String soundFileLocation;
 	
-	public int getPageId() {
+	public Integer getPageId() {
 		return pageId;
 	}
-	public void setPageId(int pageId) {
+	public void setPageId(Integer pageId) {
 		this.pageId = pageId;
 	}
 	public String getPageName() {
@@ -61,12 +60,6 @@ public class PageForm {
 	}
 	public void setSoundFile(MultipartFile soundFile) {
 		this.soundFile = soundFile;
-	}
-	public String getSoundFileLocation() {
-		return soundFileLocation;
-	}
-	public void setSoundFileLocation(String soundFileLocation) {
-		this.soundFileLocation = soundFileLocation;
 	}
 	
 }

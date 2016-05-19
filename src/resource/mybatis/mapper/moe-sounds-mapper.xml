@@ -4,17 +4,36 @@
 
 <mapper namespace="com.moesounds.dao.MoeSoundsDAO">
 
+  <resultMap type="Page" id="PageMap">
+      <id column="page_id" property="pageId"/>
+      <association column="{pageId=page_id}" property="pageMedia" javaType="PageMedia" select="getPageMediaWithPageId" fetchType="lazy"/>
+  </resultMap>
 
-  <select id="getLastPageMedia" resultType="PageMedia">
+
+  <select id="getAllPages" resultMap="PageMap">
     SELECT
-            pageMedia.page_media_id,
-            pageMedia.page_id,
-            pageMedia.carousel_image_small
+            page_id,
+            page_name,
+            css,
+            click_count
     FROM
-            moe_sounds.page_media pageMedia
-    ORDER BY
-          pageMedia.page_media_id DESC
-    LIMIT 1
+            moe_sounds.page
+  </select>
+  
+  <select id="getPageMediaWithPageId" resultType="PageMedia">
+    SELECT
+            page_media_id,
+            page_id,
+            carousel_image_small,
+            carousel_image_big,
+            background_page,
+            background_inner,
+            sound_file
+    FROM
+            moe_sounds.page_media
+            
+    WHERE 
+            page_id = #{pageId}
   
   </select>
 
@@ -30,14 +49,14 @@
     )
   </insert>
   
-  <insert id="insertPageMedia">
+  <insert id="insertPageMedia" useGeneratedKeys="true" keyProperty="pageMediaId">
     INSERT INTO moe_sounds.page_media (
         page_id,
         carousel_image_small,
         carousel_image_big,
         background_page,
         background_inner,
-        sound_file_location
+        sound_file
     )
     
     VALUES (
@@ -46,10 +65,9 @@
         #{carouselImageBig},
         #{backgroundPage},
         #{backgroundInner},
-        'cheese'
+        #{soundFile}
     )
   </insert>
-  
   
   
 </mapper>
