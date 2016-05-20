@@ -1,6 +1,6 @@
 package com.moesounds.domain;
 
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 
 public class PageMedia {
 
@@ -44,19 +44,19 @@ public class PageMedia {
 	
 	/** Modified Accessors **/
 	public String getCarouselImageSmallAsBase64() {
-		return Base64.encodeBase64String(this.carouselImageSmall);
+		return Base64.getEncoder().encodeToString(this.carouselImageSmall);
 	}
 	public String getCarouselImageBigAsBase64() {
-		return Base64.encodeBase64String(this.carouselImageBig);
+		return Base64.getEncoder().encodeToString(this.carouselImageBig);
 	}
 	public String getBackgroundPageAsBase64() {
-		return Base64.encodeBase64String(this.backgroundPage);
+		return Base64.getEncoder().encodeToString(this.backgroundPage);
 	}
 	public String getBackgroundInnerAsBase64() {
-		return Base64.encodeBase64String(this.backgroundInner);
+		return Base64.getEncoder().encodeToString(this.backgroundInner);
 	}
 	public String getSoundFileAsBase64() {
-		return Base64.encodeBase64String(this.soundFile);
+		return Base64.getEncoder().encodeToString(this.soundFile);
 	}
 
 	@Override

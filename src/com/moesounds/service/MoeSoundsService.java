@@ -1,5 +1,7 @@
 package com.moesounds.service;
 
+import java.util.Collection;
+
 import com.moesounds.domain.Page;
 import com.moesounds.model.PageForm;
 
@@ -16,7 +18,27 @@ public interface MoeSoundsService {
 	/**
 	 * Returns a random @see Page from the database. Null if there is nothing
 	 * 
-	 * @return @see{Page}
+	 * @return Random Page
 	 */
 	public Page getRandomPage();
+	
+	
+	/**
+	 * Get a specific page from the database
+	 * @param pageId
+	 * @return Specific Page requested
+	 */
+	public Page getSpecificPage(int pageId);
+	
+	/**
+	 * Returns all the pages from the dataBase
+	 * @return A Collection of all the Pages 
+	 */
+	public Collection<Page> getAllPages();
+	
+	/**
+	 * Deletes both a PageMedia and Page row from the database based on the pageId passed in
+	 * @param pageId The id of the page to delte
+	 */
+	public void deletePage(int pageId);
 }

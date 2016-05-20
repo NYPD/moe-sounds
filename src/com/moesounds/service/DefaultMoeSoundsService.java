@@ -1,6 +1,7 @@
 package com.moesounds.service;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -69,7 +70,6 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 		
 	}
 	
-	
 	@Override
 	public Page getRandomPage() {
 		
@@ -84,11 +84,42 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 		
 		return page;
 	}
+	
+	@Override
+	public Page getSpecificPage(int pageId) {
+		Page page = moeSoundsDAO.getPage(pageId);
+		return page;
+	}
+	
+	@Override
+	public Collection<Page> getAllPages() {
+
+		List<Page> allPages = moeSoundsDAO.getAllPages();
+		
+		return allPages;
+	}
+	
+	@Transactional
+	@Override
+	public void deletePage(int pageId) {
+		//Delete Page Media first due to foreign key contraint
+		moeSoundsDAO.deletePageMediaWithPageId(pageId);
+		moeSoundsDAO.deletePage(pageId);
+	}
   	
 	// For JUnit Tests ************************************
 	public void setMoeSoundsDAO(MoeSoundsDAO moeSoundsDAO) {
 		this.moeSoundsDAO = moeSoundsDAO;
 	}
+
+
+	
+
+
+	
+
+
+	
 	
 
 }

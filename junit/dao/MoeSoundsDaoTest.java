@@ -8,6 +8,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,28 +41,15 @@ public class MoeSoundsDaoTest {
 	@Autowired
 	private MoeSoundsDAO moeSoundsDAO;
 	
-	@Test
-	public void shouldInsertPage() {
-		
-		Page page = new Page("Cool Page Name", "intense css");
-		moeSoundsDAO.insertPage(page);
-		
-		assertThat(page.getPageId(), notNullValue());
-		
-	}
 	
 	@Test
-	public void shouldInsertPageMedia() {
+	public void shouldGetPage() {
 		
-		Page page = new Page("Cool Page Name", "intense css");
-		moeSoundsDAO.insertPage(page);
+		Page page = moeSoundsDAO.getPage(1);
+		PageMedia pageMedia = page.getPageMedia();
 		
-		PageMedia pageMedia = new PageMedia(page);
-		
-		moeSoundsDAO.insertPageMedia(pageMedia);
-		
-		assertThat(pageMedia.getPageMediaId(), notNullValue());
-		assertThat(pageMedia.getPageId(), is(page.getPageId()));
+		assertThat(page.getCss(), is("p{color=red;}"));
+		assertThat(pageMedia, notNullValue());
 		
 	}
 	
@@ -81,4 +69,64 @@ public class MoeSoundsDaoTest {
 		assertThat(pageId, is(page.getPageId()));
 		
 	}
+	
+	
+	@Test
+	public void shouldInsertPage() {
+		
+		Page page = new Page("Cool Page Name", "intense css");
+		moeSoundsDAO.insertPage(page);
+		
+		assertThat(page.getPageId(), notNullValue());
+		
+	}
+	
+	
+	@Test
+	public void shouldDeletePage() {
+		
+		List<Page> allPages = moeSoundsDAO.getAllPages();
+		assertThat(allPages.size(), is(2));
+		
+		moeSoundsDAO.deletePageMediaWithPageId(1);
+		moeSoundsDAO.deletePage(1);
+		
+		allPages = moeSoundsDAO.getAllPages();
+		assertThat(allPages.size(), is(1));
+		
+	}
+	
+	@Test
+	public void shouldInsertPageMedia() {
+		
+		Page page = new Page("Cool Page Name", "intense css");
+		moeSoundsDAO.insertPage(page);
+		
+		PageMedia pageMedia = new PageMedia(page);
+		
+		moeSoundsDAO.insertPageMedia(pageMedia);
+		
+		assertThat(pageMedia.getPageMediaId(), notNullValue());
+		assertThat(pageMedia.getPageId(), is(page.getPageId()));
+		
+	}
+	
+	@Test
+	public void shouldDeletePageMedia() {
+		
+		Page page = moeSoundsDAO.getPage(1);
+		PageMedia pageMedia = page.getPageMedia();
+		
+		assertThat(pageMedia, notNullValue());
+		
+		moeSoundsDAO.deletePageMediaWithPageId(1);
+		
+		page = moeSoundsDAO.getPage(1);
+		pageMedia = page.getPageMedia();
+		
+		assertThat(pageMedia, nullValue());
+		
+	}
+	
+	
 }

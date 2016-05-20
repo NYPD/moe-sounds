@@ -15,22 +15,22 @@
     <form id="form1" method="post" action="/spring-mvc-file-upload/rest/cont/upload" enctype="multipart/form-data">
  
       <!-- File input -->    
-      <label>Page Name</label><input type="text" name="pageName" value="${randomPage.pageName}"><br/>
-      <label>CSS</label><textarea rows="10" cols="60" name="css">${randomPage.css}</textarea><br/>
+      <label>Page Name</label><input type="text" name="pageName" value="${page.pageName}"><br/>
+      <label>CSS</label><textarea rows="10" cols="60" name="css">${page.css}</textarea><br/>
       
-      <img class="carouselImageSmall" src="data:image/png;base64,${randomPage.pageMedia.carouselImageSmallAsBase64}" height="200" alt="Image preview...">
+      <img class="carouselImageSmall" src="data:image/png;base64,${page.pageMedia.carouselImageSmallAsBase64}" height="200" alt="Image preview...">
       <input name="carouselImageSmall" id="file" type="file" /><br/>
       
-      <img class="carouselImageBig" src="data:image/png;base64,${randomPage.pageMedia.carouselImageBigAsBase64}" height="200" alt="Image preview...">
+      <img class="carouselImageBig" src="data:image/png;base64,${page.pageMedia.carouselImageBigAsBase64}" height="200" alt="Image preview...">
       <input name="carouselImageBig" id="file" type="file" /><br/>
       
-      <img class="backgroundPage" src="data:image/png;base64,${randomPage.pageMedia.backgroundPageAsBase64}" height="200" alt="Image preview...">
+      <img class="backgroundPage" src="data:image/png;base64,${page.pageMedia.backgroundPageAsBase64}" height="200" alt="Image preview...">
       <input name="backgroundPage" id="file" type="file" /><br/>
       
-      <img class="backgroundInner" src="data:image/png;base64,${randomPage.pageMedia.backgroundInnerAsBase64}" height="200" alt="Image preview...">
+      <img class="backgroundInner" src="data:image/png;base64,${page.pageMedia.backgroundInnerAsBase64}" height="200" alt="Image preview...">
       <input name="backgroundInner" id="file" type="file" /><br/>
       
-      <audio controls src="data:audio/mp3;base64,${randomPage.pageMedia.soundFileAsBase64}" ></audio>
+      <audio controls src="data:audio/mp3;base64,${page.pageMedia.soundFileAsBase64}" ></audio>
       <input name="soundFile" id="file" type="file" /><br/>
       
      

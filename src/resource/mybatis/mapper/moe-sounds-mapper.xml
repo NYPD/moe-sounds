@@ -10,6 +10,18 @@
   </resultMap>
 
 
+  <select id="getPage" resultMap="PageMap">
+    SELECT
+            page_id,
+            page_name,
+            css,
+            click_count
+    FROM
+            moe_sounds.page
+    WHERE
+            page_id = #{pageId}
+  </select>
+
   <select id="getAllPages" resultMap="PageMap">
     SELECT
             page_id,
@@ -49,6 +61,13 @@
     )
   </insert>
   
+  <delete id="deletePage">
+    DELETE FROM 
+            moe_sounds.page
+    WHERE 
+            page_id = #{pageId}
+  </delete>
+  
   <insert id="insertPageMedia" useGeneratedKeys="true" keyProperty="pageMediaId">
     INSERT INTO moe_sounds.page_media (
         page_id,
@@ -69,5 +88,11 @@
     )
   </insert>
   
+  <delete id="deletePageMediaWithPageId">
+    DELETE FROM 
+            moe_sounds.page_media
+    WHERE 
+            page_id = #{pageId}
+  </delete>
   
 </mapper>
