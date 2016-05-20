@@ -3,8 +3,10 @@
   
   <groupId>moe-sounds</groupId>
   <artifactId>moe-sounds</artifactId>
+  <name></name>
   <version>1.0.0-beta</version>
   <packaging>war</packaging>
+  <inceptionYear>2016</inceptionYear>
   
   <issueManagement>
   	<system>GitHub Issues</system>
@@ -18,6 +20,26 @@
 	  <distribution>repo</distribution>
 	</license>
   </licenses>
+  
+  <developers>
+    <developer>
+      <id>nypd</id>
+      <name>NYPD</name>
+      <email>nypd54@outlook.com</email>
+      <roles>
+        <role>back-end developer</role>
+      </roles>
+    </developer>
+    
+    <developer>
+      <id>zazie</id>
+      <name>ZAZIE</name>
+      <email>theeconmistx@gmail.com</email>
+      <roles>
+        <role>front-end developer</role>
+      </roles>
+    </developer>
+  </developers>
   
   <dependencies>
   
@@ -36,6 +58,11 @@
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jsp-api</artifactId>
       <version>8.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.maven</groupId>
+      <artifactId>tomcat7-maven-plugin</artifactId>
+      <version>2.2</version>
     </dependency>
     
     <!-- Spring -->
@@ -143,6 +170,17 @@
         </configuration>
       </plugin>
   
+  
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <warFile>${project.artifactId}##${project.version}</warFile>
+          <path>/</path>
+        </configuration>
+      </plugin>
+      
     </plugins>
     
   </build>
