@@ -6,7 +6,7 @@
   <!-- *********************************** Welcome File *********************************** -->
   
   <welcome-file-list>
-    <welcome-file>/home</welcome-file>
+    <welcome-file>/</welcome-file>
   </welcome-file-list>
   
   <!-- *********************************** Servlets *********************************** -->
