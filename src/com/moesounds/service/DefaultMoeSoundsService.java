@@ -92,6 +92,15 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 		moeSoundsDAO.deletePage(pageId);
 	}
   	
+	@Override
+	public void updateClickCount(int pageId) {
+		moeSoundsDAO.updateClickCount(pageId);
+	}
+	
+	@Override
+	public long getClickCount(int pageId) {
+		return moeSoundsDAO.getClickCount(pageId);
+	}
 	
 	
 	//Private Helper Methods
@@ -127,15 +136,5 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	public void setMoeSoundsDAO(MoeSoundsDAO moeSoundsDAO) {
 		this.moeSoundsDAO = moeSoundsDAO;
 	}
-
-
-	
-
-
-	
-
-
-	
-	
 
 }

@@ -65,6 +65,24 @@
             page_id = #{pageId}
   </delete>
   
+  <!-- Specific Click Count **************************************************-->
+  <update id="updateClickCount">
+    UPDATE 
+            moe_sounds.page
+    SET
+            click_count = click_count + 1
+    WHERE
+            page_id = #{pageId}
+  </update>
+  
+  <select id="getClickCount" resultType="_long">
+    SELECT 
+            click_count
+    FROM
+            moe_sounds.page
+    WHERE
+            page_id = #{pageId}
+  </select>
   
   <!-- Page Media Queries ****************************************************-->
   <select id="getPageMediaWithPageId" resultType="PageMedia">

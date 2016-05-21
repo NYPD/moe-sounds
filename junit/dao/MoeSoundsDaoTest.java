@@ -116,6 +116,42 @@ public class MoeSoundsDaoTest {
 	}
 	
 	@Test
+	public void shouldUpdateClickCount() {
+		
+		Page page = moeSoundsDAO.getPage(2);
+		long clickCount = page.getClickCount();
+		
+		assertThat(clickCount, is(0L));
+		
+		moeSoundsDAO.updateClickCount(2);
+		
+		page = moeSoundsDAO.getPage(2);
+		clickCount = page.getClickCount();
+		
+		assertThat(clickCount, is(1L));
+		
+	}
+	
+	@Test
+	public void shouldGetClickCount() {
+		
+		moeSoundsDAO.updateClickCount(2);
+		moeSoundsDAO.updateClickCount(2);
+		moeSoundsDAO.updateClickCount(2);
+		moeSoundsDAO.updateClickCount(2);
+		moeSoundsDAO.updateClickCount(2);
+		
+		long clickCount = moeSoundsDAO.getClickCount(2);
+		
+		
+		assertThat(clickCount, is(5L));
+		
+	}
+	
+	
+	
+	//Page Media Stuff ******************************************************************
+	@Test
 	public void shouldInsertPageMedia() {
 		
 		Page page = new Page("Cool Page Name", "intense css");
