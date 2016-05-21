@@ -21,4 +21,7 @@ public interface MoeSoundsDAO {
 	public void insertPageMedia(PageMedia pageMedia);
 	public void updatePageMedia(PageMedia pageMedia);
 	public void deletePageMediaWithPageId(@Param("pageId") int pageId);
+	
+	public void updateClickCount(@Param("pageId") int pageId);
+	public long getClickCount(@Param("pageId") int pageId);
 }
