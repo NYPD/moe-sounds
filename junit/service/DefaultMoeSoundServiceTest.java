@@ -51,6 +51,7 @@ private DefaultMoeSoundsService defaultMoeSoundsService = new DefaultMoeSoundsSe
 		defaultMoeSoundsService.setMoeSoundsDAO(mockMoeSoundsDAO);
 		
 		PageForm pageForm = new PageForm();
+		pageForm.setPageName("Cool Page");
 		
 		defaultMoeSoundsService.savePageForm(pageForm);
 		Integer pageId = pageForm.getPageId();

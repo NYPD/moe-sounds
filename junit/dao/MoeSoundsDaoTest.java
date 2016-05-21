@@ -48,6 +48,7 @@ public class MoeSoundsDaoTest {
 		Page page = moeSoundsDAO.getPage(1);
 		PageMedia pageMedia = page.getPageMedia();
 		
+		assertThat(page.getPageName(), is("Rip"));
 		assertThat(page.getCss(), is("p{color=red;}"));
 		assertThat(pageMedia, notNullValue());
 		
@@ -79,6 +80,24 @@ public class MoeSoundsDaoTest {
 		
 		assertThat(page.getPageId(), notNullValue());
 		
+	}
+	
+	@Test
+	public void shouldUpdatePage() {
+		
+		Page page = moeSoundsDAO.getPage(2);
+		
+		assertThat(page.getPageName(), is("Rip2"));
+		assertThat(page.getCss(), is("p{color=blue;}"));
+		
+		page.updatePageName("Cool beans");
+		page.updateCss("div{color=blue;}");
+		moeSoundsDAO.updatePage(page);
+		
+		page = moeSoundsDAO.getPage(2);
+		
+		assertThat(page.getPageName(), is("Cool beans"));
+		assertThat(page.getCss(), is("div{color=blue;}"));
 	}
 	
 	

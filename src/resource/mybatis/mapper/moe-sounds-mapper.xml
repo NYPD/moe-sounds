@@ -3,13 +3,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.moesounds.dao.MoeSoundsDAO">
-
+  
+  <!-- Result Maps ***********************************************************-->
   <resultMap type="Page" id="PageMap">
       <id column="page_id" property="pageId"/>
       <association column="{pageId=page_id}" property="pageMedia" javaType="PageMedia" select="getPageMediaWithPageId" fetchType="lazy"/>
   </resultMap>
 
-
+  <!-- Page Queries **********************************************************-->
   <select id="getPage" resultMap="PageMap">
     SELECT
             page_id,
@@ -31,7 +32,41 @@
     FROM
             moe_sounds.page
   </select>
+
+  <insert id="insertPage" useGeneratedKeys="true" keyProperty="pageId">
+    INSERT INTO 
+            moe_sounds.page (
+            page_name,
+            css
+    )
+    
+    VALUES (
+            #{pageName},
+            #{css}
+    )
+  </insert>
   
+  <update id="updatePage">
+    UPDATE 
+            moe_sounds.page
+    
+    SET
+            page_name = #{pageName},
+            css = #{css}
+            
+    WHERE
+            page_id = ${pageId}
+  </update>
+  
+  <delete id="deletePage">
+    DELETE FROM 
+            moe_sounds.page
+    WHERE 
+            page_id = #{pageId}
+  </delete>
+  
+  
+  <!-- Page Media Queries ****************************************************-->
   <select id="getPageMediaWithPageId" resultType="PageMedia">
     SELECT
             page_media_id,
@@ -48,45 +83,40 @@
             page_id = #{pageId}
   
   </select>
-
-  <insert id="insertPage" useGeneratedKeys="true" keyProperty="pageId">
-    INSERT INTO moe_sounds.page (
-        page_name,
-        css
-    )
-    
-    VALUES (
-        #{pageName},
-        #{css}
-    )
-  </insert>
-  
-  <delete id="deletePage">
-    DELETE FROM 
-            moe_sounds.page
-    WHERE 
-            page_id = #{pageId}
-  </delete>
   
   <insert id="insertPageMedia" useGeneratedKeys="true" keyProperty="pageMediaId">
-    INSERT INTO moe_sounds.page_media (
-        page_id,
-        carousel_image_small,
-        carousel_image_big,
-        background_page,
-        background_inner,
-        sound_file
+    INSERT INTO 
+            moe_sounds.page_media (
+            page_id,
+            carousel_image_small,
+            carousel_image_big,
+            background_page,
+            background_inner,
+            sound_file
     )
     
     VALUES (
-        #{pageId},
-        #{carouselImageSmall},
-        #{carouselImageBig},
-        #{backgroundPage},
-        #{backgroundInner},
-        #{soundFile}
+            #{pageId},
+            #{carouselImageSmall},
+            #{carouselImageBig},
+            #{backgroundPage},
+            #{backgroundInner},
+            #{soundFile}
     )
   </insert>
+  
+  <update id="updatePageMedia">
+    UPDATE
+            moe_sounds.page_media
+    SET
+            carousel_image_small = #{carouselImageSmall},
+            carousel_image_big = #{carouselImageBig},
+            background_page = #{backgroundPage},
+            background_inner = #{backgroundInner},
+            sound_file = #{soundFile}
+    WHERE
+            page_media_id = #{pageMediaId}
+  </update>
   
   <delete id="deletePageMediaWithPageId">
     DELETE FROM 

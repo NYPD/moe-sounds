@@ -15,8 +15,10 @@ public interface MoeSoundsDAO {
 	public List<Page> getAllPages();
 	
 	public void insertPage(Page page);
+	public void updatePage(Page page);
 	public void deletePage(@Param("pageId") int pageId);
 	
 	public void insertPageMedia(PageMedia pageMedia);
+	public void updatePageMedia(PageMedia pageMedia);
 	public void deletePageMediaWithPageId(@Param("pageId") int pageId);
 }

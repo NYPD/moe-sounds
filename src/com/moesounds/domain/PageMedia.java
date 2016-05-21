@@ -25,7 +25,6 @@ public class PageMedia {
 	public Integer getPageId() {
 		return pageId;
 	}
-	
 	public void setCarouselImageSmall(byte[] carouselImageSmall) {
 		this.carouselImageSmall = carouselImageSmall;
 	}

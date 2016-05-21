@@ -25,37 +25,18 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	@Override
 	public void savePageForm(PageForm pageForm) {
 
-		boolean shouldInsert = pageForm.getPageId() == null;
+		Integer pageId = pageForm.getPageId();
+		boolean shouldInsert = pageId == null;
+		
+		String pageName = pageForm.getPageName();
+		String css = pageForm.getCss();
 		
 		if(shouldInsert) {
 			
-			String pageName = pageForm.getPageName();
-			String css = pageForm.getCss();
-
 			Page newPage = new Page(pageName, css);
 			moeSoundsDAO.insertPage(newPage);
 			
-			PageMedia pageMedia = null; 
-			
-			try {
-				
-				//These should never be null if the form in the front end is mapped correct, but do some sanity checks
-				byte[] carouselImageSmall = pageForm.getCarouselImageSmall() == null? new byte[0]: pageForm.getCarouselImageSmall().getBytes();
-				byte[] carouselImageBig = pageForm.getCarouselImageBig() == null? new byte[0]: pageForm.getCarouselImageBig().getBytes();
-				byte[] backgroundPage = pageForm.getBackgroundPage() == null? new byte[0]: pageForm.getBackgroundPage().getBytes();
-				byte[] backgroundInner = pageForm.getBackgroundInner() == null? new byte[0]: pageForm.getBackgroundInner().getBytes();
-				byte[] soundFile = pageForm.getSoundFile() == null? new byte[0]: pageForm.getSoundFile().getBytes();
-				
-				pageMedia = new PageMedia(newPage);
-				pageMedia.setCarouselImageSmall(carouselImageSmall);
-				pageMedia.setCarouselImageBig(carouselImageBig);
-				pageMedia.setBackgroundPage(backgroundPage);
-				pageMedia.setBackgroundInner(backgroundInner);
-				pageMedia.setSoundFile(soundFile);
-				
-			} catch (IOException e) {
-				throw new PageFormFileReadException(e);
-			}
+			PageMedia pageMedia = this.createNewPageMedia(newPage, pageForm);
 			
 			moeSoundsDAO.insertPageMedia(pageMedia);
 			
@@ -63,10 +44,16 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 			pageForm.setPageId(newlyGenratedPageId);
 		}else {
 			
+			Page page = moeSoundsDAO.getPage(pageId);
+			page.updatePageName(pageName);
+			page.updateCss(css);
+			
+			moeSoundsDAO.updatePage(page);
+			
+			//TODO finish updating the page media
+			PageMedia pageMedia = page.getPageMedia();
+			moeSoundsDAO.insertPageMedia(pageMedia);
 		}
-		
-		
-		
 		
 	}
 	
@@ -93,20 +80,49 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	
 	@Override
 	public Collection<Page> getAllPages() {
-
 		List<Page> allPages = moeSoundsDAO.getAllPages();
-		
 		return allPages;
 	}
 	
 	@Transactional
 	@Override
 	public void deletePage(int pageId) {
-		//Delete Page Media first due to foreign key contraint
+		//Delete Page Media first due to foreign key constraint
 		moeSoundsDAO.deletePageMediaWithPageId(pageId);
 		moeSoundsDAO.deletePage(pageId);
 	}
   	
+	
+	
+	//Private Helper Methods
+	public PageMedia createNewPageMedia(Page newPage, PageForm pageForm) {
+		
+		try {
+			
+			PageMedia pageMedia = new PageMedia(newPage);
+			
+			//These should never be null if the form in the front end is mapped correct, but do some sanity checks
+			byte[] carouselImageSmall = pageForm.getCarouselImageSmall() == null? new byte[0]: pageForm.getCarouselImageSmall().getBytes();
+			byte[] carouselImageBig = 	pageForm.getCarouselImageBig() 	 == null? new byte[0]: pageForm.getCarouselImageBig().getBytes();
+			byte[] backgroundPage = 	pageForm.getBackgroundPage() 	 == null? new byte[0]: pageForm.getBackgroundPage().getBytes();
+			byte[] backgroundInner = 	pageForm.getBackgroundInner() 	 == null? new byte[0]: pageForm.getBackgroundInner().getBytes();
+			byte[] soundFile = 			pageForm.getSoundFile() 		 == null? new byte[0]: pageForm.getSoundFile().getBytes();
+			
+			pageMedia.setCarouselImageSmall(carouselImageSmall);
+			pageMedia.setCarouselImageBig(carouselImageBig);
+			pageMedia.setBackgroundPage(backgroundPage);
+			pageMedia.setBackgroundInner(backgroundInner);
+			pageMedia.setSoundFile(soundFile);
+			
+			return pageMedia;
+			
+		} catch (IOException e) {
+			throw new PageFormFileReadException(e);
+		}
+		
+		
+	}
+	
 	// For JUnit Tests ************************************
 	public void setMoeSoundsDAO(MoeSoundsDAO moeSoundsDAO) {
 		this.moeSoundsDAO = moeSoundsDAO;
