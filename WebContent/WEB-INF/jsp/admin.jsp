@@ -166,7 +166,7 @@
     	
     	
     	$('#clear-form').on('click', function() {
-    		$('form input').not('.media-type').val('');
+    		$('form input').not('.media-type, .button').val('');
     	});
     
     </script>
