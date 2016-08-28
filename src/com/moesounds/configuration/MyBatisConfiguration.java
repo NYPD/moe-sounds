@@ -1,9 +1,13 @@
 package com.moesounds.configuration;
 
+import java.util.HashSet;
+
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.MappedTypes;
+import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +21,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.moesounds.annotation.MoeSoundsDatabase;
+import com.moesounds.configuration.typeHandlers.EnumTypeHandler;
+import com.moesounds.configuration.typeHandlers.TypeHandler;
 import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.dao.Mapper;
 import com.moesounds.domain.TypeAlias;
+import com.moesounds.domain.enums.MappedEnum;
 
 /**
  * MyBatis configuration class
@@ -48,6 +55,7 @@ public class MyBatisConfiguration {
 	public SqlSessionFactory sessionFactory() throws Exception {
 		
 		String typeAliasesPackage = TypeAlias.class.getPackage().getName();
+		String typeHandlersPackage = TypeHandler.class.getPackage().getName();
 
 		SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 		PathMatchingResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();	
@@ -57,14 +65,41 @@ public class MyBatisConfiguration {
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 		configuration.setUseGeneratedKeys(true);
 		configuration.setMapUnderscoreToCamelCase(true);
+		configuration.setLazyLoadTriggerMethods(new HashSet<String>());
 		
 		sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
+		sessionFactory.setTypeHandlersPackage(typeHandlersPackage);
 		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setMapperLocations(mapperLocations);
 		sessionFactory.setConfiguration(configuration);
 		
+		this.registerMappedEnumTypeHandlers(configuration.getTypeHandlerRegistry());
 		
 		return sessionFactory.getObject();
+	}
+	
+	private <E extends MappedEnum> void registerMappedEnumTypeHandlers(TypeHandlerRegistry registry) {
+		
+		MappedTypes annotation = EnumTypeHandler.class.getAnnotation(MappedTypes.class);
+		
+		for(Class<?> mappedType : annotation.value()) {
+			
+			if(!mappedType.isEnum() || !MappedEnum.class.isAssignableFrom(mappedType))
+				throw new IllegalStateException("Error registering Enum type handlers: " + mappedType.getName() + " is either not an enum or does not implement " + MappedEnum.class.getName());
+
+			//It is OK to suppress warnings here, since we do a check to ensure everything goes ok immediately prior to this.
+			@SuppressWarnings("unchecked")
+			Class<E> mappedEnumType = (Class<E>) mappedType;
+
+			EnumTypeHandler<E> handler = new EnumTypeHandler<E>(mappedEnumType);
+
+			for(Object enumConstant : mappedEnumType.getEnumConstants()) {
+				
+				@SuppressWarnings("unchecked")
+				Class<E> actualClass = (Class<E>) enumConstant.getClass();
+				registry.register(actualClass, handler);
+			}
+		}
 	}
 
 }

@@ -1,17 +1,19 @@
 package com.moesounds.model;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.moesounds.domain.enums.MediaType;
 
 public class PageForm {
 	
 	private Integer pageId;
 	private String pageName;
 	private String css;
-	private MultipartFile carouselImageSmall;
-	private MultipartFile carouselImageBig;
-	private MultipartFile backgroundPage;
-	private MultipartFile backgroundInner;
-	private MultipartFile soundFile;
+	
+	private List<PageFormFile> formFiles;
+	
 	
 	public Integer getPageId() {
 		return pageId;
@@ -31,35 +33,44 @@ public class PageForm {
 	public void setCss(String css) {
 		this.css = css;
 	}
-	public MultipartFile getCarouselImageSmall() {
-		return carouselImageSmall;
+	public List<PageFormFile> getFormFiles() {
+		return formFiles;
 	}
-	public void setCarouselImageSmall(MultipartFile carouselImageSmall) {
-		this.carouselImageSmall = carouselImageSmall;
+	public void setFormFiles(List<PageFormFile> formFiles) {
+		this.formFiles = formFiles;
 	}
-	public MultipartFile getCarouselImageBig() {
-		return carouselImageBig;
-	}
-	public void setCarouselImageBig(MultipartFile carouselImageBig) {
-		this.carouselImageBig = carouselImageBig;
-	}
-	public MultipartFile getBackgroundPage() {
-		return backgroundPage;
-	}
-	public void setBackgroundPage(MultipartFile backgroundPage) {
-		this.backgroundPage = backgroundPage;
-	}
-	public MultipartFile getBackgroundInner() {
-		return backgroundInner;
-	}
-	public void setBackgroundInner(MultipartFile backgroundInner) {
-		this.backgroundInner = backgroundInner;
-	}
-	public MultipartFile getSoundFile() {
-		return soundFile;
-	}
-	public void setSoundFile(MultipartFile soundFile) {
-		this.soundFile = soundFile;
+
+	public static class PageFormFile {
+		
+		private Integer mediaId;
+		private MediaType mediaType;
+		private MultipartFile file;
+		
+		public Integer getMediaId() {
+			return mediaId;
+		}
+		public void setMediaId(Integer mediaId) {
+			this.mediaId = mediaId;
+		}
+		public MediaType getMediaType() {
+			return mediaType;
+		}
+		public void setMediaType(MediaType mediaType) {
+			this.mediaType = mediaType;
+		}
+		public MultipartFile getFile() {
+			return file;
+		}
+		public void setFile(MultipartFile file) {
+			this.file = file;
+		}
+		
+		@Override
+		public String toString() {
+			return "PageFormFile [mediaId=" + mediaId + ", mediaType=" + mediaType + ", file=" + file + "]";
+		}
+		
+		
 	}
 	
 }

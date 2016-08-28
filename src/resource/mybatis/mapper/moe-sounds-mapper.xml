@@ -6,10 +6,11 @@
   
   <!-- Result Maps ***********************************************************-->
   <resultMap type="Page" id="PageMap">
-      <id column="page_id" property="pageId"/>
-      <association column="{pageId=page_id}" property="pageMedia" javaType="PageMedia" select="getPageMediaWithPageId" fetchType="lazy"/>
+    <id 		property="pageId" 	column="page_id" />
+    <collection property="media" 	column="{pageId=page_id}" ofType="Media" select="getMediaWithPageId" fetchType="lazy" />
   </resultMap>
-
+  
+  
   <!-- Page Queries **********************************************************-->
   <select id="getPage" resultMap="PageMap">
     SELECT
@@ -85,62 +86,67 @@
   </select>
   
   <!-- Page Media Queries ****************************************************-->
-  <select id="getPageMediaWithPageId" resultType="PageMedia">
+  <select id="getMediaWithPageId" resultType="Media">
     SELECT
-            page_media_id,
+            media_id,
             page_id,
-            carousel_image_small,
-            carousel_image_big,
-            background_page,
-            background_inner,
-            sound_file
+            media_type,
+            file_name,
+            file_type,
+            file_data,
+            file_size
     FROM
-            moe_sounds.page_media
-            
+            moe_sounds.media
     WHERE 
             page_id = #{pageId}
-  
   </select>
   
-  <insert id="insertPageMedia" useGeneratedKeys="true" keyProperty="pageMediaId">
+  <insert id="insertMedia" useGeneratedKeys="true" keyProperty="mediaId">
     INSERT INTO 
-            moe_sounds.page_media (
-            page_id,
-            carousel_image_small,
-            carousel_image_big,
-            background_page,
-            background_inner,
-            sound_file
-    )
+            moe_sounds.media (
+	            page_id,
+	            media_type,
+	            file_name,
+	            file_type,
+	            file_data,
+	            file_size
+    		)
     
     VALUES (
-            #{pageId},
-            #{carouselImageSmall},
-            #{carouselImageBig},
-            #{backgroundPage},
-            #{backgroundInner},
-            #{soundFile}
-    )
+	            #{pageId},
+	            #{mediaType},
+	            #{fileName},
+	            #{fileType},
+	            #{fileData},
+	            #{fileSize}
+    	   )
   </insert>
   
-  <update id="updatePageMedia">
+  <update id="updateMedia">
     UPDATE
-            moe_sounds.page_media
+            moe_sounds.media
     SET
-            carousel_image_small = #{carouselImageSmall},
-            carousel_image_big = #{carouselImageBig},
-            background_page = #{backgroundPage},
-            background_inner = #{backgroundInner},
-            sound_file = #{soundFile}
+            media_type = #{mediaType},
+            file_name = #{fileName},
+            file_type = #{fileType},
+            file_data = #{fileData},
+            file_size = #{fileSize}
     WHERE
-            page_media_id = #{pageMediaId}
+            media_id = #{mediaId}
   </update>
   
-  <delete id="deletePageMediaWithPageId">
+  <delete id="deleteMediaWithPageId">
     DELETE FROM 
-            moe_sounds.page_media
+            moe_sounds.media
     WHERE 
             page_id = #{pageId}
+  </delete>
+  
+  <delete id="deleteMediaWithMediaId">
+    DELETE FROM 
+            moe_sounds.media
+    WHERE 
+            media_id = #{mediaId}
   </delete>
   
 </mapper>

@@ -16,7 +16,7 @@ public class AdminRestController {
 	@Autowired
 	private MoeSoundsService moeSoundsService;
 	
-	@RequestMapping(value = "save-page-form", method = RequestMethod.POST)
+	@RequestMapping(value = "/save-page-form", method = RequestMethod.POST)
 	public int savePageForm(PageForm pageForm) {  
 		
 		moeSoundsService.savePageForm(pageForm);
@@ -26,7 +26,7 @@ public class AdminRestController {
 		
 	}
 	
-	@RequestMapping(value = "delete-page", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete-page", method = RequestMethod.POST)
 	public void deletePage(@RequestParam("pageId") int pageId) {  
 		moeSoundsService.deletePage(pageId);
 	}

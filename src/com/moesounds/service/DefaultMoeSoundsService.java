@@ -1,6 +1,5 @@
 package com.moesounds.service;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -8,12 +7,14 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.moesounds.dao.MoeSoundsDAO;
+import com.moesounds.domain.Media;
 import com.moesounds.domain.Page;
-import com.moesounds.domain.PageMedia;
-import com.moesounds.exception.PageFormFileReadException;
+import com.moesounds.domain.enums.MediaType;
 import com.moesounds.model.PageForm;
+import com.moesounds.model.PageForm.PageFormFile;
 
 @Service
 public class DefaultMoeSoundsService implements MoeSoundsService {
@@ -30,31 +31,27 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 		
 		String pageName = pageForm.getPageName();
 		String css = pageForm.getCss();
+		Collection<PageFormFile> formFiles = pageForm.getFormFiles();
+		
+		Page page = null;
 		
 		if(shouldInsert) {
 			
-			Page newPage = new Page(pageName, css);
-			moeSoundsDAO.insertPage(newPage);
+			page = new Page(pageName, css);
+			moeSoundsDAO.insertPage(page);
 			
-			PageMedia pageMedia = this.createNewPageMedia(newPage, pageForm);
-			
-			moeSoundsDAO.insertPageMedia(pageMedia);
-			
-			Integer newlyGenratedPageId = newPage.getPageId();
+			Integer newlyGenratedPageId = page.getPageId();
 			pageForm.setPageId(newlyGenratedPageId);
+			
 		}else {
 			
-			Page page = moeSoundsDAO.getPage(pageId);
-			page.updatePageName(pageName);
-			page.updateCss(css);
+			page = moeSoundsDAO.getPage(pageId);
+			page.updatePage(pageName, css);
 			
 			moeSoundsDAO.updatePage(page);
-			
-			//TODO finish updating the page media
-			PageMedia pageMedia = page.getPageMedia();
-			moeSoundsDAO.insertPageMedia(pageMedia);
 		}
 		
+		this.handlePageFormMedia(page, formFiles);
 	}
 	
 	@Override
@@ -88,7 +85,7 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	@Override
 	public void deletePage(int pageId) {
 		//Delete Page Media first due to foreign key constraint
-		moeSoundsDAO.deletePageMediaWithPageId(pageId);
+		moeSoundsDAO.deleteMediaWithPageId(pageId);
 		moeSoundsDAO.deletePage(pageId);
 	}
   	
@@ -103,33 +100,48 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	}
 	
 	
-	//Private Helper Methods
-	public PageMedia createNewPageMedia(Page newPage, PageForm pageForm) {
+	//Private helper methods ****************************************
+	
+	/**
+	 * Given a Page and a Collection of PageFormFiles, loops through all the formFiles determining
+	 * whether it should insert, update, or delete the media from the database. This is done with individual
+	 * dao calls to avoid sending the database a big payload.
+	 * 
+	 * @param page
+	 * @param formFiles
+	 */
+	private void handlePageFormMedia(Page page, Collection<PageFormFile> formFiles) {
 		
-		try {
+		for (PageFormFile pageFormFile : formFiles) {
 			
-			PageMedia pageMedia = new PageMedia(newPage);
+			Integer mediaId = pageFormFile.getMediaId();
+			MediaType mediaType = pageFormFile.getMediaType();
+			MultipartFile file = pageFormFile.getFile();
 			
-			//These should never be null if the form in the front end is mapped correct, but do some sanity checks
-			byte[] carouselImageSmall = pageForm.getCarouselImageSmall() == null? new byte[0]: pageForm.getCarouselImageSmall().getBytes();
-			byte[] carouselImageBig = 	pageForm.getCarouselImageBig() 	 == null? new byte[0]: pageForm.getCarouselImageBig().getBytes();
-			byte[] backgroundPage = 	pageForm.getBackgroundPage() 	 == null? new byte[0]: pageForm.getBackgroundPage().getBytes();
-			byte[] backgroundInner = 	pageForm.getBackgroundInner() 	 == null? new byte[0]: pageForm.getBackgroundInner().getBytes();
-			byte[] soundFile = 			pageForm.getSoundFile() 		 == null? new byte[0]: pageForm.getSoundFile().getBytes();
+			boolean noFileChange = file == null; //If the file comes back as null, we assume the user did not change it 
+			if(noFileChange) continue;
 			
-			pageMedia.setCarouselImageSmall(carouselImageSmall);
-			pageMedia.setCarouselImageBig(carouselImageBig);
-			pageMedia.setBackgroundPage(backgroundPage);
-			pageMedia.setBackgroundInner(backgroundInner);
-			pageMedia.setSoundFile(soundFile);
+			boolean userWishesToDelete = file.isEmpty(); //If they file is empty, we assume the user wants to delete it
 			
-			return pageMedia;
+			if(userWishesToDelete) {
+				page.removeMedia(mediaType);
+				moeSoundsDAO.deleteMediaWithMediaId(mediaId);
+				continue;
+			}
 			
-		} catch (IOException e) {
-			throw new PageFormFileReadException(e);
+			boolean userWishesToUpdate = mediaId != null;
+			
+			if(userWishesToUpdate) {
+				Media mediaToUpdate = page.getMediaWithMediaType(mediaType);
+				mediaToUpdate.updateMedia(file);
+				
+				moeSoundsDAO.updateMedia(mediaToUpdate);
+			}else {
+				//Must be an insert
+				Media mediaToAdd = new Media(page, file, mediaType);
+				moeSoundsDAO.insertMedia(mediaToAdd);
+			}
 		}
-		
-		
 	}
 	
 	// For JUnit Tests ************************************

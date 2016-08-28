@@ -1,14 +1,14 @@
 package dao;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
-import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,13 @@ import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.moesounds.configuration.ApplicationConfiguration;
 import com.moesounds.dao.MoeSoundsDAO;
+import com.moesounds.domain.Media;
 import com.moesounds.domain.Page;
-import com.moesounds.domain.PageMedia;
+import com.moesounds.domain.enums.MediaType;
 
 import configuration.EmbeddedDataSourceConfiguration;
 
@@ -46,11 +48,11 @@ public class MoeSoundsDaoTest {
 	public void shouldGetPage() {
 		
 		Page page = moeSoundsDAO.getPage(1);
-		PageMedia pageMedia = page.getPageMedia();
+		Map<MediaType, Media> media = page.getMedia();
 		
 		assertThat(page.getPageName(), is("Rip"));
 		assertThat(page.getCss(), is("p{color=red;}"));
-		assertThat(pageMedia, notNullValue());
+		assertThat(media, notNullValue());
 		
 	}
 	
@@ -64,7 +66,7 @@ public class MoeSoundsDaoTest {
 		Page page = allPages.get(0);
 		
 		String css = page.getCss();
-		Integer pageId = page.getPageMedia().getPageId();
+		Integer pageId = page.getMedia().get(MediaType.BACKGROUND_INNER).getPageId();
 		
 		assertThat(css, is("p{color=red;}"));
 		assertThat(pageId, is(page.getPageId()));
@@ -90,8 +92,7 @@ public class MoeSoundsDaoTest {
 		assertThat(page.getPageName(), is("Rip2"));
 		assertThat(page.getCss(), is("p{color=blue;}"));
 		
-		page.updatePageName("Cool beans");
-		page.updateCss("div{color=blue;}");
+		page.updatePage("Cool beans", "div{color=blue;}");
 		moeSoundsDAO.updatePage(page);
 		
 		page = moeSoundsDAO.getPage(2);
@@ -107,7 +108,7 @@ public class MoeSoundsDaoTest {
 		List<Page> allPages = moeSoundsDAO.getAllPages();
 		assertThat(allPages.size(), is(2));
 		
-		moeSoundsDAO.deletePageMediaWithPageId(1);
+		moeSoundsDAO.deleteMediaWithPageId(1);
 		moeSoundsDAO.deletePage(1);
 		
 		allPages = moeSoundsDAO.getAllPages();
@@ -152,36 +153,95 @@ public class MoeSoundsDaoTest {
 	
 	//Page Media Stuff ******************************************************************
 	@Test
-	public void shouldInsertPageMedia() {
+	public void shouldInsertMedia() throws IOException {
 		
 		Page page = new Page("Cool Page Name", "intense css");
 		moeSoundsDAO.insertPage(page);
 		
-		PageMedia pageMedia = new PageMedia(page);
 		
-		moeSoundsDAO.insertPageMedia(pageMedia);
+		MultipartFile mockMultipartFile = mock(MultipartFile.class);
+		when(mockMultipartFile.isEmpty()).thenReturn(false);
+		when(mockMultipartFile.getContentType()).thenReturn(".disco");
+		when(mockMultipartFile.getOriginalFilename()).thenReturn("beans");
+		when(mockMultipartFile.getSize()).thenReturn(420L);
+		when(mockMultipartFile.getBytes()).thenReturn(new byte[0]);
 		
-		assertThat(pageMedia.getPageMediaId(), notNullValue());
-		assertThat(pageMedia.getPageId(), is(page.getPageId()));
+		Media media = new Media(page, mockMultipartFile, MediaType.BACKGROUND_INNER);
+		
+		moeSoundsDAO.insertMedia(media);
+		
+		assertThat(media.getMediaId(), notNullValue());
+		assertThat(media.getPageId(), is(page.getPageId()));
 		
 	}
 	
 	@Test
-	public void shouldDeletePageMedia() {
+	public void shouldUpdateMedia() throws IOException {
 		
 		Page page = moeSoundsDAO.getPage(1);
-		PageMedia pageMedia = page.getPageMedia();
+		Media media = page.getMedia().get(MediaType.BACKGROUND_INNER);
 		
-		assertThat(pageMedia, notNullValue());
+		String fileName = media.getFileName();
+		String fileType = media.getFileType();
 		
-		moeSoundsDAO.deletePageMediaWithPageId(1);
+		assertThat(fileName, is("test"));
+		assertThat(fileType, is("mp3"));
+		
+		MultipartFile mockMultipartFile = mock(MultipartFile.class);
+		when(mockMultipartFile.isEmpty()).thenReturn(false);
+		when(mockMultipartFile.getContentType()).thenReturn(".disco");
+		when(mockMultipartFile.getOriginalFilename()).thenReturn("beans");
+		when(mockMultipartFile.getSize()).thenReturn(420L);
+		when(mockMultipartFile.getBytes()).thenReturn(new byte[0]);
+		
+		media.updateMedia(mockMultipartFile);
+		
+		moeSoundsDAO.updateMedia(media);
+		
+		moeSoundsDAO.getPage(1);
+		media = page.getMedia().get(MediaType.BACKGROUND_INNER);
+		
+		fileName = media.getFileName();
+		fileType = media.getFileType();
+		
+		assertThat(fileName, is("beans"));
+		assertThat(fileType, is(".disco"));
+	}
+	
+	@Test
+	public void shouldDeleteMediaWithPageId() {
+		
+		Page page = moeSoundsDAO.getPage(1);
+		Map<MediaType,Media> media = page.getMedia();
+		
+		assertThat(media.size(), is(1));
+		
+		moeSoundsDAO.deleteMediaWithPageId(1);
 		
 		page = moeSoundsDAO.getPage(1);
-		pageMedia = page.getPageMedia();
+		media = page.getMedia();
 		
-		assertThat(pageMedia, nullValue());
+		assertThat(media.size(), is(0));
 		
 	}
+
+	@Test
+	public void shouldDeleteMediaWithMediaId() {
+		
+		Page page = moeSoundsDAO.getPage(2);
+		Map<MediaType,Media> media = page.getMedia();
+		
+		assertThat(media.size(), is(2));
+		
+		moeSoundsDAO.deleteMediaWithMediaId(3);
+		
+		page = moeSoundsDAO.getPage(2);
+		media = page.getMedia();
+		
+		assertThat(media.size(), is(1));
+		
+	}
+	
 	
 	
 }

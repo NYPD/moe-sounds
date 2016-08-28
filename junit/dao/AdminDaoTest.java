@@ -27,7 +27,7 @@ import configuration.EmbeddedDataSourceConfiguration;
 @SqlGroup({
     @Sql(scripts = "/setup/create-moe-sounds-schema.sql"),
     @Sql(scripts = "/setup/dao/insert-admin-dao-test-info.sql"),
-    @Sql(scripts = "/setup/drop-moe-sounds-schema.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD )
+    @Sql(scripts = "/setup/drop-moe-sounds-schema.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
 @ActiveProfiles("TEST")
 @Transactional

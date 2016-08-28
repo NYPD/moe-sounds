@@ -31,7 +31,6 @@
   <servlet-mapping>
     <servlet-name>Dispatcher</servlet-name>
     <url-pattern>/</url-pattern>
-    <url-pattern>/admin/*</url-pattern>
   </servlet-mapping>
     
   <!-- *********************************** Filters *********************************** -->

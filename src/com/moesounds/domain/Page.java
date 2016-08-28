@@ -1,6 +1,12 @@
 package com.moesounds.domain;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import org.springframework.util.StringUtils;
+
+import com.moesounds.domain.enums.MediaType;
 
 public class Page {
 
@@ -8,29 +14,47 @@ public class Page {
 	private String pageName;
 	private String css;
 	private long clickCount;
-	private PageMedia pageMedia;
+	private Map<MediaType, Media> media;
 
 	// For MyBatis
 	protected Page(){};
 	
 	public Page(String pageName, String css) {
-		this.updatePageName(pageName);
-		this.updateCss(css);
+		this.updatePage(pageName, css);
 	}
 	
-	public void updatePageName(String pageName) {
+	//Modified Accessors ********************************
+	public void updatePage(String pageName, String css) {
 		
 		boolean isEmpty = StringUtils.isEmpty(pageName);
 		if(isEmpty) throw new IllegalArgumentException();
 		
 		this.pageName = pageName;
+		this.css = css;
 		
 	}
-	public void updateCss(String css) {
-		this.css = css;
+	public Media getMediaWithMediaType(MediaType mediaType) {
+		return this.media.get(mediaType);
 	}
 	
-	//Default Accessors
+	public void removeMedia(MediaType mediaType) {
+		
+		getMedia();// Media is lazy loaded and might not be present
+		
+		Media mediaToRemove = media.remove(mediaType);
+		if(mediaToRemove != null) mediaToRemove.setPage(null);
+	}
+	
+	/**
+	 * Package-private setter - MyBatis only.
+	 * Business logic should not call this method.
+	 * This is because MyBatis does not allow mapped fields to be of type java.util.Map
+	 */
+	void setMedia(List<Media> media) {
+		this.media = media.stream().collect(Collectors.toMap(Media::getMediaType, (p) -> p));;
+	}
+	
+	//Default Accessors *********************************
 	public Integer getPageId() {
 		return pageId;
 	}
@@ -43,14 +67,14 @@ public class Page {
 	public long getClickCount() {
 		return clickCount;
 	}
-	public PageMedia getPageMedia() {
-		return pageMedia;
+	public Map<MediaType, Media> getMedia() {
+		return media;
 	}
 
 	@Override
 	public String toString() {
 		return "Page [pageId=" + pageId + ", pageName=" + pageName + ", css=" + css + ", clickCount=" + clickCount
-				+ ", pageMedia=" + pageMedia + "]";
+				+ ", media=" + media + "]";
 	}
 	
 }
