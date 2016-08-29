@@ -18,8 +18,8 @@
     <c:forEach items="${page.media}" var="entry">
     	
     	<c:choose>
-    	  <c:when test="${entry.key eq 'SOUND_FILE'}">
-    	 	 	<audio controls src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}"></audio>
+    	  <c:when test="${entry.key.sound}">
+    	 	 	<audio controls src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}"></audio><br/>
     	  </c:when>
     	  <c:otherwise>
     	  	<img class="carouselImageSmall" src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
