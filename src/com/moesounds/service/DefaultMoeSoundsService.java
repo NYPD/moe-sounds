@@ -112,6 +112,8 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 	 */
 	private void handlePageFormMedia(Page page, Collection<PageFormFile> formFiles) {
 		
+		if(formFiles == null) return;//Nothing to do boys
+		
 		for (PageFormFile pageFormFile : formFiles) {
 			
 			Integer mediaId = pageFormFile.getMediaId();

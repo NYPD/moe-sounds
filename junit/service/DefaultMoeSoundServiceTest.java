@@ -125,7 +125,34 @@ public class DefaultMoeSoundServiceTest {
 		verify(mockMoeSoundsDAO, times(1)).updatePage(any());
 		verify(mockMoeSoundsDAO, times(1)).insertMedia(any());
 		verify(mockMoeSoundsDAO, times(1)).updateMedia(any());
-		verify(mockMoeSoundsDAO, times(1)).deleteMediaWithMediaId(eq(2));
+		verify(mockMoeSoundsDAO, times(1)).deleteMediaWithMediaId(anyInt());
+		
+	}
+	
+	@Test
+	public void shouldUpdatePageFormWithNoFileChanges() throws IOException {
+		
+		Media mockMedia = mock(Media.class);
+		
+		Page mockPage = mock(Page.class);
+		when(mockPage.getMediaWithMediaType(eq(MediaType.SOUND_FILE))).thenReturn(mockMedia);
+		
+		MoeSoundsDAO mockMoeSoundsDAO = mock(MoeSoundsDAO.class);
+		when(mockMoeSoundsDAO.getPage(eq(1))).thenReturn(mockPage);
+		
+		defaultMoeSoundsService.setMoeSoundsDAO(mockMoeSoundsDAO);
+		
+		PageForm pageForm = new PageForm();
+		pageForm.setPageId(1);
+		pageForm.setPageName("Cool Page");
+		pageForm.setFormFiles(null);
+		
+		defaultMoeSoundsService.savePageForm(pageForm);
+		
+		verify(mockMoeSoundsDAO, times(1)).updatePage(any());
+		verify(mockMoeSoundsDAO, never()).insertMedia(any());
+		verify(mockMoeSoundsDAO, never()).updateMedia(any());
+		verify(mockMoeSoundsDAO, never()).deleteMediaWithMediaId(anyInt());
 		
 	}
 	

@@ -123,17 +123,26 @@
     	  
     	  var $form = $('form');
     	  
-    	  var formData = new FormData($form[0]);
-    	  
+    	 	var formData = new FormData($form[0]);    	  
     	  
     	  $('form input[type="file"]').each(function() {
     		  
     		  var isDirty = FormUtil.checkIfFormValuesIsDirty($(this));
     		  if(isDirty) return true;
     		  
-    		  formData.delete($(this).attr('name'));
+    		  var name = $(this).attr('name');
+    		  var formFileGroup = name.match(/formFiles\[\d{1}\]/);
+    		  
+    		  //This might not be supported in IE or Edge, we might need to delete the name from the input
+    		  formData.delete(name);
+    		  formData.delete(formFileGroup + '.mediaId');
+    		  formData.delete(formFileGroup + '.mediaType');
+
+
     		  
     	  });
+    	  
+    	  
     	  
     	  $.ajax({
     	    url: 'save-page-form',
