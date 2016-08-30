@@ -11,21 +11,14 @@
   </head>
   <body>
   
-    <!-- File input -->    
-    <label>Page Name</label><input type="text" name="pageName" value="${page.pageName}"><br/>
-    <label>CSS</label><textarea rows="10" cols="60" name="css">${page.css}</textarea><br/>
-    
-    <c:forEach items="${page.media}" var="entry">
-    	
-    	<c:choose>
-    	  <c:when test="${entry.key.sound}">
-    	 	 	<audio controls src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}"></audio><br/>
-    	  </c:when>
-    	  <c:otherwise>
-    	  	<img class="carouselImageSmall" src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-    	  </c:otherwise>
-    	</c:choose>
-    </c:forEach>
+     <label>Page Name</label><input type="text" name="pageName" value="${page.pageName}"><br/>
+     <label>CSS</label><textarea rows="10" cols="60" name="css">${page.css}</textarea><br/>
+      
+      <img class="carouselImageSmall" src="data:${CAROUSEL_IMAGE_SMALL.fileType};base64,${CAROUSEL_IMAGE_SMALL.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
+      <img class="carouselImageBig" src="data:${CAROUSEL_IMAGE_BIG.fileType};base64,${CAROUSEL_IMAGE_BIG.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
+      <img class="backgroundPage" src="data:${PAGE_BACKGROUND.fileType};base64,${PAGE_BACKGROUND.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
+      <img class="backgroundInner" src="data:${BACKGROUND_INNER.fileType};base64,${BACKGROUND_INNER.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
+      <audio controls src="data:${SOUND_FILE.fileType};base64,${SOUND_FILE.fileDataAsBase64}"></audio>
     
     <!-- Scripts -->
   </body>

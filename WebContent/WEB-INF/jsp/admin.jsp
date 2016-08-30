@@ -21,32 +21,23 @@
       <label>Page Name</label><input type="text" name="pageName" value="${page.pageName}"><br/>
       <label>CSS</label><textarea rows="10" cols="60" name="css">${page.css}</textarea><br/>
       
-      
-      <img class="carouselImageSmall" src="data:${carousalSmall.fileType};base64,${carousalSmall.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-      <input type="file"   name="formFiles[0].file" id="carouselImageSmall" value="${carousalSmall.fileName}"/><br/>
-      <input type="hidden" name="formFiles[0].mediaId" value="${carousalSmall.mediaId}">
-    	<input type="hidden" name="formFiles[0].mediaType"class="media-type"  value="CAROUSEL_IMAGE_SMALL">
-      
-      <img class="carouselImageBig" src="data:${carousalBig.fileType};base64,${carousalBig.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-      <input type="file"   name="formFiles[1].file" id="carouselImageBig" value="${carousalBig.fileName}"/><br/>
-      <input type="hidden" name="formFiles[1].mediaId" value="${carousalBig.mediaId}">
-    	<input type="hidden" name="formFiles[1].mediaType" class="media-type" value="CAROUSEL_IMAGE_BIG">
-      
-      <img class="backgroundPage" src="data:${pageBackGround.fileType};base64,${pageBackGround.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-      <input type="file"   name="formFiles[2].file" id="backgroundPage" value="${pageBackGround.fileName}"/><br/>
-      <input type="hidden" name="formFiles[2].mediaId" value="${pageBackGround.mediaId}">
-    	<input type="hidden" name="formFiles[2].mediaType" class="media-type" value="PAGE_BACKGROUND">
-      
-      <img class="backgroundInner" src="data:${backgroundInner.fileType};base64,${backgroundInner.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-      <input type="file"   name="formFiles[3].file" id="backgroundInner"  value="${backgroundInner.fileName}"/><br/>
-      <input type="hidden" name="formFiles[3].mediaId" value="${backgroundInner.mediaId}">
-    	<input type="hidden" name="formFiles[3].mediaType" class="media-type" value="BACKGROUND_INNER">
-      
-      <audio controls src="data:${soundFile.fileType};base64,${soundFile.fileDataAsBase64}"></audio>
-      <input type="file"   name="formFiles[4].file" id="soundFile" value="${soundFile.fileName}"/><br/>
-      <input type="hidden" name="formFiles[4].mediaId"   value="${soundFile.mediaId}">
-    	<input type="hidden" name="formFiles[4].mediaType" class="media-type" value="SOUND_FILE">
-      
+    
+	    <c:forEach items="${page.media}" var="entry" varStatus="count">
+	    	
+	    	<c:choose>
+	    	  <c:when test="${entry.key.sound}">
+	    	 	 	<audio controls src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}"></audio><br/>
+	    	  </c:when>
+	    	  <c:otherwise>
+	    	  	<img class="${entry.key}" src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
+	    	  </c:otherwise>
+	    	</c:choose>
+	    	
+	    	<input type="file"   name="formFiles[${count.index}].file" id="${entry.key}" data-file-hash="${entry.value.fileName}${entry.value.fileSize}"/><br/>
+	      <input type="hidden" name="formFiles[${count.index}].mediaId" value="${entry.value.mediaId}">
+	    	<input type="hidden" name="formFiles[${count.index}].mediaType"class="media-type"  value="${entry.key}">
+	    	
+	    </c:forEach>
      
       <input type="button" value="Upload" class="button"/>
     </form>
@@ -68,12 +59,17 @@
 
     			var $this = $(this);
 
-    			var isCheckbox = $this.is('input[type="checkbox"]');
-          var isRadio = $this.is('input[type="radio"]');
+    			var inputType = $this.attr('type');
+    			
+    			var isCheckbox = inputType === "checkbox";
+          var isRadio = inputType === "radio";
+          var isFile = inputType === "file";
 
     			if(isCheckbox || isRadio){
     				$this.data('initialValue', $this.is(':checked'));
-    			}else{
+    			}else if(isFile){
+    				$this.data('initialValue', $this.data('file-hash'));
+    			}else {
     				$this.data('initialValue', $this.val());
     			}
 
@@ -94,21 +90,27 @@
     			var noInitialValue = $this.data('initialValue') === undefined;
     			if(noInitialValue) return true;
 
-    			var isCheckbox = $this.is('input[type="checkbox"]');
-    			var isRadio = $this.is('input[type="radio"]');
+					var inputType = $this.attr('type');
+    			
+    			var isCheckbox = inputType === "checkbox";
+          var isRadio = inputType === "radio";
+          var isFile = inputType === "file";
+
 
     			var valueChanged = false;
 
     			if(isCheckbox || isRadio){
     				valueChanged = $this.data('initialValue') != $this.is(':checked');
+    			}else if(isFile){
+    				valueChanged = ($(this).data('initialValue').length !== 0 &&  $(this).val().length !== 0) && '' + $(this).data('initialValue') !== $(this)[0].files[0].name + '' + $(this)[0].files[0].size;
     			}else{
     				valueChanged = $this.data('initialValue') != $this.val();
     			}
 
-    	        if(valueChanged){
-    	            isDirty = true;
-    	            return false;
-    	        }
+	        if(valueChanged){
+	            isDirty = true;
+	            return false;
+	        }
 
     	    });
 
@@ -127,7 +129,10 @@
     	  
     	  $('form input[type="file"]').each(function() {
     		  
+    		  
     		  var isDirty = FormUtil.checkIfFormValuesIsDirty($(this));
+    		  
+    		  
     		  if(isDirty) return true;
     		  
     		  var name = $(this).attr('name');
@@ -137,8 +142,6 @@
     		  formData.delete(name);
     		  formData.delete(formFileGroup + '.mediaId');
     		  formData.delete(formFileGroup + '.mediaType');
-
-
     		  
     	  });
     	  

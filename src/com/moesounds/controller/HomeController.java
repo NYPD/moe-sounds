@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.annotation.DefaultController;
+import com.moesounds.domain.Media;
 import com.moesounds.domain.Page;
+import com.moesounds.domain.enums.MediaType;
 import com.moesounds.service.MoeSoundsService;
 
 @DefaultController
@@ -22,6 +24,11 @@ public class HomeController {
 		
 		Page randomPage = moeSoundsService.getRandomPage();
 		mav.addObject("page", randomPage);
+		
+		for (MediaType mediaType : MediaType.values()) {
+			Media mediaWithMediaType = randomPage.getMediaWithMediaType(mediaType);
+			mav.addObject(mediaType.toString(), mediaWithMediaType);
+		}
 		
 		return mav;
 	}
