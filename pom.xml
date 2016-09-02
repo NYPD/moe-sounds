@@ -120,6 +120,20 @@
       <version>5.1.39</version>
     </dependency>
     
+    <!-- Google Authentication -->
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.21.0</version>
+    </dependency>
+    
+    <!-- Apache Commons -->
+    <dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.4</version>
+		</dependency>
+    
     
     <!-- JUnit Tests -->
     <dependency>

@@ -1,12 +1,18 @@
 package com.moesounds.configuration;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.moesounds.dao.DAO;
 import com.moesounds.service.Service;
 
@@ -15,6 +21,8 @@ import com.moesounds.service.Service;
 @ComponentScan(basePackageClasses={DAO.class, Service.class})
 public class ApplicationConfiguration {
 	
+	@Value("classpath:resource/api/client_secret.json")
+	Resource clientSecretsResource;
 	
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
@@ -23,6 +31,22 @@ public class ApplicationConfiguration {
 	    return resolver;
 	}
 	
+	@Bean
+	public JacksonFactory jacksonFactory() {
+		return new JacksonFactory();
+	}
+	
+	@Bean
+	public GoogleClientSecrets googleClientSecrets(JacksonFactory jacksonFactory) {
+		
+		try {
+			InputStreamReader inputStreamReader = new InputStreamReader(clientSecretsResource.getInputStream());
+			return GoogleClientSecrets.load(jacksonFactory, inputStreamReader);
+	    } catch (IOException e) {
+	    	throw new Error("No client_secrets.json found", e);
+	    }
+		
+	}
 	
 //	@Bean
 //	public ObjectMapper objectMapper() {
