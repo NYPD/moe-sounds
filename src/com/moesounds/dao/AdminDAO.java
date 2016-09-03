@@ -8,6 +8,6 @@ import com.moesounds.domain.User;
 @MoeSoundsDatabase
 public interface AdminDAO {
 
-	public List<User> getAllUsers();
-	
+    public List<User> getAllUsers();
+
 }

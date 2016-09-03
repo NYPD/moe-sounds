@@ -19,6 +19,4 @@ import com.moesounds.configuration.MyBatisConfiguration;
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface MoeSoundsDataSource
-{}
-
+public @interface MoeSoundsDataSource {}

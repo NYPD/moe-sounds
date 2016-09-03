@@ -12,7 +12,7 @@ import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.annotation.ProductionProfile;
 
 /**
- * This class lists all the data sources the application uses 
+ * This class lists all the data sources the application uses
  * 
  * @author NYPD
  */
@@ -20,11 +20,12 @@ import com.moesounds.annotation.ProductionProfile;
 @ProductionProfile
 public class JndiConfiguration {
 
-  @Bean
-  @MoeSoundsDataSource
-  public DataSource getMoeSoundsDataSource() throws NamingException {	
-	Context context = new InitialContext();
-  	return (DataSource) context.lookup("java:comp/env/jdbc/ds_moe_sounds");
-  }
-	
+    @Bean
+    @MoeSoundsDataSource
+    public DataSource getMoeSoundsDataSource() throws NamingException {
+
+        Context context = new InitialContext();
+        return (DataSource) context.lookup("java:comp/env/jdbc/ds_moe_sounds");
+    }
+
 }

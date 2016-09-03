@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class InvalidStateTokenException extends RuntimeException {
 
-	public InvalidStateTokenException() {
-		super();
-	}
+    public InvalidStateTokenException() {
+        super();
+    }
 }

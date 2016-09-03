@@ -14,33 +14,33 @@ import com.moesounds.service.MoeSoundsService;
 @DefaultController
 public class HomeController {
 
-	@Autowired
-	private MoeSoundsService moeSoundsService;
-	
-	@RequestMapping(value = {"/random", "/"})
-	public ModelAndView getHomePage() {
-		
-		ModelAndView mav = new ModelAndView("home");
-		
-		Page randomPage = moeSoundsService.getRandomPage();
-		mav.addObject("page", randomPage);
-		
-		for (MediaType mediaType : MediaType.values()) {
-			Media mediaWithMediaType = randomPage.getMediaWithMediaType(mediaType);
-			mav.addObject(mediaType.toString(), mediaWithMediaType);
-		}
-		
-		return mav;
-	}
-	
-	@RequestMapping(value = {"/page"})
-	public ModelAndView getSpecificPage(@RequestParam("pageId") int pageId) {
-		
-		ModelAndView mav = new ModelAndView("home");
-		
-		Page specificPage = moeSoundsService.getSpecificPage(pageId);
-		mav.addObject("page", specificPage);
-		
-		return mav;
-	}
+    @Autowired
+    private MoeSoundsService moeSoundsService;
+
+    @RequestMapping(value = {"/random", "/"})
+    public ModelAndView getHomePage() {
+
+        ModelAndView mav = new ModelAndView("home");
+
+        Page randomPage = moeSoundsService.getRandomPage();
+        mav.addObject("page", randomPage);
+
+        for (MediaType mediaType : MediaType.values()) {
+            Media mediaWithMediaType = randomPage.getMediaWithMediaType(mediaType);
+            mav.addObject(mediaType.toString(), mediaWithMediaType);
+        }
+
+        return mav;
+    }
+
+    @RequestMapping(value = {"/page"})
+    public ModelAndView getSpecificPage(@RequestParam("pageId") int pageId) {
+
+        ModelAndView mav = new ModelAndView("home");
+
+        Page specificPage = moeSoundsService.getSpecificPage(pageId);
+        mav.addObject("page", specificPage);
+
+        return mav;
+    }
 }

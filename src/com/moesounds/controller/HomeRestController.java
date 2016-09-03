@@ -11,17 +11,19 @@ import com.moesounds.service.MoeSoundsService;
 @RestController
 public class HomeRestController {
 
-	@Autowired
-	private MoeSoundsService moeSoundsService;
-	
-	@RequestMapping(value = "/get-click-count", method = RequestMethod.GET)
-	public long getClickCount(@RequestParam("pageId") int pageId) {
-		return moeSoundsService.getClickCount(pageId);
-	}
-	
-	@RequestMapping(value = "/update-click-count", method = RequestMethod.POST)
-	public void updateClickCount(@RequestParam("pageId") int pageId) {
-		moeSoundsService.updateClickCount(pageId);
-	}
-	
+    @Autowired
+    private MoeSoundsService moeSoundsService;
+
+    @RequestMapping(value = "/get-click-count", method = RequestMethod.GET)
+    public long getClickCount(@RequestParam("pageId") int pageId) {
+
+        return moeSoundsService.getClickCount(pageId);
+    }
+
+    @RequestMapping(value = "/update-click-count", method = RequestMethod.POST)
+    public void updateClickCount(@RequestParam("pageId") int pageId) {
+
+        moeSoundsService.updateClickCount(pageId);
+    }
+
 }
