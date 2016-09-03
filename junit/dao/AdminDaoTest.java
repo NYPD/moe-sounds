@@ -1,9 +1,9 @@
 package dao;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.moesounds.configuration.ApplicationConfiguration;
 import com.moesounds.dao.AdminDAO;
 import com.moesounds.domain.User;
+import com.moesounds.domain.UserApiIdentity;
+import com.moesounds.domain.enums.ApiType;
+import com.moesounds.domain.enums.UserRole;
 
 import configuration.EmbeddedDataSourceConfiguration;
 
@@ -33,25 +36,28 @@ import configuration.EmbeddedDataSourceConfiguration;
 @Transactional
 public class AdminDaoTest {
 
-	@Autowired
-	private AdminDAO adminDAO;
-	
-	@Test
-	public void shouldGetAdminUser() {
-		
-		List<User> allUsers = adminDAO.getAllUsers();
-		assertThat(allUsers.size(), is(2));
-		
-		User user = allUsers.get(0);
-		
-		int userId = user.getUserId();
-		String nickname = user.getNickname();
-		String googleId = user.getGoogleId();
-		
-		assertThat(userId, is(1));
-		assertThat(nickname, is("NYPD"));
-		assertThat(googleId, is("8675309"));
-		
-		
-	}
+    @Autowired
+    private AdminDAO adminDAO;
+
+    @Test
+    public void shouldGetAdminUser() {
+
+        List<User> allUsers = adminDAO.getAllUsers();
+        assertThat(allUsers.size(), is(2));
+
+        User user = allUsers.get(0);
+
+        int userId = user.getUserId();
+        String nickname = user.getNickname();
+        UserRole userRole = user.getUserRole();
+
+        assertThat(userId, is(1));
+        assertThat(nickname, is("NYPD"));
+        assertThat(userRole, is(UserRole.ADMIN));
+
+        UserApiIdentity userApiIdentity = user.getUserApiIdentity(ApiType.GOOGLE);
+
+        String apiUserId = userApiIdentity.getApiUserId();
+        assertThat(apiUserId, is("8675309"));
+    }
 }

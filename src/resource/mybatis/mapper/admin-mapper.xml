@@ -4,16 +4,31 @@
 
 <mapper namespace="com.moesounds.dao.AdminDAO">
 
-  <select id="getAllUsers" resultType="User">
+  <resultMap type="User" id="UserMap">
+    <id         property="userId"               column="user_id" />
+    <collection property="userApiIdentities"    column="{userId=user_id}" ofType="UserApiIdentity" select="getUserApiIndentitiesWithUserId" />
+  </resultMap>
+
+  <select id="getAllUsers" resultMap="UserMap">
     SELECT 
             user_id,
             nickname,
-            google_id
+            user_role
     FROM 
             moe_sounds.user
   </select>
   
-  
+  <select id="getUserApiIndentitiesWithUserId" resultType="UserApiIdentity">
+    SELECT
+            user_api_identity_id,
+            user_id,
+            api_type,
+            api_user_id
+    FROM
+            moe_sounds.user_api_identity
+    WHERE
+            user_id = #{userId}
+  </select>
   
   
 </mapper>

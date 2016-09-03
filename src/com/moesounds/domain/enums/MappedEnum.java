@@ -7,7 +7,7 @@ import org.apache.ibatis.type.MappedTypes;
  * constant's "name()". The value from {@link #getMappedValue()} will be used for translation both
  * to and from database values.
  */
-@MappedTypes({MediaType.class})
+@MappedTypes({MediaType.class, UserRole.class, ApiType.class})
 public interface MappedEnum {
 
     /**

@@ -31,7 +31,6 @@ public enum MediaType implements MappedEnum {
      *         constant.
      */
     public static MediaType findByName(String name) {
-
         for (MediaType corpCode : values())
             if (corpCode.name.equals(name)) return corpCode;
 
@@ -39,13 +38,11 @@ public enum MediaType implements MappedEnum {
     }
 
     public boolean isImage() {
-
         MediaType mediaType = findByName(this.name);
         return IMAGE_TYPES.indexOf(mediaType) != -1;
     }
 
     public boolean isSound() {
-
         MediaType mediaType = findByName(this.name);
         return SOUND_TYPES.indexOf(mediaType) != -1;
     }

@@ -1,6 +1,6 @@
 package com.moesounds.domain;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -15,10 +15,6 @@ public class Page {
     private String css;
     private long clickCount;
     private Map<MediaType, Media> media;
-
-    // For MyBatis
-    protected Page() {
-    };
 
     public Page(String pageName, String css) {
         this.updatePage(pageName, css);
@@ -36,7 +32,6 @@ public class Page {
     }
 
     public Media getMediaWithMediaType(MediaType mediaType) {
-
         return this.media.get(mediaType);
     }
 
@@ -48,40 +43,36 @@ public class Page {
         if (mediaToRemove != null) mediaToRemove.setPage(null);
     }
 
-    /**
-     * Package-private setter - MyBatis only. Business logic should not call this method. This is
-     * because MyBatis does not allow mapped fields to be of type java.util.Map
-     */
-    void setMedia(List<Media> media) {
-
-        this.media = media.stream().collect(Collectors.toMap(Media::getMediaType, (p) -> p));
-        ;
-    }
-
     // Default Accessors *********************************
     public Integer getPageId() {
-
         return pageId;
     }
 
     public String getPageName() {
-
         return pageName;
     }
 
     public String getCss() {
-
         return css;
     }
 
     public long getClickCount() {
-
         return clickCount;
     }
 
     public Map<MediaType, Media> getMedia() {
-
         return media;
+    }
+
+    // For MyBatis ***************************************
+    protected Page() {};
+
+    /**
+     * Package-private setter - MyBatis only. Business logic should not call this method. This is
+     * because MyBatis does not allow mapped fields to be of type java.util.Map
+     */
+    void setMedia(Collection<Media> media) {
+        this.media = media.stream().collect(Collectors.toMap(Media::getMediaType, (p) -> p));
     }
 
     @Override
