@@ -3,13 +3,9 @@ package com.moesounds.service;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,15 +16,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.Details;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.oauth2.Oauth2;
+import com.google.api.services.oauth2.model.Tokeninfo;
 import com.moesounds.beans.MoeSoundsSessionBean;
 import com.moesounds.exception.AuthRequestUrlBuilderException;
 import com.moesounds.exception.InvalidStateTokenException;
+import com.moesounds.util.AppConstants;
 
 @Service
 public class GoogleLoginService implements ApiLoginService {
@@ -38,9 +39,13 @@ public class GoogleLoginService implements ApiLoginService {
     @Autowired
     private JacksonFactory googleJacksonFactory;
     @Autowired
+    private NetHttpTransport netHttpTransport;
+    @Autowired
     private MoeSoundsSessionBean moeSoundsSessionBean;
 
     private static final String SECURITY_TOKEN_PARAMETER = "security_token";
+    private static final String PROFILE_SCOPE = "profile";
+    private static final String OPEN_ID_SCOPE = "openid";
 
     private static String GOOGLE_OAUTH_URI;
     private static String GOOGLE_OAUTH_REDIRECT_URI;
@@ -50,15 +55,24 @@ public class GoogleLoginService implements ApiLoginService {
     @Override
     public String getAuthenticationRequestUrl() {
 
+        String stateToken = this.getStateToken(new HashMap<>());
+        GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(googleClientSecrets, GOOGLE_OAUTH_REDIRECT_URI, Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
+
+        googleAuthorizationCodeRequestUrl.setState(stateToken);
+        moeSoundsSessionBean.setGoogleStateToken(stateToken);
+
+        return googleAuthorizationCodeRequestUrl.build();
+
+        /* RIP 2016 - 2016
         try {
             String stateToken = this.getStateToken(new HashMap<>());
 
             moeSoundsSessionBean.setGoogleStateToken(stateToken);
 
             String authRequestQueryString = "client_id=" + CLIENT_ID +
+                    "&redirect_uri=" + GOOGLE_OAUTH_REDIRECT_URI +
                     "&response_type=code" +
                     "&scope=openid profile" +
-                    "&redirect_uri=" + GOOGLE_OAUTH_REDIRECT_URI +
                     "&state=" + stateToken;
 
             URL googleOauthUrl = new URL(GOOGLE_OAUTH_URI);
@@ -72,11 +86,11 @@ public class GoogleLoginService implements ApiLoginService {
         } catch (URISyntaxException | UnsupportedEncodingException | MalformedURLException exception) {
             throw new AuthRequestUrlBuilderException(); // TODO finish
         }
-
+         */
     }
 
     @Override
-    public void verifyAuthenticationRequestResponse(HttpServletRequest request) {
+    public void verifyAuthenticationResponse(HttpServletRequest request) {
 
         String googleStateToken = request.getParameter("state");
         String sessionStateToken = moeSoundsSessionBean.getGoogleStateToken();
@@ -87,16 +101,29 @@ public class GoogleLoginService implements ApiLoginService {
         String code = request.getParameter("code");
 
         try {
-            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(new NetHttpTransport(), googleJacksonFactory, CLIENT_ID, CLIENT_SECRET, code, GOOGLE_OAUTH_REDIRECT_URI).execute();
+            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(netHttpTransport, googleJacksonFactory, CLIENT_ID, CLIENT_SECRET, code, GOOGLE_OAUTH_REDIRECT_URI).execute();
 
-            System.out.println("Access token: " + googleTokenResponse.getAccessToken());
+            GoogleCredential credential = new GoogleCredential.Builder()
+                    .setJsonFactory(googleJacksonFactory)
+                    .setTransport(netHttpTransport)
+                    .setClientSecrets(googleClientSecrets)
+                    .build()
+                    .setFromTokenResponse(googleTokenResponse);
+
+            Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport, googleJacksonFactory, credential).setApplicationName(AppConstants.APPLICATION_NAME).build();
+            Tokeninfo tokenInfo = oauth2.tokeninfo().setAccessToken(credential.getAccessToken()).execute();
+
+            String userId = tokenInfo.getUserId();
+            Long tokenExpiration = credential.getExpirationTimeMilliseconds();
+
+
         } catch (IOException e) {
             e.printStackTrace();// TODO finish
         }
 
     }
 
-    private String getStateToken(Map<String, String> parameters) throws UnsupportedEncodingException {
+    private String getStateToken(Map<String, String> parameters) {
 
         String securityTokenString = new BigInteger(130, new SecureRandom()).toString(32);
 
@@ -109,7 +136,7 @@ public class GoogleLoginService implements ApiLoginService {
             stringBuffer.append("=" + value);
         });
 
-        return URLEncoder.encode(stringBuffer.toString(), "UTF-8");
+        return stringBuffer.toString();
 
     }
 

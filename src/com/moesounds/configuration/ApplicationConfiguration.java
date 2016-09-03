@@ -29,8 +29,7 @@ public class ApplicationConfiguration {
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public MoeSoundsSessionBean loadsheetSessionBean() {
-
+    public MoeSoundsSessionBean moeSoundsSessionBean() {
         return new MoeSoundsSessionBean();
     }
 

@@ -49,7 +49,7 @@ public class AdminController {
     @RequestMapping(value = "google-oauth-verify")
     public void googleOAuthVerify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-        apiLoginService.verifyAuthenticationRequestResponse(request);
+        apiLoginService.verifyAuthenticationResponse(request);
     }
 
     @RequestMapping(value = "maintenance")

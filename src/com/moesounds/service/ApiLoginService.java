@@ -14,5 +14,5 @@ public interface ApiLoginService {
      */
     public String getAuthenticationRequestUrl();
 
-    public void verifyAuthenticationRequestResponse(HttpServletRequest request);
+    public void verifyAuthenticationResponse(HttpServletRequest request);
 }

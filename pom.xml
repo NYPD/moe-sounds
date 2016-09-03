@@ -126,6 +126,12 @@
       <artifactId>google-api-client</artifactId>
       <version>1.21.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-oauth2</artifactId>
+      <version>v2-rev118-1.22.0</version>
+    </dependency>
+    
     
     <!-- Apache Commons -->
     <dependency>
@@ -151,7 +157,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.3.2.RELEASE</version>
+      <version>${springVersion}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
