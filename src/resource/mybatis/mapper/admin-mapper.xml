@@ -10,12 +10,19 @@
   </resultMap>
 
   <select id="getAllUsers" resultMap="UserMap">
-    SELECT 
-            user_id,
+    SELECT  user_id,
             nickname,
             user_role
-    FROM 
-            moe_sounds.user
+      FROM  moe_sounds.user
+  </select>
+  
+  <select id="getUserWithApiInfo" resultMap="UserMap">
+        SELECT  user.user_id,
+                user.nickname,
+                user.user_role
+          FROM  moe_sounds.user AS user
+                INNER JOIN  moe_sounds.user_api_identity AS api_identity
+                ON user.user_id = api_identity.user_id
   </select>
   
   <select id="getUserApiIndentitiesWithUserId" resultType="UserApiIdentity">

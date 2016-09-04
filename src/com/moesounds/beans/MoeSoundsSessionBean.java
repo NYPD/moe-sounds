@@ -1,23 +1,17 @@
 package com.moesounds.beans;
 
+import com.moesounds.domain.User;
+
 public class MoeSoundsSessionBean {
 
-    public String googleStateToken;
+    private User user;
 
-    public String getGoogleStateToken() {
 
-        return googleStateToken;
+    public User getUser() {
+        return user;
     }
-
-    public void setGoogleStateToken(String googleStateToken) {
-
-        this.googleStateToken = googleStateToken;
-    }
-
-    @Override
-    public String toString() {
-
-        return "MoeSoundsSessionBean [googleStateToken=" + googleStateToken + "]";
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

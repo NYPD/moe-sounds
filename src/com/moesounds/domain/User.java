@@ -17,6 +17,7 @@ public class User {
     private int userId;
     private String nickname;
     private UserRole userRole;
+    private String userProfilePicture;
     private Map<ApiType, UserApiIdentity> userApiIdentities;
 
     // Modified Accessors ********************************
@@ -28,17 +29,20 @@ public class User {
     public int getUserId() {
         return userId;
     }
-
     public String getNickname() {
         return nickname;
     }
-
     public UserRole getUserRole() {
         return userRole;
     }
-
     public Map<ApiType, UserApiIdentity> getUserApiIdentities() {
         return userApiIdentities;
+    }
+    public String getUserProfilePicture() {
+        return userProfilePicture;
+    }
+    public void setUserProfilePicture(String userProfilePicture) {
+        this.userProfilePicture = userProfilePicture;
     }
 
     // For MyBatis ***************************************
@@ -56,5 +60,6 @@ public class User {
     public String toString() {
         return "User [userId=" + userId + ", nickname=" + nickname + ", googleId=" + userRole + "]";
     }
+
 
 }

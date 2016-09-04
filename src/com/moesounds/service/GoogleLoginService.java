@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -25,10 +26,13 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
-import com.google.api.services.oauth2.model.Tokeninfo;
-import com.moesounds.beans.MoeSoundsSessionBean;
+import com.google.api.services.oauth2.model.Userinfoplus;
+import com.moesounds.beans.GoogleSessionBean;
+import com.moesounds.domain.User;
+import com.moesounds.domain.enums.ApiType;
 import com.moesounds.exception.AuthRequestUrlBuilderException;
 import com.moesounds.exception.InvalidStateTokenException;
+import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
 import com.moesounds.util.AppConstants;
 
 @Service
@@ -41,13 +45,14 @@ public class GoogleLoginService implements ApiLoginService {
     @Autowired
     private NetHttpTransport netHttpTransport;
     @Autowired
-    private MoeSoundsSessionBean moeSoundsSessionBean;
+    private GoogleSessionBean googleSessionBean;
+    @Autowired
+    private AdminService adminService;
 
     private static final String SECURITY_TOKEN_PARAMETER = "security_token";
     private static final String PROFILE_SCOPE = "profile";
     private static final String OPEN_ID_SCOPE = "openid";
 
-    private static String GOOGLE_OAUTH_URI;
     private static String GOOGLE_OAUTH_REDIRECT_URI;
     private static String CLIENT_ID;
     private static String CLIENT_SECRET;
@@ -59,7 +64,7 @@ public class GoogleLoginService implements ApiLoginService {
         GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(googleClientSecrets, GOOGLE_OAUTH_REDIRECT_URI, Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
 
         googleAuthorizationCodeRequestUrl.setState(stateToken);
-        moeSoundsSessionBean.setGoogleStateToken(stateToken);
+        googleSessionBean.setGoogleStateToken(stateToken);
 
         return googleAuthorizationCodeRequestUrl.build();
 
@@ -92,33 +97,66 @@ public class GoogleLoginService implements ApiLoginService {
     @Override
     public void verifyAuthenticationResponse(HttpServletRequest request) {
 
-        String googleStateToken = request.getParameter("state");
-        String sessionStateToken = moeSoundsSessionBean.getGoogleStateToken();
+        StringBuffer requestURL = request.getRequestURL();
+        String queryString = request.getQueryString();
+
+        boolean hasQueryString = queryString != null;
+        if (hasQueryString) requestURL.append("?").append(queryString);
+
+        String encodedResponseUrl = requestURL.toString();
+
+        AuthorizationCodeResponseUrl authorizationCodeResponseUrl = new AuthorizationCodeResponseUrl(encodedResponseUrl);
+
+        String error = authorizationCodeResponseUrl.getError();
+        boolean hasError = error != null;
+
+        if (hasError) throw new AuthorizationCodeResponseExcpetion();
+
+        String googleStateToken = authorizationCodeResponseUrl.getState();
+        String sessionStateToken = googleSessionBean.getGoogleStateToken();
 
         boolean notSameStateToken = !StringUtils.equals(googleStateToken, sessionStateToken);
         if (notSameStateToken) throw new InvalidStateTokenException();
 
-        String code = request.getParameter("code");
+        String code = authorizationCodeResponseUrl.getCode();
 
         try {
             GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(netHttpTransport, googleJacksonFactory, CLIENT_ID, CLIENT_SECRET, code, GOOGLE_OAUTH_REDIRECT_URI).execute();
 
-            GoogleCredential credential = new GoogleCredential.Builder()
+            GoogleCredential googleCredential = new GoogleCredential.Builder()
                     .setJsonFactory(googleJacksonFactory)
                     .setTransport(netHttpTransport)
                     .setClientSecrets(googleClientSecrets)
                     .build()
                     .setFromTokenResponse(googleTokenResponse);
 
-            Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport, googleJacksonFactory, credential).setApplicationName(AppConstants.APPLICATION_NAME).build();
-            Tokeninfo tokenInfo = oauth2.tokeninfo().setAccessToken(credential.getAccessToken()).execute();
-
-            String userId = tokenInfo.getUserId();
-            Long tokenExpiration = credential.getExpirationTimeMilliseconds();
-
+            googleSessionBean.setGoogleCredential(googleCredential);
 
         } catch (IOException e) {
             e.printStackTrace();// TODO finish
+        }
+
+    }
+
+    @Override
+    public User getMoeSoundsUser() {
+
+        GoogleCredential googleCredential = googleSessionBean.getGoogleCredential();
+        Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport, googleJacksonFactory, googleCredential).setApplicationName(AppConstants.APPLICATION_NAME).build();
+
+        try {
+            Userinfoplus userinfoplus = oauth2.userinfo().get().execute();
+
+            String apiUserId = userinfoplus.getId();
+            String profilePictureUrl = userinfoplus.getPicture();
+
+            User user = adminService.getUser(ApiType.GOOGLE, apiUserId);
+            user.setUserProfilePicture(profilePictureUrl);
+
+            return user;
+        } catch (IOException e) {
+            // TODO FINISH THIS
+            throw new RuntimeException();
         }
 
     }
@@ -172,7 +210,6 @@ public class GoogleLoginService implements ApiLoginService {
 
         Details webDetails = googleClientSecrets.getWeb();
 
-        GOOGLE_OAUTH_URI = webDetails.getAuthUri();
         GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0);
         CLIENT_ID = webDetails.getClientId();
         CLIENT_SECRET = webDetails.getClientSecret();

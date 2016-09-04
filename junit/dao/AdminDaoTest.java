@@ -60,4 +60,23 @@ public class AdminDaoTest {
         String apiUserId = userApiIdentity.getApiUserId();
         assertThat(apiUserId, is("8675309"));
     }
+
+    @Test
+    public void shouldGetNYPD() {
+
+        User user = adminDAO.getUserWithApiInfo(ApiType.GOOGLE, "8675309");
+
+        int userId = user.getUserId();
+        String nickname = user.getNickname();
+        UserRole userRole = user.getUserRole();
+
+        assertThat(userId, is(1));
+        assertThat(nickname, is("NYPD"));
+        assertThat(userRole, is(UserRole.ADMIN));
+
+        UserApiIdentity userApiIdentity = user.getUserApiIdentity(ApiType.GOOGLE);
+
+        String apiUserId = userApiIdentity.getApiUserId();
+        assertThat(apiUserId, is("8675309"));
+    }
 }
