@@ -23,12 +23,16 @@ public class HomeController {
         ModelAndView mav = new ModelAndView("home");
 
         Page randomPage = moeSoundsService.getRandomPage();
-        mav.addObject("page", randomPage);
+
+        boolean noPage = randomPage == null;
+        if (noPage) return mav;
 
         for (MediaType mediaType : MediaType.values()) {
             Media mediaWithMediaType = randomPage.getMediaWithMediaType(mediaType);
             mav.addObject(mediaType.toString(), mediaWithMediaType);
         }
+
+        mav.addObject("page", randomPage);
 
         return mav;
     }

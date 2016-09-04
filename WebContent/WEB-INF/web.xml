@@ -4,7 +4,6 @@
   <display-name>moe-sounds</display-name>
   
   <!-- *********************************** Welcome File *********************************** -->
-  
   <welcome-file-list>
     <welcome-file>/</welcome-file>
   </welcome-file-list>
@@ -33,22 +32,15 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
     
-  <!-- *********************************** Filters *********************************** -->
-<!--   <filter> -->
-<!--     <filter-name>SessionValidationFilter</filter-name> -->
-<!--     <filter-class>services.ntr.pms.filter.SessionValidationFilter</filter-class> -->
-<!--   </filter> -->
-    
-<!--   <filter-mapping> -->
-<!--     <filter-name>SessionValidationFilter</filter-name> -->
-<!--     <url-pattern>/admin/*</url-pattern> -->
-<!--   </filter-mapping> -->
-    
   <!-- *********************************** Error Pages *********************************** -->
   <error-page>
     <error-code>404</error-code>
     <location>/error/404</location><!-- Custom 404 Error Page -->
-  </error-page> 
+  </error-page>
+  
+  <error-page>
+    <location>/error/general-error</location><!-- General HTTP Error Page -->
+  </error-page>
     
   <!-- *********************************** Resources *********************************** -->
   <resource-ref>

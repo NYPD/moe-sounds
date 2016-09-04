@@ -6,12 +6,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.moesounds.controller.Controller;
+import com.moesounds.domain.enums.UserRole;
 import com.moesounds.interceptor.Interceptor;
+import com.moesounds.interceptor.SecurityInterceptor;
 
 /**
  * This class is used to configure Spring MVC.
@@ -25,8 +28,12 @@ import com.moesounds.interceptor.Interceptor;
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
-    public ViewResolver getViewResolver() {
+    public SecurityInterceptor adminSecurityInterceptor() {
+        return new SecurityInterceptor(UserRole.ADMIN);
+    }
 
+    @Bean
+    public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
@@ -35,23 +42,14 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
-    // @Override
-    // public void addInterceptors(InterceptorRegistry registry) {
-    // SecurityInterceptor systemAdminSecurityInterceptor = getSystemAdminSecurityInterceptor();
-    // SecurityInterceptor clanAdminSecurityInterceptor = getClanAdminSecurityInterceptor();
-    //
-    // registry.addInterceptor(systemAdminSecurityInterceptor).addPathPatterns("/admin/system/**");
-    // }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(adminSecurityInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin", "/admin/api/*");
+    }
 
-    // private SecurityInterceptor getSystemAdminSecurityInterceptor(){
-    // SecurityInterceptor securityInterceptor = new SecurityInterceptor();
-    // securityInterceptor.addAllowedRole(UserRole.SYSTEM_ADMIN.getId());
-    // return securityInterceptor;
-    // }
 }

@@ -13,6 +13,7 @@ public interface AdminDAO {
 
     public List<User> getAllUsers();
 
+    public User getUserWithUserId(@Param("userId") int userId);
     public User getUserWithApiInfo(@Param("apiType") ApiType apiType, @Param("apiUserId") String apiUserId);
 
 }

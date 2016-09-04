@@ -11,7 +11,7 @@
   </head>
   <body>
   
-     <a style="height: 60px; width: 150px; background-color: purple;display: inline-block; padding-top: 35px; color: white;"  href="admin/google-oauth-login">Sign In With Googles</a>
+     <a style="height: 60px; width: 150px; background-color: purple;display: inline-block; padding-top: 35px; color: white;"  href="admin/api/google-oauth-login">Sign In With Googles</a>
     
     <!-- Scripts -->
   </body>

@@ -16,6 +16,14 @@
       FROM  moe_sounds.user
   </select>
   
+  <select id="getUserWithUserId" resultMap="UserMap">
+      SELECT  user_id,
+              nickname,
+              user_role
+        FROM  moe_sounds.user
+       WHERE  user_id = #{userId}
+  </select>
+  
   <select id="getUserWithApiInfo" resultMap="UserMap">
         SELECT  user.user_id,
                 user.nickname,
@@ -36,6 +44,5 @@
     WHERE
             user_id = #{userId}
   </select>
-  
   
 </mapper>

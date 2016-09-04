@@ -21,6 +21,11 @@ public class DefaultAdminService implements AdminService {
     }
 
     @Override
+    public User getUser(int userId) {
+        return adminDAO.getUserWithUserId(userId);
+    }
+
+    @Override
     public User getUser(ApiType apiType, String apiUserId) {
         return adminDAO.getUserWithApiInfo(apiType, apiUserId);
     }

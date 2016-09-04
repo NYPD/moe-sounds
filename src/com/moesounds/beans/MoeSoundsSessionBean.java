@@ -5,6 +5,7 @@ import com.moesounds.domain.User;
 public class MoeSoundsSessionBean {
 
     private User user;
+    private boolean rememberMe;
 
 
     public User getUser() {

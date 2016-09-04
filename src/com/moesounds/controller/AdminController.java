@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.annotation.DefaultController;
+import com.moesounds.annotation.GoogleLogin;
+import com.moesounds.beans.MoeSoundsSessionBean;
 import com.moesounds.domain.Page;
+import com.moesounds.domain.User;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.service.MoeSoundsService;
 import com.moesounds.util.AppConstants;
@@ -25,31 +28,40 @@ public class AdminController {
 
     @Autowired
     private MoeSoundsService moeSoundsService;
+
     @Autowired
-    private ApiLoginService apiLoginService;
+    private MoeSoundsSessionBean moeSoundsSessionBean;
+
+    @Autowired
+    @GoogleLogin
+    private ApiLoginService googleLoginService;
 
     @RequestMapping
     public ModelAndView getLoginPage() {
-
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "google-oauth-login")
+    @RequestMapping(value = "api/google-oauth-login")
     public void googleOAuthLogin(HttpServletResponse response, @RequestParam(value = "rememberMe", required = false) boolean rememberMe) throws IOException {
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put(AppConstants.REMEBER_ME_PARAMETER_NAME, String.valueOf(rememberMe));
 
-        String authenticationRequestUri = apiLoginService.getAuthenticationRequestUrl();
+        String authenticationRequestUri = googleLoginService.getAuthenticationRequestUrl();
 
         response.sendRedirect(authenticationRequestUri.toString());
 
     }
 
-    @RequestMapping(value = "google-oauth-verify")
-    public void googleOAuthVerify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    @RequestMapping(value = "api/google-oauth-verify")
+    public ModelAndView googleOAuthVerify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-        apiLoginService.verifyAuthenticationResponse(request);
+        googleLoginService.verifyAuthenticationResponse(request);
+        User moeSoundsUser = googleLoginService.getMoeSoundsUser();
+
+        moeSoundsSessionBean.setUser(moeSoundsUser);
+
+        return new ModelAndView("redirect:/admin/maintenance");
     }
 
     @RequestMapping(value = "maintenance")

@@ -27,6 +27,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
+import com.moesounds.annotation.GoogleLogin;
 import com.moesounds.beans.GoogleSessionBean;
 import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
@@ -36,6 +37,7 @@ import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
 import com.moesounds.util.AppConstants;
 
 @Service
+@GoogleLogin
 public class GoogleLoginService implements ApiLoginService {
 
     @Autowired
@@ -108,8 +110,8 @@ public class GoogleLoginService implements ApiLoginService {
         AuthorizationCodeResponseUrl authorizationCodeResponseUrl = new AuthorizationCodeResponseUrl(encodedResponseUrl);
 
         String error = authorizationCodeResponseUrl.getError();
-        boolean hasError = error != null;
 
+        boolean hasError = error != null;
         if (hasError) throw new AuthorizationCodeResponseExcpetion();
 
         String googleStateToken = authorizationCodeResponseUrl.getState();
@@ -118,9 +120,10 @@ public class GoogleLoginService implements ApiLoginService {
         boolean notSameStateToken = !StringUtils.equals(googleStateToken, sessionStateToken);
         if (notSameStateToken) throw new InvalidStateTokenException();
 
-        String code = authorizationCodeResponseUrl.getCode();
-
         try {
+
+            String code = authorizationCodeResponseUrl.getCode();
+
             GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(netHttpTransport, googleJacksonFactory, CLIENT_ID, CLIENT_SECRET, code, GOOGLE_OAUTH_REDIRECT_URI).execute();
 
             GoogleCredential googleCredential = new GoogleCredential.Builder()
