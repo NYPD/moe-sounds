@@ -33,15 +33,15 @@ public class GoogleConfiguration {
     }
 
     @Bean
-    public GoogleClientSecrets googleClientSecrets(JacksonFactory googleJacksonFactory) throws IOException {
-        InputStreamReader inputStreamReader = new InputStreamReader(clientSecretsResource.getInputStream());
-        return GoogleClientSecrets.load(googleJacksonFactory, inputStreamReader);
-    }
-
-    @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public GoogleSessionBean googleSessionBean() {
         return new GoogleSessionBean();
+    }
+
+    @Bean
+    public GoogleClientSecrets googleClientSecrets(JacksonFactory googleJacksonFactory) throws IOException {
+        InputStreamReader inputStreamReader = new InputStreamReader(clientSecretsResource.getInputStream());
+        return GoogleClientSecrets.load(googleJacksonFactory, inputStreamReader);
     }
 
 }

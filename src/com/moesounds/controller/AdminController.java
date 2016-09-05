@@ -1,8 +1,6 @@
 package com.moesounds.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,6 @@ import com.moesounds.domain.Page;
 import com.moesounds.domain.User;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.service.MoeSoundsService;
-import com.moesounds.util.AppConstants;
 
 @DefaultController
 @RequestMapping(value = "/admin")
@@ -41,15 +38,19 @@ public class AdminController {
         return new ModelAndView("login");
     }
 
+    @RequestMapping(value = "acess-denied")
+    public ModelAndView getAccessDenied() {
+        return new ModelAndView("acess-denied");
+    }
+
     @RequestMapping(value = "api/google-oauth-login")
     public void googleOAuthLogin(HttpServletResponse response, @RequestParam(value = "rememberMe", required = false) boolean rememberMe) throws IOException {
 
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put(AppConstants.REMEBER_ME_PARAMETER_NAME, String.valueOf(rememberMe));
+        moeSoundsSessionBean.setRememberMe(rememberMe);
 
-        String authenticationRequestUri = googleLoginService.getAuthenticationRequestUrl();
+        String authenticationRequestUrl = googleLoginService.getAuthenticationRequestUrl();
 
-        response.sendRedirect(authenticationRequestUri.toString());
+        response.sendRedirect(authenticationRequestUrl);
 
     }
 
@@ -57,9 +58,12 @@ public class AdminController {
     public ModelAndView googleOAuthVerify(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
         googleLoginService.verifyAuthenticationResponse(request);
-        User moeSoundsUser = googleLoginService.getMoeSoundsUser();
 
+        User moeSoundsUser = googleLoginService.getMoeSoundsUser();
         moeSoundsSessionBean.setUser(moeSoundsUser);
+
+        boolean rememberMe = moeSoundsSessionBean.isRememberMe();
+        if (rememberMe) googleLoginService.createUserCookies(response);
 
         return new ModelAndView("redirect:/admin/maintenance");
     }

@@ -1,6 +1,7 @@
 package com.moesounds.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.moesounds.domain.User;
 
@@ -32,4 +33,20 @@ public interface ApiLoginService {
      * @return Moe Sounds User
      */
     public User getMoeSoundsUser();
+
+    /**
+     * Creates API specific cookies to be able to authenticate the user again without having them
+     * login again and sets them in the {@link HttpServletResponse}
+     * 
+     * @param response - The {@link HttpServletResponse} to set cookies into
+     */
+    public void createUserCookies(HttpServletResponse response);
+
+    /**
+     * Should redirect the user to wherever the authentication process begins and try to
+     * authenticate the user again seamlessly
+     * 
+     * @param response
+     */
+    public void reAuthenticateUser(HttpServletResponse response);
 }

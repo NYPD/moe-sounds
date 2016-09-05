@@ -13,19 +13,24 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.moesounds.controller.Controller;
 import com.moesounds.domain.enums.UserRole;
-import com.moesounds.interceptor.Interceptor;
 import com.moesounds.interceptor.SecurityInterceptor;
 
 /**
- * This class is used to configure Spring MVC.
+ * This class is used to configure Spring MVC. Deals more with "server" stuff rather than specific
+ * application configuration.
+ * 
+ * Check out {@link ApplicationConfiguration} for specific app configuration
  *
  * @author NYPD
  */
 @Configuration
 @Import(value = {ApplicationConfiguration.class})
-@ComponentScan(basePackageClasses = {Controller.class, Interceptor.class})
+@ComponentScan(basePackageClasses = {Controller.class})
 @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter {
+
+    private static final String[] INCLUDED_PATTERNS = {"/admin/**"};
+    private static final String[] EXCLUDED_PATTERNS = {"/admin", "/admin/api/*"};
 
     @Bean
     public SecurityInterceptor adminSecurityInterceptor() {
@@ -49,7 +54,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(adminSecurityInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin", "/admin/api/*");
+        registry.addInterceptor(adminSecurityInterceptor())
+        .addPathPatterns(INCLUDED_PATTERNS)
+        .excludePathPatterns(EXCLUDED_PATTERNS);
     }
 
 }

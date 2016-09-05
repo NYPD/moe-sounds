@@ -1,16 +1,14 @@
 package com.moesounds.service;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.net.URLDecoder;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +29,6 @@ import com.moesounds.annotation.GoogleLogin;
 import com.moesounds.beans.GoogleSessionBean;
 import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
-import com.moesounds.exception.AuthRequestUrlBuilderException;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
 import com.moesounds.util.AppConstants;
@@ -51,7 +48,6 @@ public class GoogleLoginService implements ApiLoginService {
     @Autowired
     private AdminService adminService;
 
-    private static final String SECURITY_TOKEN_PARAMETER = "security_token";
     private static final String PROFILE_SCOPE = "profile";
     private static final String OPEN_ID_SCOPE = "openid";
 
@@ -62,8 +58,11 @@ public class GoogleLoginService implements ApiLoginService {
     @Override
     public String getAuthenticationRequestUrl() {
 
-        String stateToken = this.getStateToken(new HashMap<>());
-        GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(googleClientSecrets, GOOGLE_OAUTH_REDIRECT_URI, Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
+        String stateToken = this.getStateToken();
+        GoogleAuthorizationCodeRequestUrl googleAuthorizationCodeRequestUrl = new GoogleAuthorizationCodeRequestUrl(
+                googleClientSecrets,
+                GOOGLE_OAUTH_REDIRECT_URI,
+                Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
 
         googleAuthorizationCodeRequestUrl.setState(stateToken);
         googleSessionBean.setGoogleStateToken(stateToken);
@@ -106,7 +105,6 @@ public class GoogleLoginService implements ApiLoginService {
         if (hasQueryString) requestURL.append("?").append(queryString);
 
         String encodedResponseUrl = requestURL.toString();
-
         AuthorizationCodeResponseUrl authorizationCodeResponseUrl = new AuthorizationCodeResponseUrl(encodedResponseUrl);
 
         String error = authorizationCodeResponseUrl.getError();
@@ -123,8 +121,13 @@ public class GoogleLoginService implements ApiLoginService {
         try {
 
             String code = authorizationCodeResponseUrl.getCode();
-
-            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(netHttpTransport, googleJacksonFactory, CLIENT_ID, CLIENT_SECRET, code, GOOGLE_OAUTH_REDIRECT_URI).execute();
+            GoogleTokenResponse googleTokenResponse = new GoogleAuthorizationCodeTokenRequest(
+                    netHttpTransport,
+                    googleJacksonFactory,
+                    CLIENT_ID,
+                    CLIENT_SECRET,
+                    code,
+                    GOOGLE_OAUTH_REDIRECT_URI).execute();
 
             GoogleCredential googleCredential = new GoogleCredential.Builder()
                     .setJsonFactory(googleJacksonFactory)
@@ -145,7 +148,10 @@ public class GoogleLoginService implements ApiLoginService {
     public User getMoeSoundsUser() {
 
         GoogleCredential googleCredential = googleSessionBean.getGoogleCredential();
-        Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport, googleJacksonFactory, googleCredential).setApplicationName(AppConstants.APPLICATION_NAME).build();
+        Oauth2 oauth2 = new Oauth2.Builder(
+                netHttpTransport,
+                googleJacksonFactory,
+                googleCredential).setApplicationName(AppConstants.APPLICATION_NAME).build();
 
         try {
             Userinfoplus userinfoplus = oauth2.userinfo().get().execute();
@@ -164,48 +170,30 @@ public class GoogleLoginService implements ApiLoginService {
 
     }
 
-    private String getStateToken(Map<String, String> parameters) {
+    @Override
+    public void createUserCookies(HttpServletResponse response) {
 
-        String securityTokenString = new BigInteger(130, new SecureRandom()).toString(32);
+        Cookie cookie = new Cookie(AppConstants.API_TYPE_COOKIE_NAME, ApiType.GOOGLE.name());
+        cookie.setPath("/admin/");
+        cookie.setMaxAge(AppConstants.FIVE_YEARS_IN_SECONDS);
 
-        StringBuffer stringBuffer = new StringBuffer();
-
-        stringBuffer.append(SECURITY_TOKEN_PARAMETER + "=" + securityTokenString);
-
-        parameters.forEach((key, value) -> {
-            stringBuffer.append("&" + key);
-            stringBuffer.append("=" + value);
-        });
-
-        return stringBuffer.toString();
+        response.addCookie(cookie);
 
     }
 
-    private Map<String, String> getStateTokenParameters(String statetoken) {
-
-        String decodedStateToken;
+    @Override
+    public void reAuthenticateUser(HttpServletResponse response) {
 
         try {
-            decodedStateToken = URLDecoder.decode(statetoken, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+            response.sendRedirect("/admin/api/google-oauth-login");
+        } catch (IOException e) {
             // TODO Auto-generated catch block
-            throw new AuthRequestUrlBuilderException();
+            e.printStackTrace();
         }
+    }
 
-        String[] parameters = decodedStateToken.split("&");
-
-        Map<String, String> parameterMap = new HashMap<String, String>();
-
-        for (String param : parameters) {
-            String name = param.split("=")[0];
-            String value = param.split("=")[1];
-
-            parameterMap.put(name, value);
-        }
-
-        parameterMap.remove(SECURITY_TOKEN_PARAMETER);
-
-        return parameterMap;
+    private String getStateToken() {
+        return new BigInteger(130, new SecureRandom()).toString(32);
     }
 
     @PostConstruct
