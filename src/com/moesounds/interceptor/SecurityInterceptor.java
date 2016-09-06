@@ -41,7 +41,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             return true;
         } else {
 
-            ApiType apiType = ApiType.GOOGLE;// null;
+            ApiType apiType = null;
 
             for (Cookie cookie : request.getCookies()) {
                 String cookieName = cookie.getName();
