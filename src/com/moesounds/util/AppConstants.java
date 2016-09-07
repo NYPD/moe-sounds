@@ -1,5 +1,10 @@
 package com.moesounds.util;
 
+/**
+ * Random application wide constants.
+ * 
+ * @author NYPD
+ */
 public class AppConstants {
 
     public static final String APPLICATION_NAME = "Moe Sounds";

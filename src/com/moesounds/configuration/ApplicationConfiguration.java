@@ -14,6 +14,13 @@ import com.moesounds.configuration.api.GoogleConfiguration;
 import com.moesounds.dao.DAO;
 import com.moesounds.service.Service;
 
+/**
+ * Specific app configuration for Spring MVC.
+ * 
+ * Check out {@link WebConfiguration} for generic web stuff.
+ *
+ * @author NYPD
+ */
 @Configuration
 @Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})

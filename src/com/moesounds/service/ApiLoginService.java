@@ -5,6 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.moesounds.domain.User;
 
+/**
+ * Interface to be implemented by third party API services to handle all the login functionality for
+ * the application.
+ * 
+ * @author NYPD
+ */
 public interface ApiLoginService {
 
     /**

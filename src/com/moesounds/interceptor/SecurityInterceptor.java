@@ -18,6 +18,20 @@ import com.moesounds.domain.enums.UserRole;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.util.AppConstants;
 
+/**
+ * Security interceptor that checks to see if current user is allowed to continue with the request
+ * based on the {@link UserRole} passed in during class instantiation. If there is no current user
+ * in the session It checks and see if the user has any cookies created from previous sessions. If
+ * so, it attempts to use the appropriate third party API to re authenticate the user. If no cookies
+ * are found, the user is redirected to an error page.
+ * 
+ * Keep in mind if for some reason the user does have the appropriate cookies, but does not have the
+ * correct access the particular part in the system, this security filter should intercept the
+ * request again and verify.
+ * 
+ * @author NYPD
+ *
+ */
 public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
@@ -36,44 +50,40 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
         User user = moeSoundsSessionBean.getUser();
         boolean isAllowedUser = user != null && user.getUserRole() == this.allowedRole;
+        if (isAllowedUser) return true;
 
-        if (isAllowedUser) {
-            return true;
-        } else {
+        ApiType apiType = null;
 
-            ApiType apiType = null;
+        for (Cookie cookie : request.getCookies()) {
+            String cookieName = cookie.getName();
 
-            for (Cookie cookie : request.getCookies()) {
-                String cookieName = cookie.getName();
+            boolean isNotApiTypeCookie = !AppConstants.API_TYPE_COOKIE_NAME.equals(cookieName);
+            if(isNotApiTypeCookie) continue;
 
-                boolean isNotApiTypeCookie = !AppConstants.API_TYPE_COOKIE_NAME.equals(cookieName);
-                if(isNotApiTypeCookie) continue;
+            String apiTypename = cookie.getValue();
+            apiType = ApiType.findByName(apiTypename);
 
-                String apiTypename = cookie.getValue();
-                apiType = ApiType.findByName(apiTypename);
-            }
-
-            boolean noApiTypeCookieFound = apiType == null;
-            if (noApiTypeCookieFound) response.sendRedirect("error/acess-denied");
-
-            Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
-
-            /*
-             * We should theoretically find one, if for some unknown reason we don't, send the user
-             * to the login page
-             */
-            boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
-            if (noApiLoginService) {
-                response.sendRedirect("admin");
-                return false;
-            }
-
-            ApiLoginService apiLoginService = (ApiLoginService) beansWithAnnotation.values().toArray()[0];
-
-            apiLoginService.reAuthenticateUser(response);
-
+            break;
         }
 
+        boolean noApiTypeCookieFound = apiType == null;
+        if (noApiTypeCookieFound) response.sendRedirect("error/acess-denied");
+
+        Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
+
+        /*
+         * We should theoretically find a apitYpe, if for some unknown reason we don't, send the
+         * user to the login page
+         */
+        boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
+        if (noApiLoginService) {
+            response.sendRedirect("admin");
+            return false;
+        }
+
+        ApiLoginService apiLoginService = (ApiLoginService) beansWithAnnotation.values().toArray()[0];
+
+        apiLoginService.reAuthenticateUser(response);
         return false;
     }
 

@@ -29,8 +29,8 @@ import com.moesounds.interceptor.SecurityInterceptor;
 @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
-    private static final String[] INCLUDED_PATTERNS = {"/admin/**"};
-    private static final String[] EXCLUDED_PATTERNS = {"/admin", "/admin/api/*"};
+    private static final String[] ADMIN_INCLUDED_PATTERNS = {"/admin/**"};
+    private static final String[] ADMIN_EXCLUDED_PATTERNS = {"/admin", "/admin/api/*"};
 
     @Bean
     public SecurityInterceptor adminSecurityInterceptor() {
@@ -55,8 +55,8 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminSecurityInterceptor())
-        .addPathPatterns(INCLUDED_PATTERNS)
-        .excludePathPatterns(EXCLUDED_PATTERNS);
+        .addPathPatterns(ADMIN_INCLUDED_PATTERNS)
+        .excludePathPatterns(ADMIN_EXCLUDED_PATTERNS);
     }
 
 }

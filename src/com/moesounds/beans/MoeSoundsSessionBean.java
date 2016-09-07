@@ -1,7 +1,16 @@
 package com.moesounds.beans;
 
+import com.moesounds.configuration.ApplicationConfiguration;
 import com.moesounds.domain.User;
 
+/**
+ * Session bean containing all the relevant information needed for the Moe Sounds application and
+ * the currently logged in user.
+ * 
+ * This is set up in {@link ApplicationConfiguration}
+ * 
+ * @author NYPD
+ */
 public class MoeSoundsSessionBean {
 
     private User user;
