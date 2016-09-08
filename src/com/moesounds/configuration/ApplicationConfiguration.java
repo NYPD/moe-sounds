@@ -22,7 +22,7 @@ import com.moesounds.service.Service;
  * @author NYPD
  */
 @Configuration
-@Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
+@Import(value = {MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})
 public class ApplicationConfiguration {
 

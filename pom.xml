@@ -87,7 +87,7 @@
     <!-- Ms. Jackson -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
+      <artifactId>jackson-core</artifactId>
       <version>${msJacksonVersion}</version>
     </dependency>
     <dependency>
