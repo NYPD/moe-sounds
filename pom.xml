@@ -75,7 +75,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>${springVersion}</version>
+      <version>${spring.version}</version>
       <exclusions>
         <exclusion>
           <artifactId>commons-logging</artifactId>
@@ -86,7 +86,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>${springVersion}</version>
+      <version>${spring.version}</version>
     </dependency>
     
     <!-- File Upload -->
@@ -100,17 +100,17 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>${msJacksonVersion}</version>
+      <version>${msJackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${msJacksonVersion}</version>
+      <version>${msJackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
-      <version>${msJacksonVersion}</version>
+      <version>${msJackson.version}</version>
     </dependency>
     
     <!-- MyBatis -->
@@ -160,22 +160,17 @@
     </dependency>
     
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <version>2.6.2</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
     </dependency>
-    
+ 
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>2.6.2</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.6.2</version>
-    </dependency>
-    
+   
     
     <!-- JUnit Tests -->
     <dependency>
@@ -193,7 +188,7 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>${springVersion}</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
@@ -243,8 +238,9 @@
   
   
   <properties>
-    <springVersion>4.3.2.RELEASE</springVersion>
-    <msJacksonVersion>2.8.2</msJacksonVersion>
+    <spring.version>4.3.2.RELEASE</spring.version>
+    <msJackson.version>2.8.2</msJackson.version>
+    <logback.version>1.1.7</logback.version>
   </properties>
   
 </project>
