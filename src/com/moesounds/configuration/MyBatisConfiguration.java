@@ -20,10 +20,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.annotation.MoeSoundsDatabase;
 import com.moesounds.configuration.typeHandlers.EnumTypeHandler;
 import com.moesounds.configuration.typeHandlers.TypeHandler;
-import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.dao.Mapper;
 import com.moesounds.domain.TypeAlias;
 import com.moesounds.domain.enums.MappedEnum;
@@ -67,6 +67,7 @@ public class MyBatisConfiguration {
         configuration.setUseGeneratedKeys(true);
         configuration.setMapUnderscoreToCamelCase(true);
         configuration.setLazyLoadTriggerMethods(new HashSet<String>());
+        configuration.setUseActualParamName(true);// Default is true, but to make it apparent
 
         sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
         sessionFactory.setTypeHandlersPackage(typeHandlersPackage);
@@ -87,7 +88,7 @@ public class MyBatisConfiguration {
 
             if (!mappedType.isEnum() || !MappedEnum.class.isAssignableFrom(mappedType))
                 throw new IllegalStateException("Error registering Enum type handlers: " + mappedType.getName()
-                        + " is either not an enum or does not implement " + MappedEnum.class.getName());
+                + " is either not an enum or does not implement " + MappedEnum.class.getName());
 
             // It is OK to suppress warnings here, since we do a check to ensure everything goes ok
             // immediately prior to this.
