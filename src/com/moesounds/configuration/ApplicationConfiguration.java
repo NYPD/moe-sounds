@@ -1,5 +1,11 @@
 package com.moesounds.configuration;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +20,11 @@ import com.moesounds.configuration.api.GoogleConfiguration;
 import com.moesounds.dao.DAO;
 import com.moesounds.service.Service;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.Appender;
+
 /**
  * Specific app configuration for Spring MVC.
  * 
@@ -22,9 +33,12 @@ import com.moesounds.service.Service;
  * @author NYPD
  */
 @Configuration
-@Import(value = {MyBatisConfiguration.class, GoogleConfiguration.class})
+@Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})
 public class ApplicationConfiguration {
+
+    @Autowired
+    private List<Appender<ILoggingEvent>> appenders;
 
     @Bean
     public CommonsMultipartResolver multipartResolver() {
@@ -37,6 +51,20 @@ public class ApplicationConfiguration {
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
     public MoeSoundsSessionBean moeSoundsSessionBean() {
         return new MoeSoundsSessionBean();
+    }
+
+    @PostConstruct
+    public void initLog4j() {
+
+        Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        root.detachAndStopAllAppenders();
+
+        for (Appender<ILoggingEvent> appender : appenders) {
+            root.addAppender(appender);
+
+        }
+
+        root.setLevel(Level.DEBUG);
     }
 
 }
