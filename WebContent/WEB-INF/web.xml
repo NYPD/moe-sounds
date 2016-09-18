@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  id="WebApp_ID" version="3.1">
+
   <display-name>moe-sounds</display-name>
   
-  <!-- *********************************** Welcome File *********************************** -->
+  <!-- ************************************* Welcome File ************************************* -->
   <welcome-file-list>
     <welcome-file>/</welcome-file>
   </welcome-file-list>
-  
-  <!-- *********************************** Servlets *********************************** -->
+
+  <!-- *************************************** Servlets *************************************** -->
   <servlet>
     <servlet-name>Dispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -21,28 +24,28 @@
       <param-value>com.moesounds.configuration.WebConfiguration</param-value>
     </init-param>
     <init-param>
-          <param-name>spring.profiles.active</param-name>
-          <param-value>PRODUCTION</param-value>
-      </init-param>
+      <param-name>spring.profiles.active</param-name>
+      <param-value>DEVELOPMENT</param-value>
+    </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-    
+
   <servlet-mapping>
     <servlet-name>Dispatcher</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-    
-  <!-- *********************************** Error Pages *********************************** -->
+
+  <!-- ************************************* Error Pages ************************************** -->
   <error-page>
     <error-code>404</error-code>
     <location>/error/404</location><!-- Custom 404 Error Page -->
   </error-page>
-  
+
   <error-page>
     <location>/error/general-error</location><!-- General HTTP Error Page -->
   </error-page>
-    
-  <!-- *********************************** Resources *********************************** -->
+
+  <!-- ************************************** Resources *************************************** -->
   <resource-ref>
     <description>Moe Sounds Datasource</description>
     <res-ref-name>jdbc/ds_moe_sounds</res-ref-name>
@@ -50,5 +53,5 @@
     <res-auth>Container</res-auth>
     <res-sharing-scope>Unshareable</res-sharing-scope>
   </resource-ref>
-  
+
 </web-app>

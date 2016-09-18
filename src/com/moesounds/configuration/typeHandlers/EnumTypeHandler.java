@@ -34,8 +34,7 @@ public class EnumTypeHandler<E extends MappedEnum> extends BaseTypeHandler<E> {
      */
     public EnumTypeHandler(Class<E> type) {
 
-        if (!type.isEnum()) throw new IllegalArgumentException("Can not have a enum type handler on a non-enum class: "
-                + type.getName());
+        if (!type.isEnum()) throw new IllegalArgumentException("Can not have a enum type handler on a non-enum class: " + type.getName());
 
         for (E enumConstant : type.getEnumConstants())
             enumsByMappedValue.put(enumConstant.getMappedValue(), enumConstant);

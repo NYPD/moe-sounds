@@ -11,8 +11,7 @@ public interface MoeSoundsService {
      * Takes a PageForm from the save/edit page modal and either insert a new Page and the
      * associated Media or updates an exiting Page and Media already found in the database.
      * 
-     * @param pageForm
-     *            Form from the front end
+     * @param pageForm Form from the front end
      */
     public void savePageForm(PageForm pageForm);
 

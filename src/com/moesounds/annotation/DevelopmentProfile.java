@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.moesounds.util.AppConstants;
 
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Profile(AppConstants.TEST_PROFILE)
-public @interface TestProfile {}
+@Profile(AppConstants.DEVELOPMENT_PROFILE)
+public @interface DevelopmentProfile {}

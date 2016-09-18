@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,7 @@ import com.moesounds.beans.GoogleSessionBean;
 import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
 import com.moesounds.exception.InvalidStateTokenException;
+import com.moesounds.exception.LoginIOException;
 import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
 import com.moesounds.util.AppConstants;
 
@@ -55,6 +58,8 @@ public class GoogleLoginService implements ApiLoginService {
     private static String CLIENT_ID;
     private static String CLIENT_SECRET;
 
+    private final Logger logger = LoggerFactory.getLogger(GoogleLoginService.class);
+
     @Override
     public String getAuthenticationRequestUrl() {
 
@@ -69,30 +74,6 @@ public class GoogleLoginService implements ApiLoginService {
 
         return googleAuthorizationCodeRequestUrl.build();
 
-        /* RIP 2016 - 2016
-        try {
-            String stateToken = this.getStateToken(new HashMap<>());
-
-            moeSoundsSessionBean.setGoogleStateToken(stateToken);
-
-            String authRequestQueryString = "client_id=" + CLIENT_ID +
-                    "&redirect_uri=" + GOOGLE_OAUTH_REDIRECT_URI +
-                    "&response_type=code" +
-                    "&scope=openid profile" +
-                    "&state=" + stateToken;
-
-            URL googleOauthUrl = new URL(GOOGLE_OAUTH_URI);
-
-            String protocol = googleOauthUrl.getProtocol();
-            String authority = googleOauthUrl.getAuthority();
-            String path = googleOauthUrl.getPath();
-
-            URI uri = new URI(protocol, authority, path, authRequestQueryString, null);
-            return uri.toASCIIString();
-        } catch (URISyntaxException | UnsupportedEncodingException | MalformedURLException exception) {
-            throw new AuthRequestUrlBuilderException(); // TODO finish
-        }
-         */
     }
 
     @Override
@@ -139,7 +120,8 @@ public class GoogleLoginService implements ApiLoginService {
             googleSessionBean.setGoogleCredential(googleCredential);
 
         } catch (IOException e) {
-            e.printStackTrace();// TODO finish
+            logger.error("Error attempting to get a GoogleTokenResponse", e);
+            throw new LoginIOException();
         }
 
     }
@@ -164,8 +146,8 @@ public class GoogleLoginService implements ApiLoginService {
 
             return user;
         } catch (IOException e) {
-            // TODO FINISH THIS
-            throw new RuntimeException();
+            logger.error("Error attempting to get the Google Userinfoplus object", e);
+            throw new LoginIOException();
         }
 
     }
@@ -187,8 +169,8 @@ public class GoogleLoginService implements ApiLoginService {
         try {
             response.sendRedirect("/admin/api/google-oauth-login");
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("Error redirecting to google-oauth-login", e);
+            throw new LoginIOException();
         }
     }
 

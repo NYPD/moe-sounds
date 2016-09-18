@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.moesounds.annotation.DevelopmentProfile;
 import com.moesounds.annotation.MoeSoundsDataSource;
 import com.moesounds.annotation.ProductionProfile;
 
@@ -18,6 +19,7 @@ import com.moesounds.annotation.ProductionProfile;
  */
 @Configuration
 @ProductionProfile
+@DevelopmentProfile
 public class JndiConfiguration {
 
     @Bean

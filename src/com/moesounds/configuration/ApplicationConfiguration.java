@@ -1,5 +1,6 @@
 package com.moesounds.configuration;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
@@ -19,6 +21,7 @@ import com.moesounds.beans.MoeSoundsSessionBean;
 import com.moesounds.configuration.api.GoogleConfiguration;
 import com.moesounds.dao.DAO;
 import com.moesounds.service.Service;
+import com.moesounds.util.AppConstants;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -38,6 +41,8 @@ import ch.qos.logback.core.Appender;
 public class ApplicationConfiguration {
 
     @Autowired
+    private Environment springEnvironment;
+    @Autowired
     private List<Appender<ILoggingEvent>> appenders;
 
     @Bean
@@ -54,17 +59,21 @@ public class ApplicationConfiguration {
     }
 
     @PostConstruct
-    public void initLog4j() {
+    public void initLogbackAppenders() {
 
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         root.detachAndStopAllAppenders();
 
-        for (Appender<ILoggingEvent> appender : appenders) {
+        for (Appender<ILoggingEvent> appender : appenders)
             root.addAppender(appender);
 
-        }
+        String[] activeProfiles = springEnvironment.getActiveProfiles();
 
-        root.setLevel(Level.DEBUG);
+        boolean isDevelopment = Arrays.stream(activeProfiles).filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x)).findAny().orElse(null) != null;
+
+        Level loggingLevel = isDevelopment ? Level.DEBUG : Level.INFO;
+
+        root.setLevel(loggingLevel);
     }
 
 }
