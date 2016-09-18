@@ -91,7 +91,7 @@ public class GoogleLoginService implements ApiLoginService {
         String error = authorizationCodeResponseUrl.getError();
 
         boolean hasError = error != null;
-        if (hasError) throw new AuthorizationCodeResponseExcpetion();
+        if (hasError) throw new AuthorizationCodeResponseExcpetion(authorizationCodeResponseUrl);
 
         String googleStateToken = authorizationCodeResponseUrl.getState();
         String sessionStateToken = googleSessionBean.getGoogleStateToken();

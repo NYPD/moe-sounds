@@ -3,6 +3,8 @@ package com.moesounds.domain;
 import java.io.IOException;
 import java.util.Base64;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moesounds.domain.enums.MediaType;
@@ -18,9 +20,10 @@ public class Media {
     private byte[] fileData;
     private long fileSize;
 
+    private final Logger logger = LoggerFactory.getLogger(Media.class);
+
     // For MyBatis
-    protected Media() {
-    };
+    protected Media() {};
 
     public Media(Page page, MultipartFile file, MediaType mediaType) {
         this.pageId = page.getPageId();
@@ -46,12 +49,12 @@ public class Media {
             this.fileSize = file.getSize();
 
         } catch (IOException e) {
+            logger.error("Issues on getBytes() for the MultipartFile given to update", e);
             throw new FileReadException(e);
         }
     }
 
     public String getFileDataAsBase64() {
-
         return Base64.getEncoder().encodeToString(this.fileData);
     }
 
@@ -76,37 +79,24 @@ public class Media {
 
     // Default Accessors *********************************************
     public Integer getMediaId() {
-
         return mediaId;
     }
-
     public Integer getPageId() {
-
         return pageId;
     }
-
     public MediaType getMediaType() {
-
         return mediaType;
     }
-
     public String getFileName() {
-
         return fileName;
     }
-
     public String getFileType() {
-
         return fileType;
     }
-
     public byte[] getFileData() {
-
         return fileData;
     }
-
     public long getFileSize() {
-
         return fileSize;
     }
 
