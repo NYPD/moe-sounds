@@ -38,11 +38,6 @@ public class AdminController {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "acess-denied")
-    public ModelAndView getAccessDenied() {
-        return new ModelAndView("acess-denied");
-    }
-
     @RequestMapping(value = "api/google-oauth-login")
     public void googleOAuthLogin(HttpServletResponse response, @RequestParam(value = "rememberMe", required = false) boolean rememberMe) throws IOException {
 
