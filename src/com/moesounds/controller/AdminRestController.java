@@ -13,22 +13,23 @@ import com.moesounds.service.MoeSoundsService;
 @RequestMapping(value = "/admin")
 public class AdminRestController {
 
-	@Autowired
-	private MoeSoundsService moeSoundsService;
-	
-	@RequestMapping(value = "save-page-form", method = RequestMethod.POST)
-	public int savePageForm(PageForm pageForm) {  
-		
-		moeSoundsService.savePageForm(pageForm);
-		
-		Integer pageId = pageForm.getPageId();
-		return pageId;
-		
-	}
-	
-	@RequestMapping(value = "delete-page", method = RequestMethod.POST)
-	public void deletePage(@RequestParam("pageId") int pageId) {  
-		moeSoundsService.deletePage(pageId);
-	}
-	
+    @Autowired
+    private MoeSoundsService moeSoundsService;
+
+    @RequestMapping(value = "/save-page-form", method = RequestMethod.POST)
+    public int savePageForm(PageForm pageForm) {
+
+        moeSoundsService.savePageForm(pageForm);
+
+        Integer pageId = pageForm.getPageId();
+        return pageId;
+
+    }
+
+    @RequestMapping(value = "/delete-page", method = RequestMethod.POST)
+    public void deletePage(@RequestParam("pageId") int pageId) {
+
+        moeSoundsService.deletePage(pageId);
+    }
+
 }

@@ -6,10 +6,11 @@
   
   <!-- Result Maps ***********************************************************-->
   <resultMap type="Page" id="PageMap">
-      <id column="page_id" property="pageId"/>
-      <association column="{pageId=page_id}" property="pageMedia" javaType="PageMedia" select="getPageMediaWithPageId" fetchType="lazy"/>
+    <id 		property="pageId" 	column="page_id" />
+    <collection property="media" 	column="{pageId=page_id}" ofType="Media" select="getMediaWithPageId" fetchType="lazy" />
   </resultMap>
-
+  
+  
   <!-- Page Queries **********************************************************-->
   <select id="getPage" resultMap="PageMap">
     SELECT
@@ -65,64 +66,87 @@
             page_id = #{pageId}
   </delete>
   
-  
-  <!-- Page Media Queries ****************************************************-->
-  <select id="getPageMediaWithPageId" resultType="PageMedia">
-    SELECT
-            page_media_id,
-            page_id,
-            carousel_image_small,
-            carousel_image_big,
-            background_page,
-            background_inner,
-            sound_file
-    FROM
-            moe_sounds.page_media
-            
-    WHERE 
-            page_id = #{pageId}
-  
-  </select>
-  
-  <insert id="insertPageMedia" useGeneratedKeys="true" keyProperty="pageMediaId">
-    INSERT INTO 
-            moe_sounds.page_media (
-            page_id,
-            carousel_image_small,
-            carousel_image_big,
-            background_page,
-            background_inner,
-            sound_file
-    )
-    
-    VALUES (
-            #{pageId},
-            #{carouselImageSmall},
-            #{carouselImageBig},
-            #{backgroundPage},
-            #{backgroundInner},
-            #{soundFile}
-    )
-  </insert>
-  
-  <update id="updatePageMedia">
-    UPDATE
-            moe_sounds.page_media
+  <!-- Specific Click Count **************************************************-->
+  <update id="updateClickCount">
+    UPDATE 
+            moe_sounds.page
     SET
-            carousel_image_small = #{carouselImageSmall},
-            carousel_image_big = #{carouselImageBig},
-            background_page = #{backgroundPage},
-            background_inner = #{backgroundInner},
-            sound_file = #{soundFile}
+            click_count = click_count + 1
     WHERE
-            page_media_id = #{pageMediaId}
+            page_id = #{pageId}
   </update>
   
-  <delete id="deletePageMediaWithPageId">
-    DELETE FROM 
-            moe_sounds.page_media
+  <select id="getClickCount" resultType="_long">
+    SELECT 
+            click_count
+    FROM
+            moe_sounds.page
+    WHERE
+            page_id = #{pageId}
+  </select>
+  
+  <!-- Page Media Queries ****************************************************-->
+  <select id="getMediaWithPageId" resultType="Media">
+    SELECT
+            media_id,
+            page_id,
+            media_type,
+            file_name,
+            file_type,
+            file_data,
+            file_size
+    FROM
+            moe_sounds.media
     WHERE 
             page_id = #{pageId}
+  </select>
+  
+  <insert id="insertMedia" useGeneratedKeys="true" keyProperty="mediaId">
+    INSERT INTO 
+            moe_sounds.media (
+	            page_id,
+	            media_type,
+	            file_name,
+	            file_type,
+	            file_data,
+	            file_size
+    		)
+    
+    VALUES (
+	            #{pageId},
+	            #{mediaType},
+	            #{fileName},
+	            #{fileType},
+	            #{fileData},
+	            #{fileSize}
+    	   )
+  </insert>
+  
+  <update id="updateMedia">
+    UPDATE
+            moe_sounds.media
+    SET
+            media_type = #{mediaType},
+            file_name = #{fileName},
+            file_type = #{fileType},
+            file_data = #{fileData},
+            file_size = #{fileSize}
+    WHERE
+            media_id = #{mediaId}
+  </update>
+  
+  <delete id="deleteMediaWithPageId">
+    DELETE FROM 
+            moe_sounds.media
+    WHERE 
+            page_id = #{pageId}
+  </delete>
+  
+  <delete id="deleteMediaWithMediaId">
+    DELETE FROM 
+            moe_sounds.media
+    WHERE 
+            media_id = #{mediaId}
   </delete>
   
 </mapper>

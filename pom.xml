@@ -47,7 +47,7 @@
     <dependency>
       <groupId>org.apache.taglibs</groupId>
       <artifactId>taglibs-standard-impl</artifactId>
-      <version>1.2.3</version>
+      <version>1.2.5</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -57,55 +57,67 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-jsp-api</artifactId>
-      <version>8.5.0</version>
+      <version>8.5.4</version>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat.maven</groupId>
       <artifactId>tomcat7-maven-plugin</artifactId>
       <version>2.2</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     
     <!-- Spring -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>${springVersion}</version>
+      <version>${spring.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-logging</artifactId>
+          <groupId>commons-logging</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
-      <version>${springVersion}</version>
+      <version>${spring.version}</version>
     </dependency>
     
     <!-- File Upload -->
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <version>1.3.1</version> <!-- makesure correct version here -->
+      <version>1.3.2</version> <!-- makesure correct version here -->
     </dependency>
     
     <!-- Ms. Jackson -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>2.7.4</version>
+      <artifactId>jackson-core</artifactId>
+      <version>${msJackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.7.4</version>
+      <version>${msJackson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
-      <version>2.7.4</version>
+      <version>${msJackson.version}</version>
     </dependency>
     
     <!-- MyBatis -->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
-      <version>3.4.0</version>
+      <version>3.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.mybatis</groupId>
@@ -117,9 +129,48 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>5.1.38</version>
+      <version>5.1.39</version>
     </dependency>
     
+    <!-- Google Authentication -->
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>1.21.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-oauth2</artifactId>
+      <version>v2-rev118-1.22.0</version>
+    </dependency>
+    
+    
+    <!-- Apache Commons -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+    
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.21</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+ 
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+   
     
     <!-- JUnit Tests -->
     <dependency>
@@ -131,18 +182,18 @@
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.3.3</version>
+      <version>2.3.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>4.2.6.RELEASE</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>2.0.52-beta</version>
+      <version>2.1.0-beta.123</version>
     </dependency>
   
   </dependencies>
@@ -187,7 +238,9 @@
   
   
   <properties>
-    <springVersion>4.2.6.RELEASE</springVersion>
+    <spring.version>4.3.2.RELEASE</spring.version>
+    <msJackson.version>2.8.2</msJackson.version>
+    <logback.version>1.1.7</logback.version>
   </properties>
   
 </project>
