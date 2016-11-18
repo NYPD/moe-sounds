@@ -1,5 +1,9 @@
 package com.moesounds.configuration;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +33,11 @@ import com.moesounds.interceptor.SecurityInterceptor;
 @EnableWebMvc
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
+    @Autowired
+    private ServletContext servletContext;
     private static final String[] ADMIN_INCLUDED_PATTERNS = {"/admin/**"};
     private static final String[] ADMIN_EXCLUDED_PATTERNS = {"/admin", "/admin/api/*"};
+
 
     @Bean
     public SecurityInterceptor adminSecurityInterceptor() {
@@ -40,6 +47,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setExposeContextBeansAsAttributes(true);
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
@@ -57,6 +65,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         registry.addInterceptor(adminSecurityInterceptor())
         .addPathPatterns(ADMIN_INCLUDED_PATTERNS)
         .excludePathPatterns(ADMIN_EXCLUDED_PATTERNS);
+    }
+
+    @PostConstruct
+    public void initServletContext() {
+        servletContext.setAttribute("context", servletContext.getContextPath());
     }
 
 }

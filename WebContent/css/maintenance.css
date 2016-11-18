@@ -1,0 +1,22 @@
+  /* Positioning */
+
+  /* Box-model */
+
+  /* Typography */
+
+  /* Visual */
+
+  /* Misc */
+
+body {
+  padding-top: 20px;
+}
+
+
+.navbar .navbar-brand img,
+.navbar .user-profile-picture {
+  display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
