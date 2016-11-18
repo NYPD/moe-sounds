@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
     <link href="${context}/css/vendor/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
     <link href="${context}/css/maintenance.css" rel="stylesheet">
 
   </head>
