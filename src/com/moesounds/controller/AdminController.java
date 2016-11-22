@@ -1,6 +1,7 @@
 package com.moesounds.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moesounds.annotation.DefaultController;
 import com.moesounds.annotation.GoogleLogin;
 import com.moesounds.beans.MoeSoundsSessionBean;
+import com.moesounds.domain.Page;
 import com.moesounds.domain.User;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.service.MoeSoundsService;
@@ -64,6 +66,10 @@ public class AdminController {
     public ModelAndView getAdminMaintenancePage() {
 
         ModelAndView mav = new ModelAndView("maintenance");
+
+        Collection<Page> allPages = moeSoundsService.getAllPages();
+
+        mav.addObject("allPages", allPages);
 
         return mav;
     }

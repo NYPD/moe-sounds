@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.moesounds.domain.Page;
+import com.moesounds.domain.enums.MediaType;
 import com.moesounds.model.PageForm;
 import com.moesounds.service.MoeSoundsService;
 
@@ -15,6 +18,22 @@ public class AdminRestController {
 
     @Autowired
     private MoeSoundsService moeSoundsService;
+
+    @RequestMapping(value = "/get-moe-page-form-modal")
+    public ModelAndView getMoePageForm(@RequestParam(value = "pageId", required = false) Integer pageId) {
+
+        ModelAndView modelAndView = new ModelAndView("modal-content/maintenance/moe-page-form");
+
+        modelAndView.addObject("mediaTypes", MediaType.values());
+
+        boolean noPageId = pageId == null;
+        if (noPageId) return modelAndView;
+
+        Page page = moeSoundsService.getSpecificPage(pageId);
+        modelAndView.addObject("page", page);
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/save-page-form", method = RequestMethod.POST)
     public int savePageForm(PageForm pageForm) {

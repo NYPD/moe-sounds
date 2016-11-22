@@ -32,6 +32,9 @@ public class Page {
     }
 
     public Media getMediaWithMediaType(MediaType mediaType) {
+
+        getMedia();// Media is lazy loaded and might not be present
+
         return this.media.get(mediaType);
     }
 
@@ -41,6 +44,11 @@ public class Page {
 
         Media mediaToRemove = media.remove(mediaType);
         if (mediaToRemove != null) mediaToRemove.setPage(null);
+    }
+
+    // Easy media retrieval for admin page
+    public Media getCarouselImageSmall() {
+        return getMediaWithMediaType(MediaType.CAROUSEL_IMAGE_SMALL);
     }
 
     // Default Accessors *********************************

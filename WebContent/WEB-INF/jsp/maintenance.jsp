@@ -12,8 +12,11 @@
 
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
-    <link href="${context}/css/vendor/bootstrap-theme.min.css" rel="stylesheet">
+<%--     <link href="${context}/css/vendor/bootstrap-theme.min.css" rel="stylesheet"> --%>
     <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/plug-ins/1.10.12/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet"/>
+    <link href="${context}/css/global.css" rel="stylesheet">
     <link href="${context}/css/maintenance.css" rel="stylesheet">
 
   </head>
@@ -32,7 +35,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-  	        <a class="navbar-brand" href="#">
+  	        <a class="navbar-brand" href="${context}/random">
               <img src="https://v.dreamwidth.org/231938/328523">
               <span>Moe Sounds</span>
   	        </a>
@@ -48,13 +51,67 @@
   	    </div>
   	  </nav>
     
-      <h1>Moe Pages</h1>
+      <h2>Moe Pages</h2>
+      
+      
+      <div class="row">
+      
+	      <div class="col-xs-12 table-container">
+	      
+	        <table class="table table-striped" id="moe-pages">
+	          <thead>
+	            <tr>
+	              <th></th>
+	              <th></th>
+	              <th>Page Name</th>
+	              <th>Click Count</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <c:forEach items="${allPages}" var="page">
+	              <tr>
+                  <td>
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </td>
+                  <td>
+                    <img class="page-carousel-image-small" src="data:${CAROUSEL_IMAGE_SMALL.fileType};base64,${CAROUSEL_IMAGE_SMALL.fileDataAsBase64}">
+                  </td>
+                  <td>${page.pageName}</td>
+                  <td>${page.clickCount}</td>              
+	              </tr>
+	            </c:forEach>
+	          </tbody>
+	        
+	        </table>
+	      
+	      </div>
+	      
+	      <div class="col-xs-12 text-right">
+	        <button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>
+	      </div>
+      
+      </div>
+      
+      
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="maintenance-modal-large">
+      <div class="modal-dialog modal-lg" role="document"></div>
+    </div>
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="maintenance-modal-small">
+      <div class="modal-dialog modal-sm" role="document"></div>
     </div>
     
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
+    <script src="${context}/js/global.js"></script>
+    <script src="${context}/js/maintenance.js"></script>
     
   </body>
   
