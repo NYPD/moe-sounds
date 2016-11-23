@@ -46,11 +46,6 @@ public class Page {
         if (mediaToRemove != null) mediaToRemove.setPage(null);
     }
 
-    // Easy media retrieval for admin page
-    public Media getCarouselImageSmall() {
-        return getMediaWithMediaType(MediaType.CAROUSEL_IMAGE_SMALL);
-    }
-
     // Default Accessors *********************************
     public Integer getPageId() {
         return pageId;

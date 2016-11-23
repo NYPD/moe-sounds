@@ -5,6 +5,8 @@
   <c:set var="modalAction" value="Add"/>
 </c:if>
 
+<link href="${context}/css/modal/maintenance/moe-page-form.css" rel="stylesheet">
+
 <div class="modal-content">
 
   <div class="modal-header">
@@ -14,7 +16,7 @@
   
   <div class="modal-body">
   
-    <form class="form-horizontal" enctype="multipart/form-data">
+    <form class="form-horizontal" id="moe-page-form" enctype="multipart/form-data">
     
       <input type="hidden" name="pageId" value="${page.pageId}">
     
@@ -40,20 +42,23 @@
 	        
 	        <div class="col-sm-9">
 	          <div class="input-group">
+	            <input type="text" class="form-control file-name" readonly>
 	            <label class="input-group-btn">
-	                <span class="btn btn-primary">
-	                  <span>Browse&hellip;</span>
-	                  <input type="file" style="display: none;" multiple>
-	                </span>
-	            </label>
-	            <input type="text"   name="formFiles[${count.index}].file"      class="form-control" readonly>
-	            <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${entry.value.mediaId}">
-              <input type="hidden" name="formFiles[${count.index}].mediaType" class="media-type" value="${mediaType}">
+                <span class="btn btn-default">
+                  <span>Browse&hellip;</span>
+                  <input type="file" class="file-data" name="formFiles[${count.index}].file" style="display: none;">
+                </span>
+                <button class="btn btn-default btn-preview-image" type="button">Preview</button>
+              </label>
 	          </div>
 	          <span class="help-block">
 	            Image should be around 200 x 200
 	          </span>
 	        </div>
+	        
+	        <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${entry.value.mediaId}">
+          <input type="hidden" name="formFiles[${count.index}].mediaType" class="media-type" value="${mediaType}">
+	        
 	      </div>
 		  
 		  </c:forEach>
@@ -67,4 +72,6 @@
     <button type="button" class="btn btn-primary">Save Moe Page</button>
   </div>
   
-</div><!-- /.modal-content -->
+</div>
+
+<script src="${context}/js/modal/maintenance/moe-page-form.js"></script>

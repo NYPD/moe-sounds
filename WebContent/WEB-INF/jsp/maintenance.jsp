@@ -12,7 +12,6 @@
 
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
-<%--     <link href="${context}/css/vendor/bootstrap-theme.min.css" rel="stylesheet"> --%>
     <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/plug-ins/1.10.12/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet"/>
@@ -75,7 +74,8 @@
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                   </td>
                   <td>
-                    <img class="page-carousel-image-small" src="data:${CAROUSEL_IMAGE_SMALL.fileType};base64,${CAROUSEL_IMAGE_SMALL.fileDataAsBase64}">
+                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType(CAROUSEL_IMAGE_SMALL)}"/>
+                    <img class="page-carousel-image-small" src="data:${carouselSmall.fileType};base64,${carouselSmall.fileDataAsBase64}">
                   </td>
                   <td>${page.pageName}</td>
                   <td>${page.clickCount}</td>              
@@ -113,6 +113,11 @@
     <script src="${context}/js/global.js"></script>
     <script src="${context}/js/maintenance.js"></script>
     
+    <!-- Page Image Preview -->
+    <div class="preview-image-container">
+	    <img class="img-rounded img-preview">
+	  </div>
+	  
   </body>
   
 </html>

@@ -1,17 +1,16 @@
-  /* Positioning */
+/* Positioning */
 
-  /* Box-model */
+/* Box-model */
 
-  /* Typography */
+/* Typography */
 
-  /* Visual */
+/* Visual */
 
-  /* Misc */
+/* Misc */
 
 body {
   padding-top: 20px;
 }
-
 
 .navbar .navbar-brand img,
 .navbar .user-profile-picture {
@@ -20,9 +19,41 @@ body {
 	height: 20px;
 }
 
-
 table .page-carousel-image-small {
   width: 50px;
   height: 50px;
 }
 
+
+
+/* Image Preview Container Stuff ******************************************************************/
+.preview-image-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1060;
+  padding: 75px;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.show-preview-image .preview-image-container{
+  display: block;
+}
+
+.img-preview {
+  
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  margin: auto;
+  
+  max-width: 85%;
+  max-height: 85%;
+  
+}

@@ -3,7 +3,7 @@ var $moePagesTable = $('#moe-pages');
 var $maintenanceModalLarge = $('#maintenance-modal-large');
 var $maintenanceModalSmall = $('#maintenance-modal-small');
 
-/* Listeners *******************************************************************************/
+/* Listeners **************************************************************************************/
 $('.btn-add-moe-page').on('click', function () {
   
   var $getMoePageFormModalPromise = $.get('get-moe-page-form-modal');
