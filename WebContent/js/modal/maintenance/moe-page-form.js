@@ -9,20 +9,32 @@ var $imgPreview = $('.img-preview')
 /* Listeners **************************************************************************************/
 $moePageForm.on('change', 'input[type="file"]', function() {
   
-  var file = this.files[0];
+  var $inputGroup = $(this).closest('.input-group');
+  var $inputFileName = $inputGroup.find('input.file-name');
+  var $fileActionButtons = $inputGroup.find('.input-group-btn-file-actions').find('.btn');
   
+  var file = this.files[0];
   var noFile = file === undefined;
-  if(noFile)
-    $(this).closest('.input-group').find('input.file-name').val('');
-  else
-    $(this).closest('.input-group').find('input.file-name').val(file.name);
+  
+  if(noFile) {
+    $inputFileName.val('');
+    $fileActionButtons.prop('disabled', true);
+  } else {
+    $inputFileName.val(file.name);
+    $fileActionButtons.prop('disabled', false);
+  }
+    
   
   
 });
 
+$moePageForm.on('click', '.btn-remove-file', function(event) {
+  $(this).closest('.input-group').find('input.file-data').val('').trigger('change');
+});
+
 $moePageForm.on('click', '.btn-preview-image', function() {
   
-  var file = $(this).closest('.input-group-btn').find('input.file-data')[0].files[0];
+  var file = $(this).closest('.input-group').find('input.file-data')[0].files[0];
   
   var noFile = file === undefined;
   if (noFile) return false;

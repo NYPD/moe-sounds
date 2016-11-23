@@ -42,14 +42,19 @@
 	        
 	        <div class="col-sm-9">
 	          <div class="input-group">
-	            <input type="text" class="form-control file-name" readonly>
 	            <label class="input-group-btn">
-                <span class="btn btn-default">
+                <a class="btn btn-default">
                   <span>Browse&hellip;</span>
                   <input type="file" class="file-data" name="formFiles[${count.index}].file" style="display: none;">
-                </span>
-                <button class="btn btn-default btn-preview-image" type="button">Preview</button>
+                </a>
               </label>
+	            <input type="text" class="form-control file-name" readonly>
+	            <div class="input-group-btn input-group-btn-file-actions">
+	              <button type="button" class="btn btn-danger btn-remove-file" disabled>
+	                <i class="fa fa-ban" aria-hidden="true"></i>
+	              </button>
+                <button class="btn btn-default btn-preview-image" type="button" disabled>Preview</button>
+              </div>
 	          </div>
 	          <span class="help-block">
 	            Image should be around 200 x 200
