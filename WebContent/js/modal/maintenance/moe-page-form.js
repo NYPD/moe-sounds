@@ -23,8 +23,6 @@ $moePageForm.on('change', 'input[type="file"]', function() {
     $inputFileName.val(file.name);
     $fileActionButtons.prop('disabled', false);
   }
-    
-  
   
 });
 
@@ -58,7 +56,50 @@ $('.preview-image-container').on('click', function(event) {
   $body.removeClass('show-preview-image');
   $imgPreview.attr('src', '');
   
-})
+});
+
+$('.btn-save-moe-page').on('click', function() {
+  
+  var formData = new FormData($moePageForm[0]);
+  
+  $moePageForm.find('.file-data').each(function() {
+    
+    var $this = $(this);
+    
+    var isDirty = ritsu.isFormDirty($this);
+    if (isDirty) return true;
+    
+    //If the file input field is not dirty (was not changed), remove it from the formData so we tell the back-end to not modify this file
+    var name = $this.attr('name');
+    var formFileGroup = name.match(/formFiles\[\d{1}\]/);
+    
+    //This might not be supported in IE or Edge, we might need to delete the name from the input
+    formData.delete(name);
+    formData.delete(formFileGroup + '.mediaId');
+    formData.delete(formFileGroup + '.mediaType');
+    
+  });
+  
+  
+  $.ajax({
+    url: 'save-page-form',
+    type: 'POST',
+    contentType: false,
+    processData: false, 
+    data: formData
+    
+  }).done(function(pageId) {
+    alert("Save successfullllll");
+  });
+  
+});
+
+/* Initialization *********************************************************************************/
+ritsu.initialize({
+  useBootstrap3Stlying: true
+});
+
+ritsu.storeInitialFormValues();
 
 /* Document Ready Stuff ***************************************************************************/
 

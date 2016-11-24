@@ -45,6 +45,17 @@ public class AdminRestController {
 
     }
 
+    @RequestMapping(value = "/get-delete-moe-page-modal")
+    public ModelAndView getDeleteMoePageModal(@RequestParam(value = "pageId") Integer pageId) {
+
+        ModelAndView modelAndView = new ModelAndView("modal-content/maintenance/delete-moe-page");
+
+        Page page = moeSoundsService.getSpecificPage(pageId);
+        modelAndView.addObject("page", page);
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/delete-page", method = RequestMethod.POST)
     public void deletePage(@RequestParam("pageId") int pageId) {
 

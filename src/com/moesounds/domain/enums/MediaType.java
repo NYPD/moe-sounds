@@ -10,16 +10,18 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public enum MediaType implements MappedEnum {
 
-    PAGE_BACKGROUND("PAGE BACKGROUND"),
-    BACKGROUND_INNER("BACKGROUND INNER"),
-    SOUND_FILE("SOUND FILE"),
-    CAROUSEL_IMAGE_SMALL("CAROUSEL IMAGE SMALL"),
-    CAROUSEL_IMAGE_BIG("CAROUSEL IMAGE BIG");
+    PAGE_BACKGROUND("PAGE BACKGROUND", "Cool description"),
+    BACKGROUND_INNER("BACKGROUND INNER", "Cool description"),
+    SOUND_FILE("SOUND FILE", "Cool description"),
+    CAROUSEL_IMAGE_SMALL("CAROUSEL IMAGE SMALL", "Cool description"),
+    CAROUSEL_IMAGE_BIG("CAROUSEL IMAGE BIG", "Cool description");
 
     private final String name;
+    private final String fileSuggestion;
 
-    private MediaType(String name) {
+    private MediaType(String name, String fileSuggestion) {
         this.name = name;
+        this.fileSuggestion = fileSuggestion;
     }
 
     public static final List<MediaType> IMAGE_TYPES = Arrays.asList(PAGE_BACKGROUND, BACKGROUND_INNER, CAROUSEL_IMAGE_SMALL, CAROUSEL_IMAGE_BIG);
@@ -58,13 +60,15 @@ public enum MediaType implements MappedEnum {
 
     // Default Accessors *******************
     public String getName() {
-
         return name;
+    }
+
+    public String getFileSuggestion() {
+        return fileSuggestion;
     }
 
     @Override
     public String getMappedValue() {
-
         return this.getName();
     }
 

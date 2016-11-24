@@ -23,14 +23,14 @@
 		  <div class="form-group">
 		    <label for="page-name" class="col-sm-3 control-label">Page Name</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="page-name" placeholder="Page Name" value="${page.pageName}">
+		      <input type="text" class="form-control" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="css" class="col-sm-3 control-label">CSS</label>
 		    <div class="col-sm-9">
-		      <textarea class="form-control" id="css"  rows="10" cols="60"></textarea>
+		      <textarea class="form-control" id="css" name="css" rows="10" cols="60"></textarea>
 		    </div>
 		  </div>
 		  
@@ -41,24 +41,29 @@
 	        <label for="${mediaType.name}" class="col-sm-3 control-label">${mediaType.nameWithoutAllCaps}</label>
 	        
 	        <div class="col-sm-9">
+          
 	          <div class="input-group">
+            
 	            <label class="input-group-btn">
                 <a class="btn btn-default">
                   <span>Browse&hellip;</span>
-                  <input type="file" class="file-data" name="formFiles[${count.index}].file" style="display: none;">
+                  <input type="file" class="file-data" name="formFiles[${count.index}].file" data-simple-file-hash="">
                 </a>
               </label>
+              
 	            <input type="text" class="form-control file-name" readonly>
+              
 	            <div class="input-group-btn input-group-btn-file-actions">
 	              <button type="button" class="btn btn-danger btn-remove-file" disabled>
 	                <i class="fa fa-ban" aria-hidden="true"></i>
 	              </button>
                 <button class="btn btn-default btn-preview-image" type="button" disabled>Preview</button>
               </div>
+              
 	          </div>
-	          <span class="help-block">
-	            Image should be around 200 x 200
-	          </span>
+            
+	          <span class="help-block">${mediaType.fileSuggestion}</span>
+            
 	        </div>
 	        
 	        <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${entry.value.mediaId}">
@@ -74,9 +79,10 @@
   
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save Moe Page</button>
+    <button type="button" class="btn btn-primary btn-save-moe-page">Save Moe Page</button>
   </div>
   
 </div>
 
+<script src="${context}/js/vendor/ritsu.min.js"></script>
 <script src="${context}/js/modal/maintenance/moe-page-form.js"></script>

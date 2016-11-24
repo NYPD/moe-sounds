@@ -57,27 +57,31 @@
       
 	      <div class="col-xs-12 table-container">
 	      
-	        <table class="table table-striped" id="moe-pages">
+	        <table class="table table-striped table-moe-pages" id="moe-pages">
 	          <thead>
 	            <tr>
 	              <th></th>
 	              <th></th>
 	              <th>Page Name</th>
+                <th>Missing Media Count</th>
 	              <th>Click Count</th>
 	            </tr>
 	          </thead>
 	          <tbody>
 	            <c:forEach items="${allPages}" var="page">
-	              <tr>
+	              <tr data-page-id="${page.pageId}">
                   <td>
-                    <i class="fa fa-wrench" aria-hidden="true"></i>
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
                   </td>
                   <td>
-                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType(CAROUSEL_IMAGE_SMALL)}"/>
-                    <img class="page-carousel-image-small" src="data:${carouselSmall.fileType};base64,${carouselSmall.fileDataAsBase64}">
+                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE_SMALL')}"/>
+                    <c:if test="${not empty carouselSmall}">
+                      <img class="page-carousel-image-small" src="data:${carouselSmall.fileType};base64,${carouselSmall.fileDataAsBase64}">
+                    </c:if>
                   </td>
                   <td>${page.pageName}</td>
+                  <td>${page.missingMediaCount}</td>
                   <td>${page.clickCount}</td>              
 	              </tr>
 	            </c:forEach>
@@ -92,7 +96,6 @@
 	      </div>
       
       </div>
-      
       
     </div>
     
@@ -113,7 +116,7 @@
     <script src="${context}/js/global.js"></script>
     <script src="${context}/js/maintenance.js"></script>
     
-    <!-- Page Image Preview -->
+    <!-- Page Image Preview Bacfrop Thingy -->
     <div class="preview-image-container">
 	    <img class="img-rounded img-preview">
 	  </div>
