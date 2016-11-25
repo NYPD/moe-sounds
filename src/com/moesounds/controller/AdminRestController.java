@@ -41,9 +41,7 @@ public class AdminRestController {
 
         moeSoundsService.savePageForm(pageForm);
 
-        Integer pageId = pageForm.getPageId();
-
-        Page page = moeSoundsService.getSpecificPage(pageId);
+        Page page = moeSoundsService.getSpecificPage(pageForm.getPageId());
 
         return new PageFormSaveResult(page);
 
