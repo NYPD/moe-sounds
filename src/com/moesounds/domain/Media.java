@@ -1,5 +1,7 @@
 package com.moesounds.domain;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -56,6 +58,25 @@ public class Media {
 
     public String getFileDataAsBase64() {
         return Base64.getEncoder().encodeToString(this.fileData);
+    }
+
+    public long getLastModifiedDateInSeconds() {
+
+        File outputFile = new File("temp");
+
+        try (FileOutputStream outputStream = new FileOutputStream(outputFile);) {
+
+            outputStream.write(this.fileData); // write the bytes and your done.
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        long lastModified = outputFile.lastModified();
+
+        outputFile.delete();
+
+        return lastModified;
     }
 
     /**

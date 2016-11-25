@@ -40,6 +40,10 @@ body {
   cursor: pointer;
 }
 
+.table-moe-pages .table-actions i:hover {
+  color: #286090; /* Primary Bootstrap colour*/
+}
+
 .table-moe-pages .table-actions i:nth-child(0n+2) {
   margin-left: 15px;
 }

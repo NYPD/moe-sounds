@@ -30,7 +30,7 @@
 		  <div class="form-group">
 		    <label for="css" class="col-sm-3 control-label">CSS</label>
 		    <div class="col-sm-9">
-		      <textarea class="form-control" id="css" name="css" rows="10" cols="60"></textarea>
+		      <textarea class="form-control" id="css" name="css" rows="10" cols="60">${page.css}</textarea>
 		    </div>
 		  </div>
 		  
@@ -38,7 +38,7 @@
 		  
 		    <div class="form-group">
       
-	        <label for="${mediaType.name}" class="col-sm-3 control-label">${mediaType.nameWithoutAllCaps}</label>
+	        <label for="${mediaType}" class="col-sm-3 control-label">${mediaType.nameWithoutAllCaps}</label>
 	        
 	        <div class="col-sm-9">
           
@@ -47,17 +47,19 @@
 	            <label class="input-group-btn">
                 <a class="btn btn-default">
                   <span>Browse&hellip;</span>
-                  <input type="file" class="file-data" name="formFiles[${count.index}].file" data-simple-file-hash="">
+                  <c:set var="media" value="${page.getMediaWithMediaType(mediaType)}"/>
+                 
+                  <input type="file" class="file-data" name="formFiles[${count.index}].file" id="${mediaType}" data-simple-file-hash="${media.fileName}${media.fileSize}" <c:if test="${not empty media}">data-src="data:${media.fileType};base64,${media.fileDataAsBase64}"</c:if>>
                 </a>
               </label>
               
-	            <input type="text" class="form-control file-name" readonly>
+	            <input type="text" class="form-control file-name" value="${media.fileName}" readonly>
               
 	            <div class="input-group-btn input-group-btn-file-actions">
-	              <button type="button" class="btn btn-danger btn-remove-file" disabled>
+	              <button type="button" class="btn btn-danger btn-remove-file" <c:if test="${empty media}">disabled</c:if>>
 	                <i class="fa fa-ban" aria-hidden="true"></i>
 	              </button>
-                <button class="btn btn-default btn-preview-image" type="button" disabled>Preview</button>
+                <button class="btn btn-default btn-preview-image" type="button" <c:if test="${empty media}">disabled</c:if>>Preview</button>
               </div>
               
 	          </div>

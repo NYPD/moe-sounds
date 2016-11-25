@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moesounds.domain.Page;
 import com.moesounds.domain.enums.MediaType;
 import com.moesounds.model.PageForm;
+import com.moesounds.model.PageFormSaveResult;
 import com.moesounds.service.MoeSoundsService;
 
 @RestController
@@ -36,12 +37,15 @@ public class AdminRestController {
     }
 
     @RequestMapping(value = "/save-page-form", method = RequestMethod.POST)
-    public int savePageForm(PageForm pageForm) {
+    public PageFormSaveResult savePageForm(PageForm pageForm) {
 
         moeSoundsService.savePageForm(pageForm);
 
         Integer pageId = pageForm.getPageId();
-        return pageId;
+
+        Page page = moeSoundsService.getSpecificPage(pageId);
+
+        return new PageFormSaveResult(page);
 
     }
 
