@@ -4,17 +4,6 @@ var $maintenanceModalLarge = $('#maintenance-modal-large');
 var $maintenanceModalSmall = $('#maintenance-modal-small');
 
 /* Listeners **************************************************************************************/
-$('.btn-add-moe-page').on('click', function () {
-  
-  var $getMoePageFormModalPromise = $.get('get-moe-page-form-modal');
-  
-  $getMoePageFormModalPromise.done(function(modalContent) {
-    $maintenanceModalLarge.find('.modal-dialog').html(modalContent);
-    $maintenanceModalLarge.modal('show');
-  });
-  
-});
-
 $('.edit-page').on('click', function () {
   
   var pageId = $(this).closest('tr').data('pageId');
@@ -59,7 +48,8 @@ $moePagesTable.DataTable({
        "<'row'<'col-sm-12'tr>>" +
        "<'row'<'col-sm-12 col-datatables-options'lip>>",
   initComplete: function(settings, json) {
-   $('.col-table-actions .actions').html('<button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>')
+   $('.col-table-actions .actions').html('<button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>');
+   initTableActionListeners();
   },
   language: {
     emptyTable: "No kawaii pages found",
@@ -73,3 +63,17 @@ $moePagesTable.DataTable({
   stateSave: true
   
 });
+
+function initTableActionListeners() {
+  
+  $('.btn-add-moe-page').on('click', function () {
+    
+    var $getMoePageFormModalPromise = $.get('get-moe-page-form-modal');
+    
+    $getMoePageFormModalPromise.done(function(modalContent) {
+      $maintenanceModalLarge.find('.modal-dialog').html(modalContent);
+      $maintenanceModalLarge.modal('show');
+    });
+    
+  });
+};
