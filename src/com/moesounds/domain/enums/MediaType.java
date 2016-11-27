@@ -10,11 +10,11 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public enum MediaType implements MappedEnum {
 
-    PAGE_BACKGROUND("PAGE BACKGROUND", "Cool description"),
-    BACKGROUND_INNER("BACKGROUND INNER", "Cool description"),
-    CAROUSEL_IMAGE_SMALL("CAROUSEL IMAGE SMALL", "Cool description"),
-    CAROUSEL_IMAGE_BIG("CAROUSEL IMAGE BIG", "Cool description"),
-    SOUND_FILE("SOUND FILE", "Cool description");
+    PAGE_BACKGROUND("PAGE BACKGROUND", "Background image of the entire page. Wide-screen format is reccomended"),
+    BACKGROUND_INNER("BACKGROUND INNER", "Background image of the center box. Roughly 700x470 pixels"),
+    CAROUSEL_IMAGE("CAROUSEL IMAGE", "Roughly 200x200 pixels"),
+    THUMBNAIL_ICON("THUMBNAIL ICON", "Roughly 50x50 pixels"),
+    SOUND_FILE("SOUND FILE", "Really short sound file. Less than 3 seconds");
 
     private final String name;
     private final String fileSuggestion;
@@ -24,10 +24,10 @@ public enum MediaType implements MappedEnum {
         this.fileSuggestion = fileSuggestion;
     }
 
-    public static final List<MediaType> IMAGE_TYPES = Arrays.asList(PAGE_BACKGROUND, BACKGROUND_INNER, CAROUSEL_IMAGE_SMALL, CAROUSEL_IMAGE_BIG);
+    public static final List<MediaType> IMAGE_TYPES = Arrays.asList(PAGE_BACKGROUND, BACKGROUND_INNER, CAROUSEL_IMAGE, THUMBNAIL_ICON);
     public static final List<MediaType> SOUND_TYPES = Arrays.asList(SOUND_FILE);
 
-    // Modified Accessors ******************
+    // Modified Accessors *********************************************************************************************
 
     /**
      * Look up a MediaType by it's DB name.
@@ -58,7 +58,8 @@ public enum MediaType implements MappedEnum {
         return WordUtils.capitalizeFully(this.name, new char[] {' '});
     }
 
-    // Default Accessors *******************
+    // Default Accessors **********************************************************************************************
+
     public String getName() {
         return name;
     }

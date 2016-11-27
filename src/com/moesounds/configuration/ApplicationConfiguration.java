@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
@@ -38,8 +40,11 @@ import ch.qos.logback.core.Appender;
 @Configuration
 @Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})
+@PropertySource("classpath:resource/project.properties")
 public class ApplicationConfiguration {
 
+    @Autowired
+    private ServletContext servletContext;
     @Autowired
     private Environment springEnvironment;
     @Autowired
@@ -74,6 +79,11 @@ public class ApplicationConfiguration {
         Level loggingLevel = isDevelopment ? Level.DEBUG : Level.INFO;
 
         root.setLevel(loggingLevel);
+    }
+
+    @PostConstruct
+    public void addServletContextProperties() {
+        servletContext.setAttribute("projectVersion", springEnvironment.getProperty("application.version"));
     }
 
 }

@@ -16,7 +16,7 @@ public class PageFormSaveResult {
     public PageFormSaveResult(Page page) {
         this.pageId = page.getPageId();
 
-        Media smallCarousel = page.getMediaWithMediaType(MediaType.CAROUSEL_IMAGE_SMALL);
+        Media smallCarousel = page.getMediaWithMediaType(MediaType.CAROUSEL_IMAGE);
 
         this.smallCarouselFileType = smallCarousel.getFileType();
         this.smallCarouselAsBase64 = smallCarousel.getFileDataAsBase64();

@@ -50,7 +50,7 @@
   	    </div>
   	  </nav>
     
-      <h2>Moe Pages</h2>
+      <h2>Moe Pages ${projectVersion}</h2>
       
       <div class="row">
       
@@ -74,7 +74,7 @@
                     <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
                   </td>
                   <td>
-                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE_SMALL')}"/>
+                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE')}"/>
                     <c:if test="${not empty carouselSmall}">
                       <img class="page-carousel-image-small" src="data:${carouselSmall.fileType};base64,${carouselSmall.fileDataAsBase64}">
                     </c:if>
