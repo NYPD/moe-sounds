@@ -95,11 +95,11 @@
     </div>
     
     <!-- Modals -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="maintenance-modal-large">
+    <%@ include file = "global-modals.jsp" %>
+    <div class="modal fade" id="maintenance-modal-large" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-lg" role="document"></div>
     </div>
-    
-    <div class="modal fade" tabindex="-1" role="dialog" id="maintenance-modal-small">
+    <div class="modal fade" id="maintenance-modal-small" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm" role="document"></div>
     </div>
     
@@ -111,7 +111,7 @@
     <script src="${context}/js/global.js"></script>
     <script src="${context}/js/maintenance.js"></script>
     
-    <!-- Page Image Preview Bacfrop Thingy -->
+    <!-- Page Image Preview Backdrop Thingy -->
     <div class="preview-image-container">
 	    <img class="img-rounded img-preview">
 	  </div>

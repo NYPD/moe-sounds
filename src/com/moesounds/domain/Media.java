@@ -5,8 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.moesounds.domain.enums.MediaType;
@@ -21,8 +19,6 @@ public class Media {
     private String fileType;
     private byte[] fileData;
     private long fileSize;
-
-    private final Logger logger = LoggerFactory.getLogger(Media.class);
 
     // For MyBatis
     protected Media() {};
@@ -51,8 +47,7 @@ public class Media {
             this.fileSize = file.getSize();
 
         } catch (IOException e) {
-            logger.error("Issues on getBytes() for the MultipartFile given to update", e);
-            throw new FileReadException(e);
+            throw new FileReadException("Issues on getBytes() for the MultipartFile given to update", e);
         }
     }
 

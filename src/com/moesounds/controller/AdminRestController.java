@@ -60,7 +60,6 @@ public class AdminRestController {
 
     @RequestMapping(value = "/delete-page", method = RequestMethod.POST)
     public void deletePage(@RequestParam("pageId") int pageId) {
-
         moeSoundsService.deletePage(pageId);
     }
 
