@@ -54,7 +54,7 @@
       
       <div class="row">
       
-	      <div class="col-xs-12 table-container">
+	      <div class="col-xs-12 table-container table-loading">
         
 	        <table class="table table-striped table-moe-pages" id="moe-pages">
 	          <thead>
@@ -90,10 +90,6 @@
 	      
 	      </div>
 	      
-	      <div class="col-xs-12 text-right">
-	        <button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>
-	      </div>
-      
       </div>
       
     </div>

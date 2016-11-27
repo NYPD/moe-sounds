@@ -12,9 +12,9 @@ public enum MediaType implements MappedEnum {
 
     PAGE_BACKGROUND("PAGE BACKGROUND", "Cool description"),
     BACKGROUND_INNER("BACKGROUND INNER", "Cool description"),
-    SOUND_FILE("SOUND FILE", "Cool description"),
     CAROUSEL_IMAGE_SMALL("CAROUSEL IMAGE SMALL", "Cool description"),
-    CAROUSEL_IMAGE_BIG("CAROUSEL IMAGE BIG", "Cool description");
+    CAROUSEL_IMAGE_BIG("CAROUSEL IMAGE BIG", "Cool description"),
+    SOUND_FILE("SOUND FILE", "Cool description");
 
     private final String name;
     private final String fileSuggestion;
