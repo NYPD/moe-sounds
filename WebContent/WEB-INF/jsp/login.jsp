@@ -1,18 +1,51 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en-us">
 
   <head>
-    <title>Login</title>
-    
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Moe Login</title>
+
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="${context}/css/global.css" rel="stylesheet">
+    <link href="${context}/css/login.css" rel="stylesheet">
+    
   </head>
+  
   <body>
   
-     <a style="height: 60px; width: 150px; background-color: purple;display: inline-block; padding-top: 35px; color: white;"  href="admin/api/google-oauth-login">Sign In With Googles</a>
+    <div class="container">
+    
+      <div class="login-container">
+      
+        <h2>Please Sign In</h2>
+        
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" class="stay-signed-in"> Stay signed in
+          </label>
+        </div>
+        
+        <div class="vertical-rule"></div>
+        
+        <div class="login-options">
+          <img class="login-image" alt="Google Login" src="${context}/images/btn_google_signin_dark_normal_web.png" data-href="admin/api/google-oauth-login">
+        </div>
+        
+      </div>
+      
+    </div>
     
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="${context}/js/login.js"></script>
+    
   </body>
+  
 </html>
