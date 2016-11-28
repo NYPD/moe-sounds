@@ -1,0 +1,115 @@
+/* Positioning */
+/* Box-model */
+/* Typography */
+/* Visual */
+/* Misc */
+
+/* Datatables *************************************************************************************/
+
+.dataTables_wrapper .col-table-actions,
+.dataTables_wrapper .col-datatables-options {
+  text-align: right;
+}
+
+.dataTables_wrapper .col-table-actions .actions {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.dataTables_wrapper .col-table-actions .actions > * {
+  margin-left: 10px;
+}
+
+.dataTables_wrapper .col-datatables-options > div {
+  vertical-align: middle;
+  margin-left: 25px !important;
+  padding: 0 !important;
+  display: inline-block;
+}
+
+.dataTables_wrapper .col-datatables-options .pagination {
+  margin: 0 !important;
+}
+
+.dataTables_wrapper .col-datatables-options .dataTables_length label {
+  margin: 0 !important;
+}
+
+.dataTables_wrapper .col-datatables-options .dataTables_length label select {
+  padding: 0;
+  width: auto;
+}
+
+/* Main Page **************************************************************************************/
+body {
+  padding-top: 20px;
+  min-width: 500px;
+}
+
+.navbar .navbar-brand img,
+.navbar .user-profile-picture {
+  display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+.table-moe-pages .page-thumbnail-image {
+  height: 45px;
+}
+
+.table-moe-pages tbody tr  {
+  height: 61px;
+}
+
+.table-moe-pages tbody tr td {
+  vertical-align: middle !important;
+}
+
+.table-moe-pages .table-actions {
+  text-align: center;
+}
+
+.table-moe-pages .table-actions i {
+  cursor: pointer;
+}
+
+.table-moe-pages .table-actions i:hover {
+  color: #286090; /* Primary Bootstrap colour*/
+}
+
+.table-moe-pages .table-actions i:nth-child(0n+2) {
+  margin-left: 15px;
+}
+
+
+/* Image Preview Container Stuff ******************************************************************/
+.preview-image-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1060;
+  padding: 75px;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.show-preview-image .preview-image-container{
+  display: block;
+}
+
+.img-preview {
+  
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  
+  margin: auto;
+  
+  max-width: 85%;
+  max-height: 85%;
+  
+}

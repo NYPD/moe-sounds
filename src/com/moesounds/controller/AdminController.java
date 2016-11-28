@@ -1,6 +1,7 @@
 package com.moesounds.controller;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,10 +26,8 @@ public class AdminController {
 
     @Autowired
     private MoeSoundsService moeSoundsService;
-
     @Autowired
     private MoeSoundsSessionBean moeSoundsSessionBean;
-
     @Autowired
     @GoogleLogin
     private ApiLoginService googleLoginService;
@@ -68,9 +67,9 @@ public class AdminController {
 
         ModelAndView mav = new ModelAndView("maintenance");
 
-        Page randomPage = moeSoundsService.getRandomPage();
+        Collection<Page> allPages = moeSoundsService.getAllPages();
 
-        mav.addObject("page", randomPage);
+        mav.addObject("allPages", allPages);
 
         return mav;
     }
