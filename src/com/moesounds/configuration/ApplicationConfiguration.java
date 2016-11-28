@@ -40,10 +40,10 @@ import ch.qos.logback.core.Appender;
 @Configuration
 @Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})
-@PropertySource("classpath:resource/project.properties")
+@PropertySource(value = "classpath:resource/project.properties")
 public class ApplicationConfiguration {
 
-    @Autowired
+    @Autowired(required = false)
     private ServletContext servletContext;
     @Autowired
     private Environment springEnvironment;
@@ -83,7 +83,9 @@ public class ApplicationConfiguration {
 
     @PostConstruct
     public void addServletContextProperties() {
-        servletContext.setAttribute("projectVersion", springEnvironment.getProperty("application.version"));
+
+        if (servletContext != null)
+            servletContext.setAttribute("projectVersion", springEnvironment.getProperty("application.version"));
     }
 
 }

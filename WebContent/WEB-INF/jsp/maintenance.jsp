@@ -74,9 +74,9 @@
                     <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
                   </td>
                   <td>
-                    <c:set var="carouselSmall" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE')}"/>
-                    <c:if test="${not empty carouselSmall}">
-                      <img class="page-carousel-image-small" src="data:${carouselSmall.fileType};base64,${carouselSmall.fileDataAsBase64}">
+                    <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
+                    <c:if test="${not empty thumbnail}">
+                      <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
                     </c:if>
                   </td>
                   <td>${page.pageName}</td>
