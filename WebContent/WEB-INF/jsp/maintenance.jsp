@@ -62,7 +62,7 @@
 	              <th></th>
 	              <th></th>
 	              <th>Page Name</th>
-                <th>Missing Media Count</th>
+                  <th>Missing Media Count</th>
 	              <th>Click Count</th>
 	            </tr>
 	          </thead>
