@@ -36,7 +36,7 @@
             </button>
   	        <a class="navbar-brand" href="${context}/random">
               <img src="https://v.dreamwidth.org/231938/328523">
-              <span>Moe Sounds</span>
+              <span>Moe Sounds ${projectVersion}</span>
   	        </a>
   	      </div>
           
@@ -50,7 +50,7 @@
   	    </div>
   	  </nav>
     
-      <h2>Moe Pages ${projectVersion}</h2>
+      <h2>Moe Pages</h2>
       
       <div class="row">
       
