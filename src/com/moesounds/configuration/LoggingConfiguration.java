@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.moesounds.annotation.DevelopmentProfile;
 import com.moesounds.annotation.ProductionProfile;
+import com.moesounds.annotation.TestProfile;
 import com.moesounds.util.AppConstants;
 
 import ch.qos.logback.classic.LoggerContext;
@@ -24,6 +25,7 @@ public class LoggingConfiguration {
 
     @Bean
     @DevelopmentProfile
+    @TestProfile
     public ConsoleAppender<ILoggingEvent> consoleAppender() {
 
         ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();

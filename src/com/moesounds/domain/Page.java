@@ -32,6 +32,9 @@ public class Page {
     }
 
     public Media getMediaWithMediaType(MediaType mediaType) {
+
+        getMedia();// Media is lazy loaded and might not be present
+
         return this.media.get(mediaType);
     }
 
@@ -41,6 +44,14 @@ public class Page {
 
         Media mediaToRemove = media.remove(mediaType);
         if (mediaToRemove != null) mediaToRemove.setPage(null);
+    }
+
+    public int getMissingMediaCount() {
+
+        getMedia();// Media is lazy loaded and might not be present
+
+        return MediaType.values().length - (media == null ? 0 : media.size());
+
     }
 
     // Default Accessors *********************************

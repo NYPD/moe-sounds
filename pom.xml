@@ -4,7 +4,7 @@
   <groupId>com.moesounds</groupId>
   <artifactId>moe-sounds</artifactId>
   <name>Moe Sounds</name>
-  <version>1.0.0-beta</version>
+  <version>0.1.0</version>
   <packaging>war</packaging>
   <inceptionYear>2016</inceptionYear>
   
@@ -40,6 +40,12 @@
       </roles>
     </developer>
   </developers>
+  
+  <properties>
+    <spring.version>4.3.4.RELEASE</spring.version>
+    <msJackson.version>2.8.2</msJackson.version>
+    <logback.version>1.1.7</logback.version>
+  </properties>
   
   <dependencies>
   
@@ -194,6 +200,7 @@
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>2.1.0-beta.123</version>
+      <scope>test</scope>
     </dependency>
   
   </dependencies>
@@ -203,13 +210,45 @@
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>junit</testSourceDirectory>
     
+    <finalName>${project.artifactId}##${project.version}</finalName>
+    
+    <resources>
+      <resource>
+        <targetPath>resource</targetPath>
+        <directory>src/resource</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    
+    <testResources>
+      <testResource>
+        <directory>junit/configuration</directory>
+      </testResource>
+      <testResource>
+        <targetPath>setup</targetPath>
+        <directory>junit/setup</directory>
+      </testResource>
+      <testResource>
+        <targetPath>resource/mybatis/mapper</targetPath>
+        <directory>src/resource/mybatis/mapper</directory>
+      </testResource>
+      <testResource>
+        <targetPath>resource/api/google</targetPath>
+        <directory>src/resource/api/google</directory>
+      </testResource>
+    </testResources>
+    
     <plugins>
+      
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <compilerArgs>
+            <compilerArg>-parameters</compilerArg>
+          </compilerArgs>
         </configuration>
       </plugin>
       
@@ -227,7 +266,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <warFile>${project.artifactId}##${project.version}</warFile>
+          <warFile>target/${project.artifactId}##${project.version}.war</warFile>
           <path>/</path>
         </configuration>
       </plugin>
@@ -235,12 +274,5 @@
     </plugins>
     
   </build>
-  
-  
-  <properties>
-    <spring.version>4.3.2.RELEASE</spring.version>
-    <msJackson.version>2.8.2</msJackson.version>
-    <logback.version>1.1.7</logback.version>
-  </properties>
   
 </project>

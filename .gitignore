@@ -1,9 +1,13 @@
-
 #################
 ## Grunt Stuff ##
 #################
 node_modules
 .sass-cache
+
+#################
+## Maven Stuff ##
+#################
+target
 
 ###################
 ## Eclipse Stuff ##

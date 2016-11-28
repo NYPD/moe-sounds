@@ -13,7 +13,15 @@ public class FileReadException extends RuntimeException {
 
     private static final long serialVersionUID = -6126425140516722051L;
 
-    public FileReadException(IOException e) {
+    private String errorMessage;
+
+    public FileReadException(String errorMessage, IOException e) {
         super(e);
+        this.errorMessage = errorMessage;
     }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
 }

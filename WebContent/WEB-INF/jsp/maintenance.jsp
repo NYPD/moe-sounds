@@ -1,186 +1,122 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE>
-<html lang="en-us">
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
-    <title>Admin</title>
-    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Moe Maintenance</title>
+
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/plug-ins/1.10.12/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet"/>
+    <link href="${context}/css/global.css" rel="stylesheet">
+    <link href="${context}/css/maintenance.css" rel="stylesheet">
+
   </head>
+  
   <body>
   
-  
-    
-    <form id="form1" method="post" action="/spring-mvc-file-upload/rest/cont/upload" enctype="multipart/form-data">
- 
- 	  	<input type="hidden" name="pageId" value="${page.pageId}">
- 
-      <!-- File input -->    
-      <label>Page Name</label><input type="text" name="pageName" value="${page.pageName}"><br/>
-      <label>CSS</label><textarea rows="10" cols="60" name="css">${page.css}</textarea><br/>
+    <div class="container">
       
+      <nav class="navbar navbar-default">
+  	    <div class="container-fluid">
+        
+  	      <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+  	        <a class="navbar-brand" href="${context}/random">
+              <img src="https://v.dreamwidth.org/231938/328523">
+              <span>Moe Sounds ${projectVersion}</span>
+  	        </a>
+  	      </div>
+          
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <p class="navbar-text navbar-right">
+              <span>Signed in as ${moeSoundsSessionBean.user.nickname}</span>
+              <img class="user-profile-picture" src="${moeSoundsSessionBean.user.userProfilePicture}">
+            </p>
+          </div>
+          
+  	    </div>
+  	  </nav>
     
-	    <c:forEach items="${page.media}" var="entry" varStatus="count">
-	    	
-	    	<c:choose>
-	    	  <c:when test="${entry.key.sound}">
-	    	 	 	<audio controls src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}"></audio><br/>
-	    	  </c:when>
-	    	  <c:otherwise>
-	    	  	<img class="${entry.key}" src="data:${entry.value.fileType};base64,${entry.value.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-	    	  </c:otherwise>
-	    	</c:choose>
-	    	
-	    	<input type="file"   name="formFiles[${count.index}].file" id="${entry.key}" data-file-hash="${entry.value.fileName}${entry.value.fileSize}"/><br/>
-	      <input type="hidden" name="formFiles[${count.index}].mediaId" value="${entry.value.mediaId}">
-	    	<input type="hidden" name="formFiles[${count.index}].mediaType"class="media-type"  value="${entry.key}">
-	    	
-	    </c:forEach>
-     
-      <input type="button" value="Upload" class="button"/>
-    </form>
+      <h2>Moe Pages</h2>
+      
+      <div class="row">
+      
+	      <div class="col-xs-12 table-container table-loading">
+        
+	        <table class="table table-striped table-moe-pages" id="moe-pages">
+	          <thead>
+	            <tr>
+	              <th></th>
+	              <th></th>
+	              <th>Page Name</th>
+                <th>Missing Media Count</th>
+	              <th>Click Count</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <c:forEach items="${allPages}" var="page">
+	              <tr data-page-id="${page.pageId}">
+                  <td>
+                    <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
+                  </td>
+                  <td>
+                    <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
+                    <c:if test="${not empty thumbnail}">
+                      <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
+                    </c:if>
+                  </td>
+                  <td>${page.pageName}</td>
+                  <td>${page.missingMediaCount}</td>
+                  <td>${page.clickCount}</td>              
+	              </tr>
+	            </c:forEach>
+	          </tbody>
+	        
+	        </table>
+	      
+	      </div>
+	      
+      </div>
+      
+    </div>
     
-    <button id="clear-form">Clear Form for Insert</button>
+    <!-- Modals -->
+    <%@ include file = "global-modals.jsp" %>
+    <div class="modal fade" id="maintenance-modal-large" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document"></div>
+    </div>
+    <div class="modal fade" id="maintenance-modal-small" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document"></div>
+    </div>
     
+
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="${context}/js/vendor/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
+    <script src="${context}/js/global.js"></script>
+    <script src="${context}/js/maintenance.js"></script>
     
-    var FormUtil = new function() {
-    	this.storeInitialFormValues = function storeInitialFormValues($selector){
-
-    		var $defaultSelector = $('input,textarea,select');
-
-    		$selector ? $selector: $selector = $defaultSelector;
-
-    		$selector.each(function() {
-
-    			var $this = $(this);
-
-    			var inputType = $this.attr('type');
-    			
-    			var isCheckbox = inputType === "checkbox";
-          var isRadio = inputType === "radio";
-          var isFile = inputType === "file";
-
-    			if(isCheckbox || isRadio){
-    				$this.data('initialValue', $this.is(':checked'));
-    			}else if(isFile){
-    				$this.data('initialValue', $this.data('file-hash'));
-    			}else {
-    				$this.data('initialValue', $this.val());
-    			}
-
-    		});
-    	};
-
-    	this.checkIfFormValuesIsDirty = function checkIfFormValuesIsDirty($selector){
-    		var isDirty = false;
-
-    		var $defaultSelector = $('input,textarea,select');
-
-    		$selector ? $selector: $selector = $defaultSelector;
-
-    		$selector.each(function () {
-
-    			var $this = $(this);
-
-    			var noInitialValue = $this.data('initialValue') === undefined;
-    			if(noInitialValue) return true;
-
-					var inputType = $this.attr('type');
-    			
-    			var isCheckbox = inputType === "checkbox";
-          var isRadio = inputType === "radio";
-          var isFile = inputType === "file";
-
-
-    			var valueChanged = false;
-
-    			if(isCheckbox || isRadio){
-    				valueChanged = $this.data('initialValue') != $this.is(':checked');
-    			}else if(isFile){
-    				valueChanged = ($(this).data('initialValue').length !== 0 &&  $(this).val().length !== 0) && '' + $(this).data('initialValue') !== $(this)[0].files[0].name + '' + $(this)[0].files[0].size;
-    			}else{
-    				valueChanged = $this.data('initialValue') != $this.val();
-    			}
-
-	        if(valueChanged){
-	            isDirty = true;
-	            return false;
-	        }
-
-    	    });
-
-    	   return isDirty;
-    	};
-    	
-    };
-    
-    FormUtil.storeInitialFormValues();
-    
-    	$('.button').on('click', function() {
-    	  
-    	  var $form = $('form');
-    	  
-    	 	var formData = new FormData($form[0]);    	  
-    	  
-    	  $('form input[type="file"]').each(function() {
-    		  
-    		  
-    		  var isDirty = FormUtil.checkIfFormValuesIsDirty($(this));
-    		  
-    		  
-    		  if(isDirty) return true;
-    		  
-    		  var name = $(this).attr('name');
-    		  var formFileGroup = name.match(/formFiles\[\d{1}\]/);
-    		  
-    		  //This might not be supported in IE or Edge, we might need to delete the name from the input
-    		  formData.delete(name);
-    		  formData.delete(formFileGroup + '.mediaId');
-    		  formData.delete(formFileGroup + '.mediaType');
-    		  
-    	  });
-    	  
-    	  
-    	  
-    	  $.ajax({
-    	    url: 'save-page-form',
-    	    type: 'POST',
-    	    processData: false, 
-    	    contentType: false,
-    	    data: formData
-    	    
-    	  }).done(function(data) {
-    	    alert("Save successfullllll");
-    	  });
-    	  
-    	});
-    	
-    	$('input[type="file"]').on('change', function() {
-    	  
-    	  var className = this.id;
-    	  var imageFile = this.files[0];
-    	  
-    	  
-    	  var reader  = new FileReader();
-    	  
-    	  reader.readAsDataURL(imageFile);
-    	  
-    	  $(reader).on('load' ,function(event) {
-          	$('img.' + className).attr("src", event.target.result);
-      	  });
-    	  
-    	});
-    	
-    	
-    	$('#clear-form').on('click', function() {
-    		$('form input').not('.media-type, .button').val('');
-    	});
-    
-    </script>
+    <!-- Page Image Preview Backdrop Thingy -->
+    <div class="preview-image-container">
+	    <img class="img-rounded img-preview">
+	  </div>
+	  
   </body>
+  
 </html>
+
