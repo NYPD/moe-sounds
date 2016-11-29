@@ -4,7 +4,7 @@ var $maintenanceModalLarge = $('#maintenance-modal-large');
 var $maintenanceModalSmall = $('#maintenance-modal-small');
 
 /* Listeners **************************************************************************************/
-$('.edit-page').on('click', function () {
+$moePagesTable.on('click', '.edit-page', function () {
   
   var pageId = $(this).closest('tr').data('pageId');
   
@@ -17,7 +17,8 @@ $('.edit-page').on('click', function () {
   
 });
 
-$('.delete-page').on('click', function () {
+
+$moePagesTable.on('click', '.delete-page', function () {
   
   var $trToRemove = $(this).closest('tr');
   

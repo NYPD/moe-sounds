@@ -23,14 +23,14 @@
 		  <div class="form-group">
 		    <label for="page-name" class="col-sm-3 control-label">Page Name</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}">
+		      <input type="text" class="form-control alpha alpha-numeric" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="css" class="col-sm-3 control-label">CSS</label>
 		    <div class="col-sm-9">
-		      <textarea class="form-control" id="css" name="css" rows="10" cols="60">${page.css}</textarea>
+		      <textarea class="form-control alpha optional" id="css" name="css" rows="10" cols="60">${page.css}</textarea>
 		    </div>
 		  </div>
 		  

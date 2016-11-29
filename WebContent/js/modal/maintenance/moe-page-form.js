@@ -75,6 +75,11 @@ $('.preview-image-container').on('click', function(event) {
 });
 
 $('.btn-save-moe-page').on('click', function() {
+
+  var invalidForm = !ritsu.validate($moePageForm);
+  if(invalidForm) return false;
+ 
+
   
   var formData = new FormData($moePageForm[0]);
   
@@ -108,7 +113,7 @@ $('.btn-save-moe-page').on('click', function() {
     
     var newRow = $moePagesTable.DataTable().row.add([
       '<i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i> <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>',
-      '<img class="page-carousel-image-small" src="data:' + pageFormResult.smallCarouselFileType + ';base64,' + pageFormResult.smallCarouselAsBase64 + '">',
+      '<img class="page-thumbnail-image" src="data:' + pageFormResult.thumbnailIconFileType + ';base64,' + pageFormResult.thumbnailIconAsBase64 + '">',
       pageFormResult.pageName,
       pageFormResult.missingMediaCount,
       pageFormResult.clickCount
