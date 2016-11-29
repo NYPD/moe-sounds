@@ -51,6 +51,4 @@ public class PageFormSaveResult {
         return clickCount;
     }
 
-
-
 }

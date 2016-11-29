@@ -17,6 +17,7 @@ $moePagesTable.on('click', '.edit-page', function () {
   
 });
 
+
 $moePagesTable.on('click', '.delete-page', function () {
   
   var $trToRemove = $(this).closest('tr');

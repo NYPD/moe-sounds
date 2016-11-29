@@ -75,10 +75,11 @@ $('.preview-image-container').on('click', function(event) {
 });
 
 $('.btn-save-moe-page').on('click', function() {
-	
-	var invalidForm = !ritsu.validate($moePageForm);
-	if(invalidForm) return false;
+
+  var invalidForm = !ritsu.validate($moePageForm);
+  if(invalidForm) return false;
  
+
   
   var formData = new FormData($moePageForm[0]);
   
