@@ -68,7 +68,7 @@
             
 	        </div>
 	        
-	        <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${entry.value.mediaId}">
+	        <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${media.mediaId}">
           <input type="hidden" name="formFiles[${count.index}].mediaType" class="media-type" value="${mediaType}">
 	        
 	      </div>

@@ -111,16 +111,31 @@ $('.btn-save-moe-page').on('click', function() {
     
   }).done(function(pageFormResult) {
     
-    var newRow = $moePagesTable.DataTable().row.add([
-      '<i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i> <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>',
-      '<img class="page-thumbnail-image" src="data:' + pageFormResult.thumbnailIconFileType + ';base64,' + pageFormResult.thumbnailIconAsBase64 + '">',
-      pageFormResult.pageName,
-      pageFormResult.missingMediaCount,
-      pageFormResult.clickCount
-      
-    ]).draw().node();
+    var dataTableApi = $moePagesTable.DataTable();
+    var pageId = pageFormResult.pageId;
     
-    $(newRow).data('page-id', pageFormResult.pageId);
+    var rowToUpdate = dataTableApi.row('tr[data-page-id="' + pageId + '"]');
+    var shouldUpdate = rowToUpdate.length > 0;
+    
+    var rowData = [
+                    '<i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i> <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>',
+                    '<img class="page-thumbnail-image" src="data:' + pageFormResult.thumbnailIconFileType + ';base64,' + pageFormResult.thumbnailIconAsBase64 + '">',
+                    pageFormResult.pageName,
+                    pageFormResult.missingMediaCount,
+                    pageFormResult.clickCount
+                  ];
+    
+    if (shouldUpdate) {
+      
+      dataTableApi.row(rowToUpdate).data(rowData).draw();
+      
+    }else {
+      
+      var newRow = dataTableApi.row.add(rowData).draw().node();
+      
+      $(newRow).data('page-id', pageId);
+      
+    }
     
     $maintenanceModalLarge.modal('hide');
     $maintenanceModalLarge.find('.modal-dialog').empty();
