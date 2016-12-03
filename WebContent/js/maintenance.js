@@ -3,6 +3,9 @@ var $moePagesTable = $('#moe-pages');
 var $maintenanceModalLarge = $('#maintenance-modal-large');
 var $maintenanceModalSmall = $('#maintenance-modal-small');
 
+var $document = $(document);
+var $primaryContainer = $('body > .container');
+
 /* Listeners **************************************************************************************/
 $moePagesTable.on('click', '.edit-page', function () {
   
@@ -34,6 +37,14 @@ $moePagesTable.on('click', '.delete-page', function () {
   
 });
 
+
+$document.ajaxStart(function() {
+  $primaryContainer.addClass('page-loading');
+});
+
+$document.ajaxStop(function() {
+  $primaryContainer.removeClass('page-loading');
+});
 
 /* Initialization *********************************************************************************/
 $moePagesTable.DataTable({
