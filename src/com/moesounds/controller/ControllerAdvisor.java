@@ -27,7 +27,7 @@ public class ControllerAdvisor {
     public ModelAndView handleLoginIOException(LoginIOException exception) {
 
         ModelAndView modelAndView = new ModelAndView("login");
-        modelAndView.addObject("loginErrorMessage", "The Internet does not seem to work anymore, try again at a later time");
+        modelAndView.addObject("loginErrorMessage", "The Internet does not seem to work anymore, try again at a later time.");
 
         return modelAndView;
     }
@@ -47,7 +47,7 @@ public class ControllerAdvisor {
         ModelAndView modelAndView = new ModelAndView("login");
         modelAndView.addObject("loginErrorMessage", "Can't login you in if you don't grant "
                 + AppConstants.APPLICATION_NAME
-                + " minimal permissions bro. Unless something horrible went wrong then try again later.");
+                + " minimal permissions bro. Unless something horrible went wrong try again later.");
 
         return modelAndView;
     }
