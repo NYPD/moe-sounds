@@ -21,7 +21,7 @@
   <body>
   
     <div class="container">
-    
+      
       <div class="login-container">
       
         <h2>Please Sign In</h2>
@@ -40,10 +40,23 @@
         
       </div>
       
+      <c:if test="${not empty loginErrorMessage}">
+        <div class="alert alert-warning alert-dismissible col-xs-12 col-sm-offset-2 col-sm-8" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <span>${loginErrorMessage}</span>
+        </div>
+      </c:if>
+      
+      
+      
+      
     </div>
     
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="${context}/js/vendor/bootstrap.min.js"></script>
     <script src="${context}/js/login.js"></script>
     
   </body>
