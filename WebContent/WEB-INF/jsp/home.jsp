@@ -7,7 +7,7 @@
     <title>Home</title>
     
     <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
   </head>
   <body>
   

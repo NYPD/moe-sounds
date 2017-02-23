@@ -7,6 +7,32 @@ textarea {
   visibility: hidden;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f8f8f8;
+}
+
+.footer .navbar {
+  margin-bottom: 0;
+  border: none;
+}
+
+.footer .navbar .navbar-nav li:hover {
+  background-color: #337ab7;
+}
+
+.footer .navbar .navbar-nav li a * {
+  vertical-align: middle;
+}
+
+.footer .navbar .navbar-nav li:hover a {
+  color: #ffffff;
+  cursor: pointer;
+}
+
 
 /* Spinner CSS3 Animation from MattIn4D ***********************************************************/
 .content-loading {

@@ -95,7 +95,7 @@
     </div>
     
     <!-- Modals -->
-    <%@ include file = "global-modals.jsp" %>
+    <%@ include file = "fragments/global-modals.jsp" %>
     <div class="modal fade" id="maintenance-modal-large" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-lg" role="document"></div>
     </div>
