@@ -183,7 +183,7 @@ public class GoogleLoginService implements ApiLoginService {
 
         Details webDetails = googleClientSecrets.getWeb();
 
-        GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0);
+        GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0); // TODO update this on the fly
         CLIENT_ID = webDetails.getClientId();
         CLIENT_SECRET = webDetails.getClientSecret();
     }

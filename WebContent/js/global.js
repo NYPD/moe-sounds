@@ -2,6 +2,9 @@
 var $allModals = $('.modal');
 var $globalSmallModal = $('#global-small-modal');
 
+/* Initialization *********************************************************************************/
+selectTab($('body').data('tab-id'));
+
 /* Listeners **************************************************************************************/
 $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   
@@ -37,6 +40,10 @@ function popupCenter(url, title, w, h) {
   // Puts focus on the newWindow
   if (window.focus) newWindow.focus();
   
+}
+
+function selectTab(id) {
+  $('#' + id).addClass('active');
 }
 
 /* Document Ready Stuff ***************************************************************************/
