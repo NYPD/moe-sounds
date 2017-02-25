@@ -117,9 +117,12 @@ $('.btn-save-moe-page').on('click', function() {
     var rowToUpdate = dataTableApi.row('tr[data-page-id="' + pageId + '"]');
     var shouldUpdate = rowToUpdate.length > 0;
     
+    var noThumbnailSubmitted = pageFormResult.thumbnailIconFileType === null;
+    var imgString = noThumbnailSubmitted? '' : '<img class="page-thumbnail-image" src="data:' + pageFormResult.thumbnailIconFileType + ';base64,' + pageFormResult.thumbnailIconAsBase64 + '">';
+    
     var rowData = [
                     '<i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i> <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>',
-                    '<img class="page-thumbnail-image" src="data:' + pageFormResult.thumbnailIconFileType + ';base64,' + pageFormResult.thumbnailIconAsBase64 + '">',
+                    imgString,
                     pageFormResult.pageName,
                     pageFormResult.missingMediaCount,
                     pageFormResult.clickCount
