@@ -32,7 +32,7 @@ $moePageForm.on('change', 'input[type="file"]', function() {
 });
 
 $moePageForm.on('click', '.btn-remove-file', function(event) {
-  $(this).closest('.input-group').find('input.file-data').val('').trigger('change');
+  $(this).closest('.input-group').find('input.file-data').val('').attr('data-simple-file-hash', '').trigger('change');
 });
 
 $moePageForm.on('click', '.btn-preview-image', function() {
