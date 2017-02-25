@@ -133,7 +133,7 @@ $('.btn-save-moe-page').on('click', function() {
       
       var newRow = dataTableApi.row.add(rowData).draw().node();
       
-      $(newRow).data('page-id', pageId);
+      $(newRow).attr('data-page-id', pageId);
       
     }
     
