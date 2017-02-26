@@ -18,15 +18,6 @@ public class Media {
     private byte[] fileData;
     private long fileSize;
 
-    // For MyBatis
-    protected Media() {};
-
-    public Media(Page page, MultipartFile file, MediaType mediaType) {
-        this.pageId = page.getPageId();
-        this.mediaType = mediaType;
-        this.updateMedia(file);
-    }
-
     // Modified Accessors ********************************************
     public void updateMedia(MultipartFile file) {
 
@@ -93,6 +84,15 @@ public class Media {
     }
     public long getFileSize() {
         return fileSize;
+    }
+
+    // For MyBatis ***************************************************
+    protected Media() {};
+
+    public Media(Page page, MultipartFile file, MediaType mediaType) {
+        this.pageId = page.getPageId();
+        this.mediaType = mediaType;
+        this.updateMedia(file);
     }
 
     @Override
