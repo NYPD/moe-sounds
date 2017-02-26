@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="${context}/random">
-        <img src="https://v.dreamwidth.org/231938/328523">
+        <img src="${context}/images/logo.png">
         <span>Moe Sounds ${projectVersion}</span>
       </a>
     </div>

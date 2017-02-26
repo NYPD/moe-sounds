@@ -13,6 +13,7 @@
     
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
     <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
     <link href="${context}/css/global.css" rel="stylesheet">
     <link href="${context}/css/moe-list.css" rel="stylesheet">
     
