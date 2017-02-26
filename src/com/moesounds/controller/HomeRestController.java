@@ -64,4 +64,50 @@ public class HomeRestController {
 
     }
 
+    @RequestMapping(value = "/get-page-background/{pageId}", method = RequestMethod.GET)
+    public void getPageBackground(@PathVariable("pageId") int pageId, HttpServletResponse response) {
+
+        Page specificPage = moeSoundsService.getSpecificPage(pageId);
+        Media media = specificPage.getMediaWithMediaType(MediaType.PAGE_BACKGROUND);
+
+        if (media == null)
+            return;
+
+        try {
+
+            byte[] fileData = media.getFileData();
+            InputStream inputStream = new ByteArrayInputStream(fileData);
+
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ex) {
+            logger.info("Error writing page background file to output stream. Filename was '{}'", media.getFileName(), ex);
+            throw new RuntimeException("IOError writing page background file to output stream");
+        }
+
+    }
+
+    @RequestMapping(value = "/get-background-inner/{pageId}", method = RequestMethod.GET)
+    public void getBackgroundInner(@PathVariable("pageId") int pageId, HttpServletResponse response) {
+
+        Page specificPage = moeSoundsService.getSpecificPage(pageId);
+        Media media = specificPage.getMediaWithMediaType(MediaType.BACKGROUND_INNER);
+
+        if (media == null)
+            return;
+
+        try {
+
+            byte[] fileData = media.getFileData();
+            InputStream inputStream = new ByteArrayInputStream(fileData);
+
+            IOUtils.copy(inputStream, response.getOutputStream());
+            response.flushBuffer();
+        } catch (IOException ex) {
+            logger.info("Error writing background inner file to output stream. Filename was '{}'", media.getFileName(), ex);
+            throw new RuntimeException("IOError writing background inner file to output stream");
+        }
+
+    }
+
 }

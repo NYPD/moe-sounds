@@ -14,7 +14,7 @@ ion.sound({
 });
 
 /* Listeners **************************************************************************************/
-$('#play-sound').on('click', function() {
+$('.sound_play').on('click', function() {
   ion.sound.play(currentPageId);
 });
 

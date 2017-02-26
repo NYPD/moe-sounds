@@ -5,6 +5,10 @@
 
   <head>
   
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
     <title>Home</title>
     <link rel="shortcut icon" href="${context}/images/favicon.ico" />
     
@@ -15,61 +19,82 @@
     
     
     <!-- How to use the specific page css -->
+    
+    <c:set var="pageBackground" value="${page.getMediaWithMediaType('PAGE_BACKGROUND')}"/>
+    <!-- Background Image Style -->
+    <style>
+      .wrapper {
+        background-image: url('get-page-background/${page.pageId}');
+      }
+      .thumb_large {
+        background-image: url('get-background-inner/${page.pageId}');
+      }
+    </style>
     <style>${page.css}</style>
   </head>
   <body>
-  
-    <!-- This 'page' object is being added to the jsp/html in the home controller, Java Resources > src > com.moesounds.controller > HomeController -->
 
-    <!-- page name -->
-    ${page.pageName}
-    
-    
-    <br/>
-    
-    <!-- page id -->
-    ${page.pageId}
-    
-    
-    <br/>
-    
-    <!-- page click count -->
-    ${page.clickCount}
-    
-    
-    <br/>
-    
-    <!-- CAROUSEL_IMAGE -->
-    <c:set var="carousel" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE')}"/>
-    <img  src="data:${carousel.fileType};base64,${carousel.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-    
-    <!-- PAGE_BACKGROUND  -->
-    <c:set var="pageBackground" value="${page.getMediaWithMediaType('PAGE_BACKGROUND')}"/>
-    <img src="data:${pageBackground.fileType};base64,${pageBackground.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-    
-    <!-- page BACKGROUND_INNER  -->
-    <c:set var="backgroundInner" value="${page.getMediaWithMediaType('BACKGROUND_INNER')}"/>
-    <img src="data:${backgroundInner.fileType};base64,${backgroundInner.fileDataAsBase64}" height="200" alt="Image preview..."><br/>
-    
-    <!-- page THUMBNAIL_ICON  -->
-    <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
-    <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}" height="200" >
-    
-    <!-- SOUND_FILE, but we dont need this  -->
-    <c:set var="soundFile" value="${page.getMediaWithMediaType('SOUND_FILE')}"/>
-    <audio controls src="data:${soundFile.fileType};base64,${soundFile.fileDataAsBase64}"></audio>
+    <div class="wrapper">
+  
+      <div class="top_bar">
+        <a href="#">
+          <p class="about">
+            <u>about</u>
+          </p>
+        </a>
+  
+      </div>
+  
+      <div class="main">
+  
+        <div class="main_inner">
+  
+          <div class="tag_line">
+            <p id="tag_text">We'll have a global tagline or something</p>
+          </div>
+  
+          <div class="hit_count">
+            <h3 id="count">${page.clickCount}</h3>
+          </div>
+  
+          <div class="thumb_large"></div>
+  
+          <div class="sound_play">
+            <p id="play_display">PLAY</p>
+          </div>
+  
+          <div class="sound_text">
+            <p id="play_text">${page.pageName}</p>
+          </div>
+  
+          <div class="share_links">
+            <div class="facebook">
+              <p id="share_text">Share on Facebook</p>
+            </div>
+  
+            <div class="twitter">
+              <p id="share_text">Share on Twitter</p>
+            </div>
+          </div>
+  
+          <div class="inner_other">
+            <p id="misc_text">moe-sounds v${projectVersion}</p>
+          </div>
   
   
-    <!-- to check if something is not empty, use the "var" or whichver c:set -->
-    <c:if test="${not empty thumbnail}">
-      cool stuff in here
-    </c:if>
+  
+        </div>
+  
+      </div>
+  
+  
+  
+      <div class="footer">
+        <p class="copyright">&copy;2016 moe-sounds</p>
+      </div>
+  
+    </div>
     
-    <button id="play-sound">Play moe sound</button>
-    
-    <!-- How to include a script, script can be found in `WebContent > js` 
-    always put vendor and more generic gs at the top and specific js at the bottom 
-    Also always put script files at the very end of the <body> to make the webpage appear to load faster for the user -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/ion.sound.min.js"></script>
     <script src="${context}/js/global.js"></script>
