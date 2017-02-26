@@ -49,9 +49,6 @@
         </div>
       </c:if>
       
-      
-      
-      
     </div>
     
     <!-- Scripts -->
