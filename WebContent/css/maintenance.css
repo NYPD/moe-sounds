@@ -5,7 +5,6 @@
 /* Misc */
 
 /* Datatables *************************************************************************************/
-
 .dataTables_wrapper .col-table-actions,
 .dataTables_wrapper .col-datatables-options {
   text-align: right;
@@ -41,18 +40,6 @@
 }
 
 /* Main Page **************************************************************************************/
-body {
-  padding-top: 20px;
-  min-width: 500px;
-}
-
-.navbar .navbar-brand img,
-.navbar .user-profile-picture {
-  display: inline-block;
-	width: 20px;
-	height: 20px;
-}
-
 .table-moe-pages .page-thumbnail-image {
   height: 45px;
 }

@@ -1,7 +1,5 @@
 package com.moesounds.domain;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -19,15 +17,6 @@ public class Media {
     private String fileType;
     private byte[] fileData;
     private long fileSize;
-
-    // For MyBatis
-    protected Media() {};
-
-    public Media(Page page, MultipartFile file, MediaType mediaType) {
-        this.pageId = page.getPageId();
-        this.mediaType = mediaType;
-        this.updateMedia(file);
-    }
 
     // Modified Accessors ********************************************
     public void updateMedia(MultipartFile file) {
@@ -53,25 +42,6 @@ public class Media {
 
     public String getFileDataAsBase64() {
         return Base64.getEncoder().encodeToString(this.fileData);
-    }
-
-    public long getLastModifiedDateInSeconds() {
-
-        File outputFile = new File("temp");
-
-        try (FileOutputStream outputStream = new FileOutputStream(outputFile);) {
-
-            outputStream.write(this.fileData); // write the bytes and your done.
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        long lastModified = outputFile.lastModified();
-
-        outputFile.delete();
-
-        return lastModified;
     }
 
     /**
@@ -114,6 +84,15 @@ public class Media {
     }
     public long getFileSize() {
         return fileSize;
+    }
+
+    // For MyBatis ***************************************************
+    protected Media() {};
+
+    public Media(Page page, MultipartFile file, MediaType mediaType) {
+        this.pageId = page.getPageId();
+        this.mediaType = mediaType;
+        this.updateMedia(file);
     }
 
     @Override

@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
@@ -48,6 +49,8 @@ public class GoogleLoginService implements ApiLoginService {
     private NetHttpTransport netHttpTransport;
     @Autowired
     private GoogleSessionBean googleSessionBean;
+    @Autowired
+    private Environment springEnvironment;
     @Autowired
     private AdminService adminService;
 
@@ -156,7 +159,7 @@ public class GoogleLoginService implements ApiLoginService {
     public void createUserCookies(HttpServletResponse response) {
 
         Cookie cookie = new Cookie(AppConstants.API_TYPE_COOKIE_NAME, ApiType.GOOGLE.name());
-        cookie.setPath("/admin/");
+        cookie.setPath("/admin");
         cookie.setMaxAge(AppConstants.FIVE_YEARS_IN_SECONDS);
 
         response.addCookie(cookie);
@@ -186,6 +189,19 @@ public class GoogleLoginService implements ApiLoginService {
         GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0);
         CLIENT_ID = webDetails.getClientId();
         CLIENT_SECRET = webDetails.getClientSecret();
+
+        // If it is a development profile, try and find a localhost redirect
+        String[] activeProfiles = springEnvironment.getActiveProfiles();
+        boolean isDevelopment = Arrays.stream(activeProfiles).filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x)).findAny().orElse(null) != null;
+
+        if (isDevelopment) {
+
+            for (String redirectUri : webDetails.getRedirectUris()) {
+                if (!redirectUri.contains("localhost")) continue;
+                GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
+            }
+
+        }
     }
 
 }
