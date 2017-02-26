@@ -4,7 +4,9 @@
 <html lang="en-us">
 
   <head>
+  
     <title>Home</title>
+    <link rel="shortcut icon" href="${context}/images/favicon.ico" />
     
     <!-- Styles -->
     

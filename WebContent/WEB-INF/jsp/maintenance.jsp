@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Moe Maintenance</title>
+    <link rel="shortcut icon" href="${context}/images/favicon.ico" />
 
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
