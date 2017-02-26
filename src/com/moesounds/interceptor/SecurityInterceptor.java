@@ -72,8 +72,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
 
         /*
-         * We should theoretically find a apitYpe, if for some unknown reason we don't, send the
-         * user to the login page
+         * We should theoretically find a api tYpe, if for some unknown reason we don't, send the user to the login page
          */
         boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
         if (noApiLoginService) {

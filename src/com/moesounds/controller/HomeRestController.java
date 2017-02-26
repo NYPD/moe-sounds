@@ -45,17 +45,20 @@ public class HomeRestController {
     public void getSoundFile(@PathVariable("pageId") int pageId, HttpServletResponse response) {
 
         Page specificPage = moeSoundsService.getSpecificPage(pageId);
-        Media mediaWithMediaType = specificPage.getMediaWithMediaType(MediaType.SOUND_FILE);
+        Media media = specificPage.getMediaWithMediaType(MediaType.SOUND_FILE);
+
+        if (media == null)
+            return;
 
         try {
 
-            byte[] fileData = mediaWithMediaType.getFileData();
+            byte[] fileData = media.getFileData();
             InputStream inputStream = new ByteArrayInputStream(fileData);
 
             IOUtils.copy(inputStream, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            logger.info("Error writing sound file to output stream. Filename was '{}'", mediaWithMediaType.getFileName(), ex);
+            logger.info("Error writing sound file to output stream. Filename was '{}'", media.getFileName(), ex);
             throw new RuntimeException("IOError writing sound file to output stream");
         }
 

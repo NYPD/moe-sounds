@@ -159,7 +159,7 @@ public class GoogleLoginService implements ApiLoginService {
     public void createUserCookies(HttpServletResponse response) {
 
         Cookie cookie = new Cookie(AppConstants.API_TYPE_COOKIE_NAME, ApiType.GOOGLE.name());
-        cookie.setPath("/admin/");
+        cookie.setPath("/admin");
         cookie.setMaxAge(AppConstants.FIVE_YEARS_IN_SECONDS);
 
         response.addCookie(cookie);

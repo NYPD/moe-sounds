@@ -24,7 +24,7 @@
         <li id="all-nav"><a href="${context}/all">All</a></li>
         
         <c:if test="${userLoggedIn}">
-          <li id="admin-nav"><a href="${context}/admin">Admin</a></li>
+          <li id="admin-nav"><a href="${context}/admin/maintenance">Admin</a></li>
         </c:if>
         
       </ul>
