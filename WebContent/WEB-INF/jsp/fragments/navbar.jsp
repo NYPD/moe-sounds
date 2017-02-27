@@ -14,7 +14,7 @@
       </button>
       <a class="navbar-brand" href="${context}/random">
         <img src="${context}/images/logo.png">
-        <span>Moe Sounds ${projectVersion}</span>
+        <span>${applicationName} ${projectVersion}</span>
       </a>
     </div>
     

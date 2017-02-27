@@ -75,19 +75,19 @@
           
             <div class="facebook">
               <div class="fb-share-button" 
-                data-href="http://www.moesounds.com" 
+                data-href="${applicationUrl}" 
                 data-layout="button_count">
               </div>
             </div>
   
             <div class="twitter">
-              <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="http:/moesounds.com" data-show-count="false">Tweet</a>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false">Tweet</a>
               <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
           </div>
   
           <div class="inner_other">
-            <p id="misc_text">moe-sounds v${projectVersion}</p>
+            <p id="misc_text">${projectName} v${projectVersion}</p>
           </div>
   
   

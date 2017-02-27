@@ -84,8 +84,13 @@ public class ApplicationConfiguration {
     @PostConstruct
     public void addServletContextProperties() {
 
-        if (servletContext != null)
+        if (servletContext != null) {
             servletContext.setAttribute("projectVersion", springEnvironment.getProperty("application.version"));
+            servletContext.setAttribute("applicationName", AppConstants.APPLICATION_NAME);
+            servletContext.setAttribute("applicationUrl", AppConstants.APPLICATION_URL);
+            servletContext.setAttribute("projectName", AppConstants.PROJECT_NAME);
+
+        }
     }
 
 }
