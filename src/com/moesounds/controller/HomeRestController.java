@@ -31,21 +31,19 @@ public class HomeRestController {
 
     @RequestMapping(value = "/get-click-count", method = RequestMethod.GET)
     public long getClickCount(@RequestParam("pageId") int pageId) {
-
         return moeSoundsService.getClickCount(pageId);
     }
 
     @RequestMapping(value = "/update-click-count", method = RequestMethod.POST)
     public void updateClickCount(@RequestParam("pageId") int pageId) {
-
         moeSoundsService.updateClickCount(pageId);
     }
 
-    @RequestMapping(value = "/get-sound-file/{pageId}", method = RequestMethod.GET)
-    public void getSoundFile(@PathVariable("pageId") int pageId, HttpServletResponse response) {
+    @RequestMapping(value = "/get-page-media/{pageId}-{mediaType}", method = RequestMethod.GET)
+    public void getPageMedia(@PathVariable("pageId") int pageId, @PathVariable("mediaType") MediaType mediaType, HttpServletResponse response) {
 
         Page specificPage = moeSoundsService.getSpecificPage(pageId);
-        Media media = specificPage.getMediaWithMediaType(MediaType.SOUND_FILE);
+        Media media = specificPage.getMediaWithMediaType(mediaType);
 
         if (media == null)
             return;
@@ -58,54 +56,8 @@ public class HomeRestController {
             IOUtils.copy(inputStream, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            logger.info("Error writing sound file to output stream. Filename was '{}'", media.getFileName(), ex);
-            throw new RuntimeException("IOError writing sound file to output stream");
-        }
-
-    }
-
-    @RequestMapping(value = "/get-page-background/{pageId}", method = RequestMethod.GET)
-    public void getPageBackground(@PathVariable("pageId") int pageId, HttpServletResponse response) {
-
-        Page specificPage = moeSoundsService.getSpecificPage(pageId);
-        Media media = specificPage.getMediaWithMediaType(MediaType.PAGE_BACKGROUND);
-
-        if (media == null)
-            return;
-
-        try {
-
-            byte[] fileData = media.getFileData();
-            InputStream inputStream = new ByteArrayInputStream(fileData);
-
-            IOUtils.copy(inputStream, response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException ex) {
-            logger.info("Error writing page background file to output stream. Filename was '{}'", media.getFileName(), ex);
-            throw new RuntimeException("IOError writing page background file to output stream");
-        }
-
-    }
-
-    @RequestMapping(value = "/get-background-inner/{pageId}", method = RequestMethod.GET)
-    public void getBackgroundInner(@PathVariable("pageId") int pageId, HttpServletResponse response) {
-
-        Page specificPage = moeSoundsService.getSpecificPage(pageId);
-        Media media = specificPage.getMediaWithMediaType(MediaType.BACKGROUND_INNER);
-
-        if (media == null)
-            return;
-
-        try {
-
-            byte[] fileData = media.getFileData();
-            InputStream inputStream = new ByteArrayInputStream(fileData);
-
-            IOUtils.copy(inputStream, response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException ex) {
-            logger.info("Error writing background inner file to output stream. Filename was '{}'", media.getFileName(), ex);
-            throw new RuntimeException("IOError writing background inner file to output stream");
+            logger.info("Error writing media file to output stream. Filename was '{}'", media.getFileName(), ex);
+            throw new RuntimeException("IOError writing media file to output stream");
         }
 
     }

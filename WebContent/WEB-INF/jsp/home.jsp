@@ -13,21 +13,15 @@
     <link rel="shortcut icon" href="${context}/images/favicon.ico" />
     
     <!-- Styles -->
-    
-    <!-- How to include a css file, css files can be found in `WebContent > css` -->
     <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
     
-    
-    <!-- How to use the specific page css -->
-    
-    <c:set var="pageBackground" value="${page.getMediaWithMediaType('PAGE_BACKGROUND')}"/>
     <!-- Background Image Style -->
     <style>
       .wrapper {
-        background-image: url('get-page-background/${page.pageId}');
+        background-image: url('/get-page-media/${page.pageId}-PAGE_BACKGROUND');
       }
       .thumb_large {
-        background-image: url('get-background-inner/${page.pageId}');
+        background-image: url('/get-page-media/${page.pageId}-BACKGROUND_INNER');
       }
     </style>
     <style>${page.css}</style>
