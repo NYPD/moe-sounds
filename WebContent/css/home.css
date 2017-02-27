@@ -242,6 +242,7 @@ a {
   top: 476px;
   left: 50%;
   margin-left: -344px;
+  z-index: 9000;
 }
 
 .facebook {
@@ -249,7 +250,6 @@ a {
   min-width: 145px;
   max-height: 18px;
   max-width: 145px;
-  background-color: #3b5998;
   border-radius: 0px;
   text-align: center;
   margin-right: 10px;
@@ -261,7 +261,6 @@ a {
   min-width: 145px;
   max-height: 18px;
   max-width: 145px;
-  background-color: #0084b4;
   border-radius: 0px;
   text-align: center;
   float: left;

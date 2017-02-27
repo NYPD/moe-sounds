@@ -25,6 +25,18 @@
     <style>${page.css}</style>
   </head>
   <body>
+  
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
     <div class="wrapper">
   
@@ -60,12 +72,17 @@
           </div>
   
           <div class="share_links">
+          
             <div class="facebook">
-              <p id="share_text">Share on Facebook</p>
+              <div class="fb-share-button" 
+                data-href="http://www.moesounds.com" 
+                data-layout="button_count">
+              </div>
             </div>
   
             <div class="twitter">
-              <p id="share_text">Share on Twitter</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="http:/moesounds.com" data-show-count="false">Tweet</a>
+              <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
           </div>
   
