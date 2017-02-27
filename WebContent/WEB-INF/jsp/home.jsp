@@ -14,8 +14,6 @@
     
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
-    
-    <!-- Background Image Style -->
     <style>
       .wrapper {
         background-image: url('/get-page-media/${page.pageId}-PAGE_BACKGROUND');
