@@ -13,7 +13,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="${context}/random">
-        <img src="${context}/images/logo-small.png">
+        <img src="${context}/images/logo-size1.png">
         <span>${applicationName} ${projectVersion}</span>
       </a>
     </div>

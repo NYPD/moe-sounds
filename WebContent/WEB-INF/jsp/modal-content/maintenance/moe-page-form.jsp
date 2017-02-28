@@ -34,7 +34,10 @@
 		    </div>
 		  </div>
 		  
-		  <c:forEach items="${mediaTypes}" var="mediaType" varStatus="count">
+		  <c:forEach items="${mediaTypes}" var="mediaType" varStatus="loopTagstatus">
+      
+        <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaId"   value="${media.mediaId}">
+        <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaType" class="media-type" value="${mediaType}">
 		  
 		    <div class="form-group">
       
@@ -48,12 +51,13 @@
                 <a class="btn btn-default">
                   <span>Browse&hellip;</span>
                   <c:set var="media" value="${page.getMediaWithMediaType(mediaType)}"/>
-                 
-                  <input type="file" class="file-data" name="formFiles[${count.index}].file" id="${mediaType}" data-simple-file-hash="${media.fileName}${media.fileSize}" <c:if test="${not empty media}">data-src="data:${media.fileType};base64,${media.fileDataAsBase64}"</c:if>>
+                  <input type="file" class="file-data" name="formFiles[${loopTagstatus.index}].file" id="${mediaType}" data-simple-file-hash="${media.fileName}${media.fileSize}" 
+                                                                                                                       <c:if test="${not empty media}">data-src="data:${media.fileType};base64,${media.fileDataAsBase64}"</c:if> 
+                                                                                                                       <c:if test="${mediaType.required}">required</c:if>>
                 </a>
               </label>
               
-	            <input type="text" class="form-control file-name" value="${media.fileName}" readonly>
+	            <input type="text" class="form-control file-name" value="${media.fileName}" readonly <c:if test="${mediaType.required}">required</c:if>>
               
 	            <div class="input-group-btn input-group-btn-file-actions">
 	              <button type="button" class="btn btn-danger btn-remove-file" <c:if test="${empty media}">disabled</c:if>>
@@ -68,11 +72,8 @@
             
 	        </div>
 	        
-	        <input type="hidden" name="formFiles[${count.index}].mediaId"   value="${media.mediaId}">
-          <input type="hidden" name="formFiles[${count.index}].mediaType" class="media-type" value="${mediaType}">
-	        
 	      </div>
-		  
+        
 		  </c:forEach>
 		  
 		</form>
