@@ -1,8 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Unica+One|Passion+One|Roboto|Oswald|Anton|Exo+2:900|Raleway:700);
 @import url(mobile.css);
 
-}
-
 * {
   transition: all 1000ms ease-out;
   -webkit-transition: all 1000ms ease-out;
