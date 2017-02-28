@@ -64,7 +64,7 @@
           <div class="thumb_large"></div>
   
           <div class="sound_play">
-            <p id="play_display">PLAY</p>
+            <p id="play_display" class="noselect">PLAY</p>
           </div>
   
           <div class="sound_text">
@@ -87,7 +87,10 @@
           </div>
   
           <div class="inner_other">
-            <p id="misc_text">${projectName} v${projectVersion}</p>
+            <p id="misc_text">
+              <span>${projectName}</span>
+              <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases">v${projectVersion}</a>
+            </p>
           </div>
   
   
@@ -99,7 +102,7 @@
   
   
       <div class="footer">
-        <p class="copyright">&copy;2016 moe-sounds</p>
+        <p class="copyright">&copy;<span id="copyright-year"></span> moe-sounds</p>
       </div>
   
     </div>

@@ -10,6 +10,7 @@
 
 body {
   -webkit-text-size-adjust: 100%;
+  overflow: hidden;
 }
 
 html, body, section, .wrapper {
@@ -275,7 +276,7 @@ a {
   font-family: 'Roboto', sans-serif;
 }
 
-.inner_other{
+.inner_other {
   position: absolute;
   bottom: 5px;
   min-width: 700px;
@@ -285,6 +286,11 @@ a {
   margin-left: -350px;
 }
 
+.inner_other .version-link {
+  color: #d5d5d6;
+  text-decoration: underline;
+}
+
 #misc_text {
   padding: 0;
   margin: 0;
@@ -292,4 +298,13 @@ a {
   margin-right: 10px;
   color: #d5d5d6;
   font-family: 'Railway', sans-serif;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently */
 }
