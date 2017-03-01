@@ -19,7 +19,7 @@ import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 @Configuration
 public class LoggingConfiguration {
 
-    private final String consolePattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
+    private final String encoderPattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
     private final String filePattern = "/logs/webapps/" + AppConstants.PROJECT_NAME + "/moe-logs.%d{yyyy-MM-dd}.log";
     private final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 
@@ -66,7 +66,7 @@ public class LoggingConfiguration {
 
         PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
         patternLayoutEncoder.setContext(loggerContext);
-        patternLayoutEncoder.setPattern(consolePattern);
+        patternLayoutEncoder.setPattern(encoderPattern);
         patternLayoutEncoder.start();
 
         return patternLayoutEncoder;
