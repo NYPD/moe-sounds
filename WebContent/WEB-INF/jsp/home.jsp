@@ -28,82 +28,62 @@
   
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>
-    <script>
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
 
     <div class="wrapper">
   
-      <div class="top_bar">
-        <a href="#">
-          <p class="about">
-            <u>about</u>
-          </p>
-        </a>
-  
-      </div>
+      <nav>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">All</a></li>
+        </ul>
+      </nav>
   
       <div class="main">
   
         <div class="main_inner">
-  
-          <div class="tag_line">
-            <p id="tag_text">We'll have a global tagline or something</p>
-          </div>
-  
-          <div class="hit_count">
-            <h3 id="count">${page.clickCount}</h3>
-          </div>
-  
+          
           <div class="thumb_large"></div>
+          
+          <div class="hit_count">
+            <span id="count">${page.clickCount}</span>
+          </div>
   
           <div class="sound_play">
-            <p id="play_display" class="noselect">PLAY</p>
+            <p class="play_display noselect">PLAY</p>
           </div>
   
-          <div class="sound_text">
-            <p id="play_text">${page.pageName}</p>
+          <div class="sound_name">
+            <p class="noselect">${page.pageName}</p>
           </div>
-  
-          <div class="share_links">
           
-            <div class="facebook">
-              <div class="fb-share-button" 
-                data-href="${applicationUrl}" 
-                data-layout="button_count">
+          <div class="sound-footer">
+          
+            <div class="share_links">
+              <div class="social-media facebook">
+                <div class="fb-share-button" data-href="${applicationUrl}" data-layout="button_count"></div>
+              </div>
+    
+              <div class="social-media twitter">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false">Tweet</a>
               </div>
             </div>
-  
-            <div class="twitter">
-              <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false">Tweet</a>
-              <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+            <div class="project-info">
+              <span id="misc_text">
+                <span>${projectName}</span>
+                <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases">v${projectVersion}</a>
+              </span>
             </div>
+            
           </div>
-  
-          <div class="inner_other">
-            <p id="misc_text">
-              <span>${projectName}</span>
-              <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases">v${projectVersion}</a>
-            </p>
-          </div>
-  
-  
   
         </div>
   
       </div>
   
-  
-  
-      <div class="footer">
+      <footer class="footer">
         <p class="copyright">&copy;<span id="copyright-year"></span> moe-sounds</p>
-      </div>
+      </footer>
   
     </div>
     
@@ -117,5 +97,17 @@
     </script>
     <script src="${context}/js/home.js"></script>
     
+    <!-- Facebook Like Script -->
+    <script>
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <!-- Twitter Share Script -->
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
   </body>
 </html>
