@@ -32,10 +32,7 @@
     <div class="wrapper">
   
       <nav>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">All</a></li>
-        </ul>
+        <a href="#">about</a>
       </nav>
   
       <div class="main">
