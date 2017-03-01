@@ -48,12 +48,24 @@ nav {
 nav a {
   padding: 0;
   margin: 0;
+  border-right-color: #000000;
+  border-right-style: solid;
+  border-right-width: 1px;
   line-height: 25px;
-  margin-right: 10px;
-  color: #d5d5d6;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffff;
   font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  letter-spacing: 1px;
   text-align: right;
-  text-shadow: 3px 2px 8px #000;
+  text-decoration: none;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }
 
 /* main *******************************************************************************************/

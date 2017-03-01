@@ -32,7 +32,8 @@
     <div class="wrapper">
   
       <nav>
-        <a href="#">about</a>
+        <a href="https://github.com/NYPD/moe-sounds" target="_blank">about</a>
+        <a href="${context}/all">all</a>
       </nav>
   
       <div class="main">
@@ -68,7 +69,7 @@
             <div class="project-info">
               <span id="misc_text">
                 <span>${projectName}</span>
-                <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases">v${projectVersion}</a>
+                <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases" target="_blank">v${projectVersion}</a>
               </span>
             </div>
             
