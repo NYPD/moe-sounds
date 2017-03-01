@@ -10,18 +10,20 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public enum MediaType implements MappedEnum {
 
-    PAGE_BACKGROUND("PAGE BACKGROUND", "Background image of the entire page. Wide-screen format is reccomended"),
-    BACKGROUND_INNER("BACKGROUND INNER", "Background image of the center box. Roughly 700x470 pixels"),
-    CAROUSEL_IMAGE("CAROUSEL IMAGE", "Roughly 200x200 pixels"),
-    THUMBNAIL_ICON("THUMBNAIL ICON", "Roughly 50x50 pixels"),
-    SOUND_FILE("SOUND FILE", "Really short sound file. Less than 3 seconds");
+    PAGE_BACKGROUND("PAGE BACKGROUND", "Background image of the entire page. Wide-screen format is reccomended", false),
+    BACKGROUND_INNER("BACKGROUND INNER", "Background image of the center box. Roughly 700x470 pixels", true),
+    CAROUSEL_IMAGE("CAROUSEL IMAGE", "Roughly 200x200 pixels", true),
+    THUMBNAIL_ICON("THUMBNAIL ICON", "Roughly 50x50 pixels", true),
+    SOUND_FILE("SOUND FILE", "Really short sound file. Less than 3 seconds", true);
 
     private final String name;
     private final String fileSuggestion;
+    private final boolean required;
 
-    private MediaType(String name, String fileSuggestion) {
+    private MediaType(String name, String fileSuggestion, boolean required) {
         this.name = name;
         this.fileSuggestion = fileSuggestion;
+        this.required = required;
     }
 
     public static final List<MediaType> IMAGE_TYPES = Arrays.asList(PAGE_BACKGROUND, BACKGROUND_INNER, CAROUSEL_IMAGE, THUMBNAIL_ICON);
@@ -59,14 +61,17 @@ public enum MediaType implements MappedEnum {
     }
 
     // Default Accessors **********************************************************************************************
-
     public String getName() {
         return name;
     }
-
     public String getFileSuggestion() {
         return fileSuggestion;
     }
+
+    public boolean isRequired() {
+        return required;
+    }
+
 
     @Override
     public String getMappedValue() {

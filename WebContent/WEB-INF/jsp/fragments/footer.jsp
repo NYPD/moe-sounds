@@ -5,7 +5,7 @@
     <div class="row">
     
       <div class="col-xs-6 col-footer">
-        <span>Copyright &copy; 2017 Moe Sounds</span>
+        <span>Copyright &copy; <span id="copyright-year"></span> ${applicationName}</span>
       </div>
       
       <div class="col-xs-6 col-footer">

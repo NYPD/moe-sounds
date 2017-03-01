@@ -15,12 +15,12 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
-import ch.qos.logback.core.util.FileSize;
 
 @Configuration
 public class LoggingConfiguration {
 
-    private final String pattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
+    private final String encoderPattern = "%d{[yyyy-MM-dd HH:mm:ss.SSS]} [%-5level] \\(%F{0}:%M\\(\\):%L\\) - %msg%n";
+    private final String filePattern = "/logs/webapps/" + AppConstants.PROJECT_NAME + "/moe-logs.%d{yyyy-MM-dd}.log";
     private final LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
 
     @Bean
@@ -45,17 +45,16 @@ public class LoggingConfiguration {
 
         RollingFileAppender<ILoggingEvent> rollingFileAppender= new RollingFileAppender<>();
         rollingFileAppender.setName("rolling");
-        rollingFileAppender.setEncoder(getDefaultPattern());
         rollingFileAppender.setContext(loggerContext);
 
         TimeBasedRollingPolicy<ILoggingEvent> timeBasedRollingPolicy = new TimeBasedRollingPolicy<>();
-        timeBasedRollingPolicy.setContext(loggerContext);
+        timeBasedRollingPolicy.setFileNamePattern(filePattern);
+        timeBasedRollingPolicy.setMaxHistory(60);
         timeBasedRollingPolicy.setParent(rollingFileAppender);
-        timeBasedRollingPolicy.setFileNamePattern("/logs/webapps/" + AppConstants.PROJECT_NAME + "/moe-logs.%d{yyyy-MM-dd}.log");
-        timeBasedRollingPolicy.setMaxHistory(1);
-        timeBasedRollingPolicy.setTotalSizeCap(FileSize.valueOf("1 gb"));
+        timeBasedRollingPolicy.setContext(loggerContext);
         timeBasedRollingPolicy.start();
 
+        rollingFileAppender.setEncoder(getDefaultPattern());
         rollingFileAppender.setRollingPolicy(timeBasedRollingPolicy);
         rollingFileAppender.start();
 
@@ -67,7 +66,7 @@ public class LoggingConfiguration {
 
         PatternLayoutEncoder patternLayoutEncoder = new PatternLayoutEncoder();
         patternLayoutEncoder.setContext(loggerContext);
-        patternLayoutEncoder.setPattern(pattern);
+        patternLayoutEncoder.setPattern(encoderPattern);
         patternLayoutEncoder.start();
 
         return patternLayoutEncoder;

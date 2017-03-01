@@ -4,6 +4,7 @@ var $globalSmallModal = $('#global-small-modal');
 
 /* Initialization *********************************************************************************/
 selectTab($('body').data('tab-id'));
+$('#copyright-year').text(new Date().getFullYear());
 
 /* Listeners **************************************************************************************/
 $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {

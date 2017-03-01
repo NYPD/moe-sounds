@@ -12,6 +12,6 @@ function moeRedirect(event) {
   
   var pageId = target.getAttribute('data-page-id');
   
-  window.location.href = context + '/page?pageId=' + pageId;
+  window.location.href = context + '/page/' + pageId;
   
 }

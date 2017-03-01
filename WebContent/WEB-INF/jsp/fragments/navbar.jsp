@@ -13,8 +13,8 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="${context}/random">
-        <img src="https://v.dreamwidth.org/231938/328523">
-        <span>Moe Sounds ${projectVersion}</span>
+        <img src="${context}/images/logo-size1.png">
+        <span>${applicationName} ${projectVersion}</span>
       </a>
     </div>
     
