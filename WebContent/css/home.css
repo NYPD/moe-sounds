@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Unica+One|Passion+One|Roboto|Oswald|Anton|Exo+2:900|Raleway:700);
 
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .main .main_inner {
     width: 100% !important;
     height: 300px !important;
