@@ -17,7 +17,7 @@ ion.sound({
 window.setInterval(fetchMoeCount, 10000);//10 Seconds
 
 /* Listeners **************************************************************************************/
-$('.sound_play').on('click', function() {
+$('.sound-play').on('click', function() {
   
   ion.sound.play(currentPageId + '-SOUND_FILE');
   

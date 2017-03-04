@@ -22,7 +22,7 @@
       .main {
         background-image: url('${context}/get-page-media/${page.pageId}-PAGE_BACKGROUND');
       }
-      .thumb_large {
+      .thumb-large {
         background-image: url('${context}/get-page-media/${page.pageId}-BACKGROUND_INNER');
       }
     </style>
@@ -37,36 +37,36 @@
 
     <div class="main">
 
-      <div class="main_inner">
+      <div class="main-inner">
         
-        <div class="thumb_large"></div>
+        <div class="thumb-large"></div>
         
-        <div class="hit_count">
+        <div class="hit-count">
           <span id="count">${page.clickCount}</span>
         </div>
 
-        <div class="sound_play">
+        <div class="sound-play">
           <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
           <c:if test="${not empty thumbnail}">
             <div class="thumbnail-container">
               <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
             </div>
           </c:if>
-          <p class="play_display noselect">PLAY</p>
+          <p class="play-display noselect">PLAY</p>
         </div>
 
-        <div class="sound_name">
+        <div class="sound-name">
           <p class="noselect">${page.pageName}</p>
         </div>
         
         <div class="sound-footer">
         
-          <div class="share_links">
-            <div class="social-media facebook">
+          <div class="share-links">
+            <div class="social-media facebook noselect">
               <div class="fb-share-button" data-href="${applicationUrl}" data-layout="button_count"></div>
             </div>
   
-            <div class="social-media twitter">
+            <div class="social-media twitter noselect">
               <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false"></a>
             </div>
           </div>
