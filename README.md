@@ -1,6 +1,5 @@
 # moe-sounds
-Moe web app. Moe sounds, moe problems.
+Moe sounds, moe problems. Check out the live [site.](http://www.moesounds.com)
 
-## Project Setup
-For information on how to setup moe sounds, read the [wiki](https://github.com/NYPD/moe-sounds/wiki)
-
+## Documentation
+For information on how to setup your own moe sounds, read the uncompleted [wiki.](https://github.com/NYPD/moe-sounds/wiki)
