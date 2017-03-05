@@ -63,7 +63,7 @@
 	              <button type="button" class="btn btn-danger btn-remove-file" <c:if test="${empty media}">disabled</c:if>>
 	                <i class="fa fa-ban" aria-hidden="true"></i>
 	              </button>
-                <button class="btn btn-default btn-preview-image-${mediaType.image}" type="button" <c:if test="${empty media}">disabled</c:if>>Preview</button>
+                <button class="btn btn-default btn-preview-file" type="button" data-is-image="${mediaType.image}" <c:if test="${empty media}">disabled</c:if>>Preview</button>
               </div>
               
 	          </div>

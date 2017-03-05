@@ -35,8 +35,9 @@ $moePageForm.on('click', '.btn-remove-file', function(event) {
   $(this).closest('.input-group').find('input.file-data').val('').attr('data-simple-file-hash', '').trigger('change');
 });
 
-$moePageForm.on('click', '.btn-preview-image-true', function() {
+$moePageForm.on('click', '.btn-preview-file', function() {
   
+  var isImage = this.getAttribute('data-is-image') === 'true';
   var $fileData = $(this).closest('.input-group').find('input.file-data');
   
   var file = $fileData[0].files[0];
@@ -52,13 +53,11 @@ $moePageForm.on('click', '.btn-preview-image-true', function() {
     reader.readAsDataURL(file);
     
     $(reader).on('load' ,function(event) {
-      $body.addClass('show-preview-image');
-      $imgPreview.attr('src', event.target.result);
+      previewFile(isImage, event.target.result)
     });
     
   }else {
-    $body.addClass('show-preview-image');
-    $imgPreview.attr('src', src);
+    previewFile(isImage, src);
   }
   
 });
@@ -78,8 +77,6 @@ $('.btn-save-moe-page').on('click', function() {
   var invalidForm = !ritsu.validate($moePageForm);
   if(invalidForm) return false;
  
-
-  
   var formData = new FormData($moePageForm[0]);
   
   $moePageForm.find('.file-data').each(function() {
@@ -153,5 +150,15 @@ ritsu.initialize({
 ritsu.storeInitialFormValues();
 
 /* Function ***************************************************************************************/
+function previewFile(isImage, src) {
+  
+  if(isImage) {
+    $body.addClass('show-preview-image');
+    $imgPreview.attr('src', src);
+  }else {
+    var audio = new Audio(src);
+    audio.play();
+  }
+}
 
 //# sourceURL=moe-page-form.js
