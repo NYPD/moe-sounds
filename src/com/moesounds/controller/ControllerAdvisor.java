@@ -61,7 +61,7 @@ public class ControllerAdvisor {
         ModelAndView modelAndView = new ModelAndView("error/access-denied");
         return modelAndView;
     }
-
+    
     @ExceptionHandler(value = UnauthorizedUserException.class)
     public ModelAndView handleUnauthorizedUserException(UnauthorizedUserException exception) {
 
