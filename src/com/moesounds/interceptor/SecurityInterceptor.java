@@ -67,7 +67,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
         boolean noApiTypeCookieFound = apiType == null;
-        if (noApiTypeCookieFound) response.sendRedirect("error/acess-denied");
+        if (noApiTypeCookieFound) response.sendRedirect("error/access-denied");
 
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
 

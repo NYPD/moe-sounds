@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.moesounds.annotation.DefaultController;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.LoginIOException;
+import com.moesounds.exception.UnauthorizedUserException;
 import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
 import com.moesounds.util.AppConstants;
 
@@ -57,12 +58,24 @@ public class ControllerAdvisor {
 
         logger.error("State tokens did not match for attempted user sign on");
 
-        ModelAndView modelAndView = new ModelAndView("error/acess-denied");
+        ModelAndView modelAndView = new ModelAndView("error/access-denied");
+        return modelAndView;
+    }
+
+    @ExceptionHandler(value = UnauthorizedUserException.class)
+    public ModelAndView handleUnauthorizedUserException(UnauthorizedUserException exception) {
+
+        logger.info("Unauthorized user attempted to login as an admin from > " + exception.getIpAddress());
+
+        ModelAndView modelAndView = new ModelAndView("error/access-denied");
         return modelAndView;
     }
 
     @ExceptionHandler(value = Exception.class)
     public ModelAndView handleGeneralException(Exception exception) {
+
+        logger.error("Something messed up", exception);
+
         return new ModelAndView("error/general-error");
     }
 

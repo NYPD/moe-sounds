@@ -17,6 +17,7 @@ import com.moesounds.annotation.GoogleLogin;
 import com.moesounds.beans.MoeSoundsSessionBean;
 import com.moesounds.domain.Page;
 import com.moesounds.domain.User;
+import com.moesounds.exception.UnauthorizedUserException;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.service.MoeSoundsService;
 
@@ -54,6 +55,10 @@ public class AdminController {
         googleLoginService.verifyAuthenticationResponse(request);
 
         User moeSoundsUser = googleLoginService.getMoeSoundsUser();
+
+        boolean unauthorized = moeSoundsUser == null;
+        if (unauthorized) throw new UnauthorizedUserException(request);
+
         moeSoundsSessionBean.setUser(moeSoundsUser);
 
         boolean rememberMe = moeSoundsSessionBean.isRememberMe();
@@ -68,7 +73,6 @@ public class AdminController {
         ModelAndView mav = new ModelAndView("maintenance");
 
         Collection<Page> allPages = moeSoundsService.getAllPages();
-
         mav.addObject("allPages", allPages);
 
         return mav;

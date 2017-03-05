@@ -211,7 +211,8 @@
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>junit</testSourceDirectory>
     
-    <finalName>${project.artifactId}##${project.version}</finalName>
+    <finalName>${project.artifactId}</finalName>
+<!--     <finalName>${project.artifactId}##${project.version}</finalName> -->
     
     <resources>
       <resource>
@@ -267,7 +268,8 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <warFile>target/${project.artifactId}##${project.version}.war</warFile>
+          <warFile>target/${project.artifactId}.war</warFile>
+<!--           <warFile>target/${project.artifactId}##${project.version}.war</warFile> -->
           <path>/</path>
         </configuration>
       </plugin>

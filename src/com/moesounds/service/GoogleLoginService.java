@@ -145,6 +145,10 @@ public class GoogleLoginService implements ApiLoginService {
             String profilePictureUrl = userinfoplus.getPicture();
 
             User user = adminService.getUser(ApiType.GOOGLE, apiUserId);
+
+            if (user == null)
+                return null;
+
             user.setUserProfilePicture(profilePictureUrl);
 
             return user;
@@ -194,14 +198,17 @@ public class GoogleLoginService implements ApiLoginService {
         String[] activeProfiles = springEnvironment.getActiveProfiles();
         boolean isDevelopment = Arrays.stream(activeProfiles).filter(x -> AppConstants.DEVELOPMENT_PROFILE.equals(x)).findAny().orElse(null) != null;
 
-        if (isDevelopment) {
+        for (String redirectUri : webDetails.getRedirectUris()) {
 
-            for (String redirectUri : webDetails.getRedirectUris()) {
-                if (!redirectUri.contains("localhost")) continue;
+            boolean isLocalHost = redirectUri.contains("localhost");
+
+            if (isLocalHost && isDevelopment)
                 GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
-            }
+            else if (!isLocalHost && !isDevelopment)
+                GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
 
         }
+
     }
 
 }

@@ -189,11 +189,10 @@ nav a:last-child {
     margin: 0;
     font-size: 85px;
     text-align: left;
-    opacity: 1;
-    
   }
   
   .main .main-inner .sound-play .play-display:hover {
+    opacity: 1;
     color: #ed308b;
   }
 }
