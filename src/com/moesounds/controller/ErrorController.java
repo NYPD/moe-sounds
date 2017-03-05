@@ -9,6 +9,11 @@ import com.moesounds.annotation.DefaultController;
 @RequestMapping(value = "/error")
 public class ErrorController {
 
+    @RequestMapping(value = "404")
+    public ModelAndView get404Page() {
+        return new ModelAndView("error/404");
+    }
+
     @RequestMapping(value = "access-denied")
     public ModelAndView getAccessDeniedPage() {
         return new ModelAndView("error/access-denied");
