@@ -84,7 +84,7 @@ body > .container {
 }
 
 /* Misc */
-.table-container.table-loading {
+.table-container.table-loading > * {
   visibility: hidden;
 }
 textarea {
@@ -93,10 +93,12 @@ textarea {
 
 
 /* Spinner CSS3 Animation from MattIn4D ***********************************************************/
+.table-loading,
 .content-loading {
   position: relative;
 }
 
+.table-loading::after,
 .page-loading::after, 
 .content-loading::after {
   position: absolute;
