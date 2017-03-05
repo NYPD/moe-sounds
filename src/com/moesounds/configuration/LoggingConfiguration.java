@@ -26,7 +26,6 @@ public class LoggingConfiguration {
     @Bean
     @DevelopmentProfile
     @TestProfile
-    @ProductionProfile
     public ConsoleAppender<ILoggingEvent> consoleAppender() {
 
         ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
