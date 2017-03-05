@@ -49,7 +49,7 @@
           <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
           <c:if test="${not empty thumbnail}">
             <div class="thumbnail-container">
-              <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
+              <img class="page-thumbnail-image noselect" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
             </div>
           </c:if>
           <p class="play-display noselect">PLAY</p>

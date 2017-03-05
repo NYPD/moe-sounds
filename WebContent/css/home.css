@@ -184,6 +184,12 @@ nav a:last-child {
 }
 
 @media screen and (max-width: 700px) {
+  
+  .main .main-inner .sound-play:hover .play-display {
+    opacity: 1;
+    color: #ed308b;
+  }
+
  .main .main-inner .sound-play .play-display {
     flex: 2;
     margin: 0;
@@ -191,10 +197,6 @@ nav a:last-child {
     text-align: left;
   }
   
-  .main .main-inner .sound-play .play-display:hover {
-    opacity: 1;
-    color: #ed308b;
-  }
 }
 
 .main .main-inner .sound-play .page-thumbnail-image {
