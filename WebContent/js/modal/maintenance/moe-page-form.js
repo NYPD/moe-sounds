@@ -125,15 +125,10 @@ $('.btn-save-moe-page').on('click', function() {
                   ];
     
     if (shouldUpdate) {
-      
       dataTableApi.row(rowToUpdate).data(rowData).draw();
-      
     }else {
-      
       var newRow = dataTableApi.row.add(rowData).draw().node();
-      
       $(newRow).attr('data-page-id', pageId);
-      
     }
     
     $maintenanceModalLarge.modal('hide');
