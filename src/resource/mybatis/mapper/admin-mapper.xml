@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moesounds.dao.AdminDAO">
+
+  <resultMap type="User" id="UserMap">
+    <id         property="userId"               column="user_id" />
+    <collection property="userApiIdentities"    column="{userId=user_id}" ofType="UserApiIdentity" select="getUserApiIndentitiesWithUserId" />
+  </resultMap>
+
+  <select id="getAllUsers" resultMap="UserMap">
+    SELECT user_id,
+           nickname,
+           user_role
+      FROM moe_sounds.user
+  </select>
+  
+  <select id="getUserWithUserId" resultMap="UserMap">
+    SELECT user_id,
+           nickname,
+           user_role
+      FROM moe_sounds.user
+     WHERE user_id = #{userId}
+  </select>
+  
+  <select id="getUserWithApiInfo" resultMap="UserMap">
+    SELECT user.user_id,
+           user.nickname,
+           user.user_role
+      FROM moe_sounds.user AS user
+      
+           INNER JOIN  moe_sounds.user_api_identity AS api_identity
+           ON user.user_id = api_identity.user_id
+            
+     WHERE api_identity.api_user_id = #{apiUserId}
+       AND api_identity.api_type = #{apiType}
+  </select>
+  
+  <select id="getUserApiIndentitiesWithUserId" resultType="UserApiIdentity">
+    SELECT user_api_identity_id,
+           user_id,
+           api_type,
+           api_user_id
+      FROM moe_sounds.user_api_identity
+     WHERE user_id = #{userId}
+  </select>
+  
+</mapper>

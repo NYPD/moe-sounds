@@ -1,0 +1,48 @@
+/* Positioning */
+/* Box-model */
+/* Typography */
+/* Visual */
+/* Misc */
+
+.login-container {
+  
+  margin-top: 60px;
+  margin-bottom: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px;
+  
+  max-width: 400px;
+  
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  
+}
+
+.login-container h2 {
+  margin-bottom: 30px;
+}
+
+.login-container > div {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.login-container > .vertical-rule {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  height: 100px;
+}
+
+.login-container .login-options {
+  margin-left: 20px;
+}
+
+.login-container .login-options .login-image {
+  cursor: pointer;
+}
+
+
+

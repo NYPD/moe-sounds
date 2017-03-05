@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moesounds.dao.MoeSoundsDAO">
+  
+  <!-- Result Maps ***********************************************************-->
+  <resultMap type="Page" id="PageMap">
+    <id         property="pageId" column="page_id" />
+    <collection property="media"  column="{pageId=page_id}" ofType="Media" select="getMediaWithPageId" fetchType="lazy" />
+  </resultMap>
+  
+  
+  <!-- Page Queries **********************************************************-->
+  <select id="getPage" resultMap="PageMap">
+    SELECT page_id,
+           page_name,
+           css,
+           click_count
+      FROM moe_sounds.page
+     WHERE page_id = #{pageId}
+  </select>
+
+  <select id="getAllPages" resultMap="PageMap">
+    SELECT page_id,
+           page_name,
+           css,
+           click_count
+      FROM moe_sounds.page
+  </select>
+
+  <insert id="insertPage" useGeneratedKeys="true" keyProperty="pageId">
+    INSERT INTO moe_sounds.page 
+                (page_name, css)
+    
+         VALUES (#{pageName}, #{css})
+  </insert>
+  
+  <update id="updatePage">
+    UPDATE moe_sounds.page
+    
+       SET page_name = #{pageName},
+           css = #{css}
+     WHERE page_id = ${pageId}
+  </update>
+  
+  <delete id="deletePage">
+    DELETE FROM moe_sounds.page
+          WHERE page_id = #{pageId}
+  </delete>
+  
+  <!-- Specific Click Count **************************************************-->
+  <update id="updateClickCount">
+    UPDATE moe_sounds.page
+       SET click_count = click_count + 1
+     WHERE page_id = #{pageId}
+  </update>
+  
+  <select id="getClickCount" resultType="_long">
+    SELECT click_count
+      FROM moe_sounds.page
+     WHERE page_id = #{pageId}
+  </select>
+  
+  <!-- Page Media Queries ****************************************************-->
+  <select id="getMediaWithPageId" resultType="Media">
+    SELECT media_id,
+           page_id,
+           media_type,
+           file_name,
+           file_type,
+           file_data,
+           file_size
+      FROM moe_sounds.media
+     WHERE page_id = #{pageId}
+  </select>
+  
+  <insert id="insertMedia" useGeneratedKeys="true" keyProperty="mediaId">
+    INSERT INTO moe_sounds.media 
+                (page_id, media_type, file_name,
+                 file_type, file_data, file_size)
+    
+          VALUES (#{pageId}, #{mediaType}, #{fileName},
+	                #{fileType}, #{fileData}, #{fileSize})
+  </insert>
+  
+  <update id="updateMedia">
+    UPDATE moe_sounds.media
+       SET media_type = #{mediaType},
+           file_name = #{fileName},
+           file_type = #{fileType},
+           file_data = #{fileData},
+           file_size = #{fileSize}
+    WHERE media_id = #{mediaId}
+  </update>
+  
+  <delete id="deleteMediaWithPageId">
+    DELETE FROM moe_sounds.media
+          WHERE page_id = #{pageId}
+  </delete>
+  
+  <delete id="deleteMediaWithMediaId">
+    DELETE FROM moe_sounds.media
+          WHERE media_id = #{mediaId}
+  </delete>
+  
+</mapper>

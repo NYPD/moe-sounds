@@ -9,11 +9,10 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Controller;
 
 /**
-* @ControllerAdvice
-*/
-@Target(value=ElementType.TYPE)
-@Retention(value=RetentionPolicy.RUNTIME)
+ * @ControllerAdvice
+ */
+@Target(value = ElementType.TYPE)
+@Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 @Controller
-public @interface DefaultController
-{}
+public @interface DefaultController {}

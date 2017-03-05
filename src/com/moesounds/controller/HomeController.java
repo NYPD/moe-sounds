@@ -1,20 +1,40 @@
 package com.moesounds.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.annotation.DefaultController;
+import com.moesounds.domain.Page;
+import com.moesounds.service.MoeSoundsService;
 
 @DefaultController
 public class HomeController {
 
-	@RequestMapping(value = {"/home", "/"})
-	public ModelAndView getHomePage(HttpServletRequest request, HttpSession session) {
-		ModelAndView mav = new ModelAndView("home");
-		return mav;
+    @Autowired
+    private MoeSoundsService moeSoundsService;
 
-	}
+    @RequestMapping(value = {"/random", "/"})
+    public ModelAndView getHomePage() {
+
+        ModelAndView mav = new ModelAndView("home");
+
+        Page randomPage = moeSoundsService.getRandomPage();
+        mav.addObject("page", randomPage);
+
+        return mav;
+    }
+
+    @RequestMapping(value = {"/page/{pageId}"})
+    public ModelAndView getSpecificPage(@PathVariable("pageId") int pageId) {
+
+        ModelAndView mav = new ModelAndView("home");
+
+        Page specificPage = moeSoundsService.getSpecificPage(pageId);
+        mav.addObject("page", specificPage);
+
+        return mav;
+    }
+
 }

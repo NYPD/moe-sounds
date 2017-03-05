@@ -1,0 +1,298 @@
+@media screen and (max-width: 700px) {
+  
+  .main .main-inner .thumbnail-container {
+    flex: 1;
+    text-align: right;
+  }
+  
+}
+
+/* globals ****************************************************************************************/
+* {
+  overflow: hidden;
+  -webkit-transition: all 750ms ease-out;
+     -moz-transition: all 750ms ease-out;
+       -o-transition: all 750ms ease-out;
+          transition: all 750ms ease-out;
+}
+
+html,
+body {
+  margin: 0;
+  color: #ffffff;
+  background: #3a3a3a;
+}
+
+body {
+  -webkit-text-size-adjust: 100%; 
+     -moz-text-size-adjust: 100%; 
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+}
+
+
+/* navbar *****************************************************************************************/
+nav {
+  position: absolute;
+  top: 0;
+  padding-top: 3px;
+  width: 100%;
+  height: 25px;
+  text-align: right;
+  font-family: 'Roboto', sans-serif;
+}
+
+nav a {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0;
+  
+  line-height: 25px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: right;
+  text-decoration: none;
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+  
+  border-right-color: #000000;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+nav a:hover {
+  color: #ed308b;
+}
+nav a:last-child {
+  border: none;
+}
+
+/* Main wrapper ***********************************************************************************/
+.main {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Inner container box*****************************************************************************/
+.main .main-inner {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 700px;
+  height: 500px;
+  background: rgba(106,35,0,.8);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+@media screen and (max-width: 700px) {
+  
+  .main .main-inner {
+    width: 100%;
+    height: 300px;
+    background: rgba(58,58,58,.3);
+  }
+  
+}
+
+/* Inner Background Image  ************************************************************************/
+.main .main-inner .thumb-large {
+  position: absolute;
+  height: calc(100% - 30px);
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .thumb-large {
+    display: none;
+  }
+}
+
+.main .main-inner .hit-count {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: #d5d5d6;
+  font-size: 50px;
+  font-family: 'Exo 2', sans-serif;
+  text-shadow:
+    3px 3px 0 #3a3a3a,
+  -1px -1px 0 #3a3a3a,
+   1px -1px 0 #3a3a3a,
+   -1px 1px 0 #3a3a3a,
+    1px 1px 0 #3a3a3a;
+}
+
+/* Play button container  *************************************************************************/
+.main .main-inner .sound-play {
+  position: absolute;
+  z-index: 2;
+  height: calc(100% - 30px);
+  width: 100%;
+  text-align: center;
+  background-color: rgba(58,58,58,.6);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  cursor: pointer;
+}
+
+.main .main-inner .sound-play:hover {
+  background-color: rgba(58,58,58,.1);
+}
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-play {
+    display: flex;
+    align-items: center;
+    background: none;
+  }
+}
+
+
+.main .main-inner .sound-play .play-display {
+  margin-top: 100px;
+  margin-bottom: 0;
+  color: #d5d5d6;
+  font-size: 180px;
+  font-family: 'Exo 2', sans-serif;
+  text-shadow:
+    3px 3px 0 #3a3a3a,
+   -1px -1px 0 #3a3a3a,
+    1px -1px 0 #3a3a3a,
+   -1px 1px 0 #3a3a3a,
+    1px 1px 0 #3a3a3a;
+}
+
+.main .main-inner .sound-play:hover .play-display {
+  opacity: 0;
+}
+
+@media screen and (max-width: 700px) {
+  
+  .main .main-inner .sound-play:hover .play-display {
+    opacity: 1;
+    color: #ed308b;
+  }
+
+ .main .main-inner .sound-play .play-display {
+    flex: 2;
+    margin: 0;
+    font-size: 85px;
+    text-align: left;
+  }
+  
+}
+
+.main .main-inner .sound-play .page-thumbnail-image {
+  display: none;
+  margin-right: 5px;
+  width: 100px;
+}
+
+@media screen and (max-width: 700px) {
+ .main .main-inner .sound-play .page-thumbnail-image {
+    display: inline-block;
+  }
+}
+
+/* Moe sound name container ***********************************************************************/
+.main .main-inner .sound-name {
+  position: absolute;
+  bottom: 60;
+  width: 100%;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.main .main-inner .sound-name > p {
+  margin: 0;
+  color: #d5d5d6;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+  text-shadow:
+    2px 2px 0 #3a3a3a,
+    -1px -1px 0 #3a3a3a,
+    1px -1px 0 #3a3a3a,
+    -1px 1px 0 #3a3a3a,
+    1px 1px 0 #3a3a3a;
+}
+
+/* Inner container footer *************************************************************************/
+.main .main-inner .sound-footer {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  font-family: 'Railway', sans-serif;
+}
+.main .main-inner .sound-footer .share-links {
+  flex: 1;
+  z-index: 9000;
+  padding-left: 5px;
+  padding-right: 5px;
+  line-height: 30px;
+}
+
+.main .main-inner .sound-footer .share-links .social-media {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.main .main-inner .sound-footer .project-info {
+  flex: 1;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: right;
+  line-height: 30px;
+}
+
+.main .main-inner .sound-footer .version-link {
+  color: #d5d5d6;
+  text-decoration: underline;
+}
+
+/* footer *****************************************************************************************/
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.footer .copyright {
+  padding: 0;
+  margin: 0;
+  margin-top: 4px;
+  color: #d5d5d6;
+  text-shadow: 3px 2px 8px #000;
+}
+
+/* misc *******************************************************************************************/
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently */
+}

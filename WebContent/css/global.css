@@ -1,0 +1,207 @@
+/* Media Queries  *********************************************************************************/
+@media (max-width: 767px) {
+  .navbar .navbar-right .user-profile-picture {
+    right: inherit !important;
+    margin-left: 10px !important;
+  }
+}
+
+/* Global Rules ***********************************************************************************/
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-bottom: 60px;
+  min-width: 500px;
+}
+
+body > .container {
+  padding-top: 70px;
+  margin-bottom: 20px;
+}
+
+.navbar .navbar-brand {
+  font-family: 'Baloo', cursive;
+  font-size: 25px;
+  line-height: 23px;
+}
+
+.navbar .navbar-brand img {
+  position: absolute;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+}
+.navbar .navbar-brand span {
+  margin-left: 45px;
+}
+.navbar .navbar-right {
+  position: relative;
+  padding-right: 65px;
+}
+.navbar .navbar-right .user-profile-picture {
+  position: absolute;
+  right: 15px;
+  top: -10px;
+  width: 40px;
+  height: 40px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #f8f8f8;
+}
+.footer ul {
+  margin: 0;
+  list-style-type: none;
+}
+.footer ul li {
+  cursor: pointer;
+}
+.footer ul li:hover a {
+  text-decoration: none;
+}
+.footer .col-footer {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.footer .col-footer > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+  
+
+/* Only admin jsp needs this, i have to fuckng clue*/
+.footer > .container,
+.footer > .container > .row {
+    height: 100%;
+}
+
+/* Misc */
+.table-container.table-loading {
+  visibility: hidden;
+}
+textarea {
+  resize: vertical; 
+}
+
+
+/* Spinner CSS3 Animation from MattIn4D ***********************************************************/
+.content-loading {
+  position: relative;
+}
+
+.page-loading::after, 
+.content-loading::after {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  z-index: 1060;
+  
+  display: block;
+  width: 1em;
+  height: 1em;
+  
+  font-size: 10px;
+  
+  content: '';
+  transform: translateY(-50%);
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+  position: fixed;
+  z-index: 1060;
+.page-loading::before {
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: black;
+  content: "";
+  height: 100%;
+  width: 100%;
+  opacity: 0.3;
+}
+
+
+/* Animation */
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

@@ -1,21 +1,26 @@
-
 #################
-## Grunt Stuff            ##
+## Grunt Stuff ##
 #################
 node_modules
 .sass-cache
 
 #################
-## Eclipse Stuff        ##
+## Maven Stuff ##
 #################
+target
+
+###################
+## Eclipse Stuff ##
+###################
 build
 classes
 .project
 .classpath
-
+.settings
+WebContent/META-INF/context.xml
 
 ######################
-## Windows detritus             ##
+## Windows detritus ##
 ######################
 
 # Folder config file
@@ -27,3 +32,9 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 /target/
+
+##########################
+## Sensitive Stuff Bruh ##
+##########################
+
+client_secret.json
