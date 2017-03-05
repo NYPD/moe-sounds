@@ -35,7 +35,7 @@ $moePageForm.on('click', '.btn-remove-file', function(event) {
   $(this).closest('.input-group').find('input.file-data').val('').attr('data-simple-file-hash', '').trigger('change');
 });
 
-$moePageForm.on('click', '.btn-preview-image', function() {
+$moePageForm.on('click', '.btn-preview-image-true', function() {
   
   var $fileData = $(this).closest('.input-group').find('input.file-data');
   
@@ -60,7 +60,6 @@ $moePageForm.on('click', '.btn-preview-image', function() {
     $body.addClass('show-preview-image');
     $imgPreview.attr('src', src);
   }
-  
   
 });
 

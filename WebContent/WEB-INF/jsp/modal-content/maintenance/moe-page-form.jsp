@@ -52,7 +52,7 @@
                   <span>Browse&hellip;</span>
                   <c:set var="media" value="${page.getMediaWithMediaType(mediaType)}"/>
                   <input type="file" class="file-data" name="formFiles[${loopTagstatus.index}].file" id="${mediaType}" data-simple-file-hash="${media.fileName}${media.fileSize}" 
-                                                                                                                       <c:if test="${not empty media}">data-src="data:${media.fileType};base64,${media.fileDataAsBase64}"</c:if> 
+                                                                                                                       <c:if test="${not empty media}">data-src="/get-page-media/${page.pageId}-${mediaType}"</c:if> 
                                                                                                                        <c:if test="${mediaType.required}">required</c:if>>
                 </a>
               </label>
@@ -63,7 +63,7 @@
 	              <button type="button" class="btn btn-danger btn-remove-file" <c:if test="${empty media}">disabled</c:if>>
 	                <i class="fa fa-ban" aria-hidden="true"></i>
 	              </button>
-                <button class="btn btn-default btn-preview-image" type="button" <c:if test="${empty media}">disabled</c:if>>Preview</button>
+                <button class="btn btn-default btn-preview-image-${mediaType.image}" type="button" <c:if test="${empty media}">disabled</c:if>>Preview</button>
               </div>
               
 	          </div>
