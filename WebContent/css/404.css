@@ -1,0 +1,12 @@
+.col-text-container {
+  text-align: center;
+}
+
+.col-text-container h1 {
+  font-size: 180px;
+  font-weight: bold;
+}
+
+.col-text-container p {
+  font-size: 22px;
+}

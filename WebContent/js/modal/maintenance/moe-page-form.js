@@ -35,8 +35,9 @@ $moePageForm.on('click', '.btn-remove-file', function(event) {
   $(this).closest('.input-group').find('input.file-data').val('').attr('data-simple-file-hash', '').trigger('change');
 });
 
-$moePageForm.on('click', '.btn-preview-image', function() {
+$moePageForm.on('click', '.btn-preview-file', function() {
   
+  var isImage = this.getAttribute('data-is-image') === 'true';
   var $fileData = $(this).closest('.input-group').find('input.file-data');
   
   var file = $fileData[0].files[0];
@@ -52,15 +53,12 @@ $moePageForm.on('click', '.btn-preview-image', function() {
     reader.readAsDataURL(file);
     
     $(reader).on('load' ,function(event) {
-      $body.addClass('show-preview-image');
-      $imgPreview.attr('src', event.target.result);
+      previewFile(isImage, event.target.result)
     });
     
   }else {
-    $body.addClass('show-preview-image');
-    $imgPreview.attr('src', src);
+    previewFile(isImage, src);
   }
-  
   
 });
 
@@ -79,8 +77,6 @@ $('.btn-save-moe-page').on('click', function() {
   var invalidForm = !ritsu.validate($moePageForm);
   if(invalidForm) return false;
  
-
-  
   var formData = new FormData($moePageForm[0]);
   
   $moePageForm.find('.file-data').each(function() {
@@ -129,15 +125,10 @@ $('.btn-save-moe-page').on('click', function() {
                   ];
     
     if (shouldUpdate) {
-      
       dataTableApi.row(rowToUpdate).data(rowData).draw();
-      
     }else {
-      
       var newRow = dataTableApi.row.add(rowData).draw().node();
-      
       $(newRow).attr('data-page-id', pageId);
-      
     }
     
     $maintenanceModalLarge.modal('hide');
@@ -154,5 +145,15 @@ ritsu.initialize({
 ritsu.storeInitialFormValues();
 
 /* Function ***************************************************************************************/
+function previewFile(isImage, src) {
+  
+  if(isImage) {
+    $body.addClass('show-preview-image');
+    $imgPreview.attr('src', src);
+  }else {
+    var audio = new Audio(src);
+    audio.play();
+  }
+}
 
 //# sourceURL=moe-page-form.js

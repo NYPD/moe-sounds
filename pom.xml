@@ -4,7 +4,7 @@
   <groupId>com.moesounds</groupId>
   <artifactId>moe-sounds</artifactId>
   <name>Moe Sounds</name>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <packaging>war</packaging>
   <inceptionYear>2016</inceptionYear>
   
@@ -212,7 +212,6 @@
     <testSourceDirectory>junit</testSourceDirectory>
     
     <finalName>${project.artifactId}</finalName>
-<!--     <finalName>${project.artifactId}##${project.version}</finalName> -->
     
     <resources>
       <resource>
@@ -260,16 +259,16 @@
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
           <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingExcludes>META-INF/context.xml</packagingExcludes>
         </configuration>
       </plugin>
-  
+      
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.2</version>
         <configuration>
           <warFile>target/${project.artifactId}.war</warFile>
-<!--           <warFile>target/${project.artifactId}##${project.version}.war</warFile> -->
           <path>/</path>
         </configuration>
       </plugin>
