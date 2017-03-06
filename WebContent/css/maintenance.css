@@ -39,7 +39,14 @@
   width: auto;
 }
 
+
+
 /* Main Page **************************************************************************************/
+@media screen and (max-width: 767px) {
+  .table-moe-pages > thead:first-child > tr:first-child > th {
+    width: 25px !important;
+  }
+}
 .table-moe-pages .page-thumbnail-image {
   height: 45px;
 }
@@ -68,6 +75,19 @@
   margin-left: 15px;
 }
 
+.table-moe-pages .row-options {
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .table-moe-pages .row-options {
+    display: block;
+  }
+}
+
+.table-moe-pages .row-options > i {
+  flex: 1;
+}
 
 /* Image Preview Container Stuff ******************************************************************/
 .preview-image-container {

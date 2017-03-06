@@ -4,11 +4,16 @@
   
     <div class="row">
     
-      <div class="col-xs-6 col-footer">
-        <span>Copyright &copy; <span id="copyright-year"></span> ${applicationName}</span>
+      <div class="col-xs-5 col-footer">
+        <span>
+          <span class="hidden-xs">Copyright</span> 
+          <span>&copy;</span>
+          <span id="copyright-year"></span> 
+          <span>${applicationName}</span>
+        </span>
       </div>
       
-      <div class="col-xs-6 col-footer">
+      <div class="col-xs-7 col-footer">
         
         <ul> 
           <li>

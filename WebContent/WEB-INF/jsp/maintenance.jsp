@@ -4,12 +4,10 @@
 <html lang="en">
 
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Moe Maintenance</title>
-    <link rel="shortcut icon" href="${context}/images/favicon.ico" />
+    
+    <%@ include file = "fragments/meta-block.jsp" %>
 
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +35,11 @@
 	      <div class="col-xs-12 table-container table-loading">
         
           <h2>Moe Pages</h2>
-        
+          
+          <div class="text-right">
+            <button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>
+          </div>
+          
 	        <table class="table table-striped table-moe-pages" id="moe-pages">
 	          <thead>
 	            <tr>
@@ -52,8 +54,11 @@
 	            <c:forEach items="${allPages}" var="page">
 	              <tr data-page-id="${page.pageId}">
                   <td>
-                    <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
-                    <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
+                    <div class="row-options">
+                      <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
+                      <div class="visible-xs-block"></div>
+                      <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
+                    </div>
                   </td>
                   <td>
                     <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>

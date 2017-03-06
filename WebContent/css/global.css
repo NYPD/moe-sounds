@@ -6,7 +6,6 @@ html {
 
 body {
   padding-bottom: 60px;
-  min-width: 500px;
 }
 
 body > .container {
@@ -56,6 +55,7 @@ body > .container {
   background-color: #f8f8f8;
 }
 .footer ul {
+  padding: 0;
   margin: 0;
   list-style-type: none;
 }
@@ -76,8 +76,7 @@ body > .container {
 }
 
   
-
-/* Only admin jsp needs this, i have no fuckng clue*/
+/* Only admin jsp needs this, I have no fucking clue*/
 .footer > .container,
 .footer > .container > .row {
     height: 100%;
