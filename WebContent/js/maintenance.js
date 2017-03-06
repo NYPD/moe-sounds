@@ -62,6 +62,7 @@ $moePagesTable.DataTable({
   autoWidth: false,
   columnDefs: [
     {className: "text-right",    "targets": [3,4]},
+    {className: "text-center",   "targets": [1]},
     {className: "table-actions", "targets": [0]},
     {orderable: false,           "targets": [0,1]},
     {width:     '90px',          "targets": [0]}

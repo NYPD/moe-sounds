@@ -54,8 +54,11 @@
 	            <c:forEach items="${allPages}" var="page">
 	              <tr data-page-id="${page.pageId}">
                   <td>
-                    <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
-                    <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
+                    <div class="row-options">
+                      <i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i>
+                      <div class="visible-xs-block"></div>
+                      <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>
+                    </div>
                   </td>
                   <td>
                     <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
