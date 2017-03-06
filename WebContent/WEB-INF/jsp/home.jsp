@@ -4,14 +4,11 @@
 <html lang="en-us">
 
   <head>
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+    
     <title>${applicationName}</title>
     
-    <link rel="shortcut icon" href="${context}/images/favicon.ico" />
+    <%@ include file = "fragments/meta-block.jsp" %>
+    
     <link href="https://fonts.googleapis.com/css?family=Unica+One|Passion+One|Roboto|Oswald|Anton|Exo+2:900|Raleway:700" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -27,6 +24,7 @@
       }
     </style>
     <style>${page.css}</style>
+    
   </head>
   <body>
   
