@@ -35,7 +35,11 @@
 	      <div class="col-xs-12 table-container table-loading">
         
           <h2>Moe Pages</h2>
-        
+          
+          <div class="text-right">
+            <button type="button" class="btn btn-primary btn-add-moe-page">Add Moe Page</button>
+          </div>
+          
 	        <table class="table table-striped table-moe-pages" id="moe-pages">
 	          <thead>
 	            <tr>
