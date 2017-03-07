@@ -234,6 +234,15 @@ nav a:last-child {
     1px 1px 0 #3a3a3a;
 }
 
+@media screen and (max-width: 700px) {
+ .main .main-inner .sound-name > p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+  
+
 /* Inner container footer *************************************************************************/
 .main .main-inner .sound-footer {
   position: absolute;
