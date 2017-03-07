@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `moe_sounds`.`media` (
   `file_size` INT(11) NOT NULL,
   PRIMARY KEY (`media_id`),
   INDEX `page_id_idx` (`page_id` ASC),
+  UNIQUE INDEX `media_unique` (`page_id` ASC, `media_type` ASC),
   CONSTRAINT `page_id`
     FOREIGN KEY (`page_id`)
     REFERENCES `moe_sounds`.`page` (`page_id`)
