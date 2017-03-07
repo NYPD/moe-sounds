@@ -36,9 +36,8 @@
 		  
 		  <c:forEach items="${mediaTypes}" var="mediaType" varStatus="loopTagstatus">
       
-        <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaId"   value="${media.mediaId}">
-        <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaType" class="media-type" value="${mediaType}">
-		  
+        <c:set var="media" value="${page.getMediaWithMediaType(mediaType)}"/>
+      
 		    <div class="form-group">
       
 	        <label for="${mediaType}" class="col-sm-3 control-label">${mediaType.nameWithoutAllCaps}</label>
@@ -50,7 +49,8 @@
 	            <label class="input-group-btn">
                 <a class="btn btn-default">
                   <span>Browse&hellip;</span>
-                  <c:set var="media" value="${page.getMediaWithMediaType(mediaType)}"/>
+                  <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaId"   value="${media.mediaId}">
+                  <input type="hidden" name="formFiles[${loopTagstatus.index}].mediaType" class="media-type" value="${mediaType}">
                   <input type="file" class="file-data" name="formFiles[${loopTagstatus.index}].file" id="${mediaType}" data-simple-file-hash="${media.fileName}${media.fileSize}" 
                                                                                                                        <c:if test="${not empty media}">data-src="/get-page-media/${page.pageId}-${mediaType}"</c:if> 
                                                                                                                        <c:if test="${mediaType.required}">required</c:if>>
