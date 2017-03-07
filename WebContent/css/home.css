@@ -1,6 +1,6 @@
 @media screen and (max-width: 700px) {
   
-  .main .main-inner .thumbnail-container {
+  .main .main-inner .carousel-container {
     flex: 1;
     text-align: right;
   }
@@ -199,14 +199,14 @@ nav a:last-child {
   
 }
 
-.main .main-inner .sound-play .page-thumbnail-image {
+.main .main-inner .sound-play .page-carousel-image {
   display: none;
   margin-right: 5px;
   width: 100px;
 }
 
 @media screen and (max-width: 700px) {
- .main .main-inner .sound-play .page-thumbnail-image {
+ .main .main-inner .sound-play .page-carousel-image {
     display: inline-block;
   }
 }
