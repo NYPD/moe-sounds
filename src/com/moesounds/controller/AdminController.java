@@ -35,7 +35,13 @@ public class AdminController {
 
     @RequestMapping
     public ModelAndView getLoginPage() {
-        return new ModelAndView("login");
+
+        User user = moeSoundsSessionBean.getUser();
+
+        if (user != null)
+            return new ModelAndView("redirect:/admin/maintenance");
+        else
+            return new ModelAndView("login");
     }
 
     @RequestMapping(value = "api/google-oauth-login")

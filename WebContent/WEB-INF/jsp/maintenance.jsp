@@ -63,7 +63,7 @@
                   <td>
                     <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
                     <c:if test="${not empty thumbnail}">
-                      <img class="page-thumbnail-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
+                      <img class="page-carousel-image" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
                     </c:if>
                   </td>
                   <td>${page.pageName}</td>

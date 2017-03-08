@@ -44,10 +44,10 @@
         </div>
 
         <div class="sound-play">
-          <c:set var="thumbnail" value="${page.getMediaWithMediaType('THUMBNAIL_ICON')}"/>
-          <c:if test="${not empty thumbnail}">
-            <div class="thumbnail-container">
-              <img class="page-thumbnail-image noselect" src="data:${thumbnail.fileType};base64,${thumbnail.fileDataAsBase64}">
+          <c:set var="carouselImage" value="${page.getMediaWithMediaType('CAROUSEL_IMAGE')}"/>
+          <c:if test="${not empty carouselImage}">
+            <div class="carousel-container">
+              <img class="page-carousel-image noselect" src="data:${carouselImage.fileType};base64,${carouselImage.fileDataAsBase64}">
             </div>
           </c:if>
           <p class="play-display noselect">PLAY</p>
