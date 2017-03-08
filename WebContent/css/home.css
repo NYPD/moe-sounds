@@ -103,6 +103,8 @@ nav a:last-child {
     width: 100%;
     height: 300px;
     background: rgba(58,58,58,.3);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
   
 }
