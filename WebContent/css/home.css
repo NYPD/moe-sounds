@@ -155,7 +155,7 @@ nav a:last-child {
 }
 
 .main .main-inner .sound-play:hover {
-  background-color: rgba(58,58,58,.1);
+  background-color: rgba(58,58,58, 0);
 }
 
 @media screen and (max-width: 700px) {
@@ -182,7 +182,7 @@ nav a:last-child {
 }
 
 .main .main-inner .sound-play:hover .play-display {
-  opacity: 0;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 700px) {

@@ -14,10 +14,35 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
     
-    <!-- Inline Styles from page object -->
+    <!-- Inline Styles from page object. If there is not page background randomize between two for now -->
+    <c:choose>
+      <c:when test="${not empty page.getMediaWithMediaType('PAGE_BACKGROUND')}">
+        <c:set var="backgroundImageUrl" value="url('${context}/get-page-media/${page.pageId}-PAGE_BACKGROUND')"/>
+      </c:when>
+      <c:otherwise>
+        <c:choose>
+          <c:when test="${randomNumber == 0}">
+            <c:set var="backgroundImageUrl" value="url('${context}/images/background-grey.png')"/>
+            <style>
+              .main .main-inner {
+                background: rgba(73,82,86,.8);
+              }
+            </style>
+          </c:when>
+          <c:otherwise>
+            <c:set var="backgroundImageUrl" value="url('${context}/images/background-pink.png')"/>
+            <style>
+              .main .main-inner {
+                background: rgba(224,90,179,.8);
+              }
+            </style>
+          </c:otherwise>
+        </c:choose>
+      </c:otherwise>
+    </c:choose>
     <style>
       .main {
-        background-image: url('${context}/get-page-media/${page.pageId}-PAGE_BACKGROUND');
+        background-image: ${backgroundImageUrl};
       }
       .thumb-large {
         background-image: url('${context}/get-page-media/${page.pageId}-BACKGROUND_INNER');
