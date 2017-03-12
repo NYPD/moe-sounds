@@ -17,27 +17,16 @@ public class HomeController {
     @Autowired
     private MoeSoundsService moeSoundsService;
 
-    @RequestMapping(value = {"/random", "/"})
-    public ModelAndView getHomePage() {
+    @RequestMapping(value = {"/", "/random", "/page/{pageId}"})
+    public ModelAndView getHomePage(@PathVariable(value = "pageId", required = false) Integer pageId) {
 
         ModelAndView mav = new ModelAndView("home");
 
-        Page randomPage = moeSoundsService.getRandomPage();
+        Page page = pageId == null ? moeSoundsService.getRandomPage() : moeSoundsService.getSpecificPage(pageId);;
         int randomNumber = ThreadLocalRandom.current().nextInt(0, 1 + 1);
 
-        mav.addObject("page", randomPage);
+        mav.addObject("page", page);
         mav.addObject("randomNumber", randomNumber);
-
-        return mav;
-    }
-
-    @RequestMapping(value = {"/page/{pageId}"})
-    public ModelAndView getSpecificPage(@PathVariable("pageId") int pageId) {
-
-        ModelAndView mav = new ModelAndView("home");
-
-        Page specificPage = moeSoundsService.getSpecificPage(pageId);
-        mav.addObject("page", specificPage);
 
         return mav;
     }

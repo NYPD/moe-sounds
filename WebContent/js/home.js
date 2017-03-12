@@ -1,6 +1,7 @@
 /* Cached Variables *******************************************************************************/
 var currentPageId = sessionStorage.getItem('currentPageId');
 var $count = $('#count');
+var soundFileNotLoaded = true;
 
 /* Initialization *********************************************************************************/
 ion.sound({
@@ -11,13 +12,19 @@ ion.sound({
   ],
   multiplay: true,
   path: "/get-page-media/",
-  preload: true
+  preload: true,
+  ready_callback: function() {
+    soundFileNotLoaded = false;
+  }
 });
 
 window.setInterval(fetchMoeCount, 10000);//10 Seconds
 
 /* Listeners **************************************************************************************/
 $('.sound-play').on('click', function() {
+  
+  if(soundFileNotLoaded)
+    return false;
   
   ion.sound.play(currentPageId + '-SOUND_FILE');
   
