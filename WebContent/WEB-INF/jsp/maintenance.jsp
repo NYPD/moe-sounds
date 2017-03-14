@@ -46,7 +46,6 @@
 	              <th></th>
 	              <th></th>
 	              <th>Page Name</th>
-                <th>Missing Media Count</th>
 	              <th>Click Count</th>
 	            </tr>
 	          </thead>
@@ -67,7 +66,6 @@
                     </c:if>
                   </td>
                   <td>${page.pageName}</td>
-                  <td>${page.missingMediaCount}</td>
                   <td>${page.clickCount}</td>              
 	              </tr>
 	            </c:forEach>

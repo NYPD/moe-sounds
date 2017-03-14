@@ -10,7 +10,6 @@ public class PageFormSaveResult {
     private String thumbnailIconFileType;
     private String thumbnailIconAsBase64;
     private String pageName;
-    private int missingMediaCount;
     private int clickCount = 0;
 
     public PageFormSaveResult(Page page) {
@@ -24,7 +23,6 @@ public class PageFormSaveResult {
         }
 
         this.pageName = page.getPageName();
-        this.missingMediaCount = page.getMissingMediaCount();
     }
 
     public int getPageId() {
@@ -42,11 +40,6 @@ public class PageFormSaveResult {
     public String getPageName() {
         return pageName;
     }
-
-    public int getMissingMediaCount() {
-        return missingMediaCount;
-    }
-
     public int getClickCount() {
         return clickCount;
     }
