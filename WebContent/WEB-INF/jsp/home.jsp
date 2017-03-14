@@ -93,6 +93,12 @@
               <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false"></a>
             </div>
           </div>
+          
+          <div class="stutter-container">
+            <label>
+              <input type="checkbox" id="stutter-setting"/> Stutter Effect
+            </label>
+          </div>
   
           <div class="project-info">
             <span id="misc_text">
@@ -113,7 +119,7 @@
   
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="${context}/js/vendor/ion.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.min.js"></script>
     <script src="${context}/js/global.js?v=${projectVersion}"></script>
     
     <!-- I set in the browser session what page id currently loaded, and retrieve it in the home.js -->

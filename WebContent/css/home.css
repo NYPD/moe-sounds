@@ -267,6 +267,17 @@ nav a:last-child {
   vertical-align: middle;
 }
 
+.main .main-inner .sound-footer .stutter-container {
+  flex: 1;
+  line-height: 30px;
+  text-align: center;
+}
+
+.main .main-inner .sound-footer .stutter-container label {
+  cursor: pointer;
+}
+
+
 .main .main-inner .sound-footer .project-info {
   flex: 1;
   padding-left: 5px;
