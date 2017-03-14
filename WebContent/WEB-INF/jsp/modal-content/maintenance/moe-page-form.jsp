@@ -23,7 +23,7 @@
 		  <div class="form-group">
 		    <label for="page-name" class="col-sm-3 control-label">Page Name</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control alpha alpha-numeric" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}" required>
+		      <input type="text" class="form-control" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}" required>
 		    </div>
 		  </div>
 		  
