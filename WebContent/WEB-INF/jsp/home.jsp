@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Unica+One|Passion+One|Roboto|Oswald|Anton|Exo+2:900|Raleway:700" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
+    <link rel="stylesheet" type="text/css" href="${context}/css/home.css?v=${projectVersion}">
     
     <!-- Inline Styles from page object. If there is not page background randomize between two for now -->
     <c:choose>
@@ -114,7 +114,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/ion.sound.min.js"></script>
-    <script src="${context}/js/global.js"></script>
+    <script src="${context}/js/global.js?v=${projectVersion}"></script>
     
     <!-- I set in the browser session what page id currently loaded, and retrieve it in the home.js -->
     <script type="text/javascript">

@@ -5,7 +5,7 @@
   <c:set var="modalAction" value="Add"/>
 </c:if>
 
-<link href="${context}/css/modal/maintenance/moe-page-form.css" rel="stylesheet">
+<link href="${context}/css/modal/maintenance/moe-page-form.css?v=${projectVersion}" rel="stylesheet">
 
 <div class="modal-content">
 
@@ -87,5 +87,5 @@
   
 </div>
 
-<script src="${context}/js/vendor/ritsu.min.js"></script>
-<script src="${context}/js/modal/maintenance/moe-page-form.js"></script>
+<script src="${context}/js/vendor/ritsu.min.js?v=${projectVersion}"></script>
+<script src="${context}/js/modal/maintenance/moe-page-form.js?v=${projectVersion}"></script>

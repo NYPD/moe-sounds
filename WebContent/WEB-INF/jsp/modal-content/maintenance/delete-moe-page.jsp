@@ -18,4 +18,4 @@
   
 </div>
 
-<script src="${context}/js/modal/maintenance/delete-moe-page.js"></script>
+<script src="${context}/js/modal/maintenance/delete-moe-page.js?v=${projectVersion}"></script>

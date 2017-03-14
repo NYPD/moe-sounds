@@ -11,8 +11,8 @@
 
     <!-- Styles -->
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
-    <link href="${context}/css/global.css" rel="stylesheet">
-    <link href="${context}/css/login.css" rel="stylesheet">
+    <link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">
+    <link href="${context}/css/login.css?v=${projectVersion}" rel="stylesheet">
     
   </head>
   
@@ -52,7 +52,7 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
-    <script src="${context}/js/login.js"></script>
+    <script src="${context}/js/login.js?v=${projectVersion}"></script>
     
   </body>
   
