@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `moe_sounds`.`page` (
   `page_id` INT(11) NOT NULL AUTO_INCREMENT,
   `page_name` VARCHAR(45) NOT NULL,
   `css` MEDIUMTEXT NULL DEFAULT NULL,
+  `default_background` VARCHAR(45) NULL DEFAULT NULL,
   `click_count` BIGINT(20) NOT NULL DEFAULT '0',
   PRIMARY KEY (`page_id`))
 ENGINE = InnoDB

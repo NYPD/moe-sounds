@@ -13,7 +13,6 @@ public enum UserRole implements MappedEnum {
 
     @Override
     public String getMappedValue() {
-
         return this.name;
     }
 

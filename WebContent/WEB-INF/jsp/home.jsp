@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page trimDirectiveWhitespaces="true" %>
 
 <!DOCTYPE>
 <html lang="en-us">
@@ -12,38 +13,40 @@
     <link href="https://fonts.googleapis.com/css?family=Unica+One|Passion+One|Roboto|Oswald|Anton|Exo+2:900|Raleway:700" rel="stylesheet">
     
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-    <link rel="stylesheet" type="text/css" href="${context}/css/home.css">
+    <link rel="stylesheet" type="text/css" href="${context}/css/home.css?v=${projectVersion}">
     
-    <!-- Inline Styles from page object. If there is not page background randomize between two for now -->
+    <!-- Inline Styles from page object. If there is not page background choose the default background if any -->
     <c:choose>
       <c:when test="${not empty page.getMediaWithMediaType('PAGE_BACKGROUND')}">
-        <c:set var="backgroundImageUrl" value="url('${context}/get-page-media/${page.pageId}-PAGE_BACKGROUND')"/>
+        <style>
+          .main {
+            background-image: url('${context}/get-page-media/${page.pageId}-PAGE_BACKGROUND');
+          }
+        </style>
+      </c:when>
+      <c:when test="${not empty page.defaultBackground}">
+        <style>
+          .main {
+            background-image: url('${context}/${page.defaultBackground.path}');
+          }
+          .main .main-inner {
+            background: ${page.defaultBackground.mainInnerBackgroundCss};
+          }
+        </style>
       </c:when>
       <c:otherwise>
-        <c:choose>
-          <c:when test="${randomNumber == 0}">
-            <c:set var="backgroundImageUrl" value="url('${context}/images/background-grey.png')"/>
-            <style>
-              .main .main-inner {
-                background: rgba(73,82,86,.8);
-              }
-            </style>
-          </c:when>
-          <c:otherwise>
-            <c:set var="backgroundImageUrl" value="url('${context}/images/background-pink.png')"/>
-            <style>
-              .main .main-inner {
-                background: rgba(224,90,179,.8);
-              }
-            </style>
-          </c:otherwise>
-        </c:choose>
+        <style>
+          .main {
+            background-image: url('${context}/${randomBackground.path}');
+          }
+          .main .main-inner {
+            background: ${randomBackground.mainInnerBackgroundCss};
+          }
+        </style>
       </c:otherwise>
     </c:choose>
+    
     <style>
-      .main {
-        background-image: ${backgroundImageUrl};
-      }
       .thumb-large {
         background-image: url('${context}/get-page-media/${page.pageId}-BACKGROUND_INNER');
       }
@@ -61,6 +64,8 @@
     <div class="main">
 
       <div class="main-inner">
+      
+        <span>Load</span><span>Error</span>
         
         <div class="thumb-large"></div>
         
@@ -93,6 +98,12 @@
               <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out this moe site:" data-url="${applicationUrl}" data-show-count="false"></a>
             </div>
           </div>
+          
+          <div class="stutter-container">
+            <label>
+              <input type="checkbox" id="stutter-setting"/> Stutter Effect
+            </label>
+          </div>
   
           <div class="project-info">
             <span id="misc_text">
@@ -113,8 +124,8 @@
   
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="${context}/js/vendor/ion.sound.min.js"></script>
-    <script src="${context}/js/global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.min.js"></script>
+    <script src="${context}/js/global.js?v=${projectVersion}"></script>
     
     <!-- I set in the browser session what page id currently loaded, and retrieve it in the home.js -->
     <script type="text/javascript">

@@ -5,7 +5,7 @@
   <c:set var="modalAction" value="Add"/>
 </c:if>
 
-<link href="${context}/css/modal/maintenance/moe-page-form.css" rel="stylesheet">
+<link href="${context}/css/modal/maintenance/moe-page-form.css?v=${projectVersion}" rel="stylesheet">
 
 <div class="modal-content">
 
@@ -23,7 +23,7 @@
 		  <div class="form-group">
 		    <label for="page-name" class="col-sm-3 control-label">Page Name</label>
 		    <div class="col-sm-9">
-		      <input type="text" class="form-control alpha alpha-numeric" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}" required>
+		      <input type="text" class="form-control" id="page-name" name="pageName" placeholder="Page Name" value="${page.pageName}" required>
 		    </div>
 		  </div>
 		  
@@ -33,6 +33,22 @@
 		      <textarea class="form-control" id="css" name="css" rows="10" cols="60">${page.css}</textarea>
 		    </div>
 		  </div>
+      
+      <div class="form-group">
+        <label for="css" class="col-sm-3 control-label">Default Background</label>
+        <div class="col-sm-9">
+          <select class="form-control optional" name="defaultBackground">
+            <option value="">Random</option>
+            <c:forEach items="${defaultBackgrounds}" var="defaultBackground">
+              <option value="${defaultBackground}"
+                      <c:if test="${page.defaultBackground eq defaultBackground}">selected</c:if>>
+                ${defaultBackground.name}
+              </option>
+            </c:forEach>
+          </select>
+          <span class="help-block">Default background image of the entire page. Used when no page background is defined</span>
+        </div>
+      </div>
 		  
 		  <c:forEach items="${mediaTypes}" var="mediaType" varStatus="loopTagstatus">
       
@@ -87,5 +103,5 @@
   
 </div>
 
-<script src="${context}/js/vendor/ritsu.min.js"></script>
-<script src="${context}/js/modal/maintenance/moe-page-form.js"></script>
+<script src="${context}/js/vendor/ritsu.min.js?v=${projectVersion}"></script>
+<script src="${context}/js/modal/maintenance/moe-page-form.js?v=${projectVersion}"></script>

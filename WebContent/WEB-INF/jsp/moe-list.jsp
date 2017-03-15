@@ -12,8 +12,8 @@
     <link href="${context}/css/vendor/bootstrap.min.css" rel="stylesheet">
     <link href="${context}/css/vendor/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
-    <link href="${context}/css/global.css" rel="stylesheet">
-    <link href="${context}/css/moe-list.css" rel="stylesheet">
+    <link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">
+    <link href="${context}/css/moe-list.css?v=${projectVersion}" rel="stylesheet">
     
     <script type="text/javascript">
       sessionStorage.setItem('context', '${context}');
@@ -79,7 +79,7 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
-    <script src="${context}/js/global.js"></script>
-    <script src="${context}/js/moe-list.js"></script>
+    <script src="${context}/js/global.js?v=${projectVersion}"></script>
+    <script src="${context}/js/moe-list.js?v=${projectVersion}"></script>
   </body>
 </html>

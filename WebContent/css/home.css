@@ -267,6 +267,17 @@ nav a:last-child {
   vertical-align: middle;
 }
 
+.main .main-inner .sound-footer .stutter-container {
+  flex: 1;
+  line-height: 30px;
+  text-align: center;
+}
+
+.main .main-inner .sound-footer .stutter-container label {
+  cursor: pointer;
+}
+
+
 .main .main-inner .sound-footer .project-info {
   flex: 1;
   padding-left: 5px;
@@ -310,4 +321,45 @@ nav a:last-child {
        -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently */
+}
+
+/* Load Error *************************************************************************************/
+.main-inner > span {
+  display: none;  
+}
+.main-inner.load-error > div {
+  display: none;
+}
+
+.main-inner.load-error > span {
+  display: block;
+  padding-left: 15px;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 180px;
+  -webkit-animation: pulse 0.4s alternate infinite ease-in-out;
+          animation: pulse 0.4s alternate infinite ease-in-out;
+}
+.main-inner.load-error > span:nth-child(odd) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.main-inner.load-error > span:nth-child(even) {
+  text-align: right;
+}
+
+
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+@keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
 }

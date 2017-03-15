@@ -16,6 +16,7 @@
     SELECT page_id,
            page_name,
            css,
+           default_background,
            click_count
       FROM moe_sounds.page
      WHERE page_id = #{pageId}
@@ -25,22 +26,22 @@
     SELECT page_id,
            page_name,
            css,
+           default_background,
            click_count
       FROM moe_sounds.page
   </select>
 
   <insert id="insertPage" useGeneratedKeys="true" keyProperty="pageId">
-    INSERT INTO moe_sounds.page 
-                (page_name, css)
-    
-         VALUES (#{pageName}, #{css})
+    INSERT INTO moe_sounds.page (page_name, css, default_background)
+         VALUES (#{pageName}, #{css}, #{defaultBackground})
   </insert>
   
   <update id="updatePage">
     UPDATE moe_sounds.page
     
        SET page_name = #{pageName},
-           css = #{css}
+           css = #{css},
+           default_background = #{defaultBackground}
      WHERE page_id = ${pageId}
   </update>
   

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.util.StringUtils;
 
+import com.moesounds.domain.enums.DefaultBackground;
 import com.moesounds.domain.enums.MediaType;
 
 public class Page {
@@ -14,20 +15,23 @@ public class Page {
     private String pageName;
     private String css;
     private long clickCount;
+
+    private DefaultBackground defaultBackground;
     private Map<MediaType, Media> media;
 
-    public Page(String pageName, String css) {
-        this.updatePage(pageName, css);
+    public Page(String pageName, String css, DefaultBackground defaultBackground) {
+        this.updatePage(pageName, css, defaultBackground);
     }
 
     // Modified Accessors ********************************
-    public void updatePage(String pageName, String css) {
+    public void updatePage(String pageName, String css, DefaultBackground defaultBackground) {
 
         boolean isEmpty = StringUtils.isEmpty(pageName);
         if (isEmpty) throw new IllegalArgumentException();
 
         this.pageName = pageName;
         this.css = css;
+        this.defaultBackground = defaultBackground;
 
     }
 
@@ -46,31 +50,22 @@ public class Page {
         if (mediaToRemove != null) mediaToRemove.setPage(null);
     }
 
-    public int getMissingMediaCount() {
-
-        getMedia();// Media is lazy loaded and might not be present
-
-        return MediaType.values().length - (media == null ? 0 : media.size());
-
-    }
-
     // Default Accessors *********************************
     public Integer getPageId() {
         return pageId;
     }
-
     public String getPageName() {
         return pageName;
     }
-
     public String getCss() {
         return css;
     }
-
+    public DefaultBackground getDefaultBackground() {
+        return defaultBackground;
+    }
     public long getClickCount() {
         return clickCount;
     }
-
     public Map<MediaType, Media> getMedia() {
         return media;
     }

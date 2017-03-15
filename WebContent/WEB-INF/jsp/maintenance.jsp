@@ -15,8 +15,8 @@
     <link href="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/plug-ins/1.10.12/integration/font-awesome/dataTables.fontAwesome.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
-    <link href="${context}/css/global.css" rel="stylesheet">
-    <link href="${context}/css/maintenance.css" rel="stylesheet">
+    <link href="${context}/css/global.css?v=${projectVersion}" rel="stylesheet">
+    <link href="${context}/css/maintenance.css?v=${projectVersion}" rel="stylesheet">
     
     <script type="text/javascript">
       sessionStorage.setItem('context', '${context}');
@@ -46,7 +46,6 @@
 	              <th></th>
 	              <th></th>
 	              <th>Page Name</th>
-                <th>Missing Media Count</th>
 	              <th>Click Count</th>
 	            </tr>
 	          </thead>
@@ -67,7 +66,6 @@
                     </c:if>
                   </td>
                   <td>${page.pageName}</td>
-                  <td>${page.missingMediaCount}</td>
                   <td>${page.clickCount}</td>              
 	              </tr>
 	            </c:forEach>
@@ -101,8 +99,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/v/bs/dt-1.10.12/r-2.1.0/datatables.min.js"></script>
-    <script src="${context}/js/global.js"></script>
-    <script src="${context}/js/maintenance.js"></script>
+    <script src="${context}/js/global.js?v=${projectVersion}"></script>
+    <script src="${context}/js/maintenance.js?v=${projectVersion}"></script>
     
   </body>
   

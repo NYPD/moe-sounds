@@ -120,7 +120,6 @@ $('.btn-save-moe-page').on('click', function() {
                     '<i class="fa fa-wrench fa-2x edit-page" aria-hidden="true"></i> <i class="fa fa-trash-o fa-2x delete-page" aria-hidden="true"></i>',
                     imgString,
                     pageFormResult.pageName,
-                    pageFormResult.missingMediaCount,
                     pageFormResult.clickCount
                   ];
     
