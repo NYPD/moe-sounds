@@ -10,7 +10,7 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 public enum MediaType implements MappedEnum {
 
-    PAGE_BACKGROUND("PAGE BACKGROUND", "Background image of the entire page. Wide-screen format is reccomended", false),
+    PAGE_BACKGROUND("PAGE BACKGROUND", "Background image of the entire page. Wide-screen format is recommended", false),
     BACKGROUND_INNER("BACKGROUND INNER", "Background image of the center box. Roughly 700x470 pixels", true),
     CAROUSEL_IMAGE("CAROUSEL IMAGE", "Roughly 200x200 pixels", true),
     THUMBNAIL_ICON("THUMBNAIL ICON", "Roughly 50x50 pixels", true),

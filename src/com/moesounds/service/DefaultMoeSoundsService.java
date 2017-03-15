@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.moesounds.dao.MoeSoundsDAO;
 import com.moesounds.domain.Media;
 import com.moesounds.domain.Page;
+import com.moesounds.domain.enums.DefaultBackground;
 import com.moesounds.domain.enums.MediaType;
 import com.moesounds.model.PageForm;
 import com.moesounds.model.PageForm.PageFormFile;
@@ -31,13 +32,15 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 
         String pageName = pageForm.getPageName();
         String css = pageForm.getCss();
+        DefaultBackground defaultBackground = pageForm.getDefaultBackground();
+
         Collection<PageFormFile> formFiles = pageForm.getFormFiles();
 
         Page page = null;
 
         if (shouldInsert) {
 
-            page = new Page(pageName, css);
+            page = new Page(pageName, css, defaultBackground);
             moeSoundsDAO.insertPage(page);
 
             Integer newlyGenratedPageId = page.getPageId();
@@ -46,7 +49,7 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
         } else {
 
             page = moeSoundsDAO.getPage(pageId);
-            page.updatePage(pageName, css);
+            page.updatePage(pageName, css, defaultBackground);
 
             moeSoundsDAO.updatePage(page);
         }
@@ -125,11 +128,11 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
             MultipartFile file = pageFormFile.getFile();
 
             boolean noFileChange = file == null; // If the file comes back as null, we assume the
-                                                 // user did not change it
+            // user did not change it
             if (noFileChange) continue;
 
             boolean userWishesToDelete = file.isEmpty(); // If they file is empty, we assume the
-                                                         // user wants to delete it
+            // user wants to delete it
 
             if (userWishesToDelete) {
                 page.removeMedia(mediaType);

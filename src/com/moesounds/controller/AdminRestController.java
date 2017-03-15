@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.domain.Page;
+import com.moesounds.domain.enums.DefaultBackground;
 import com.moesounds.domain.enums.MediaType;
 import com.moesounds.model.PageForm;
 import com.moesounds.model.PageFormSaveResult;
@@ -26,6 +27,7 @@ public class AdminRestController {
         ModelAndView modelAndView = new ModelAndView("modal-content/maintenance/moe-page-form");
 
         modelAndView.addObject("mediaTypes", MediaType.values());
+        modelAndView.addObject("defaultBackgrounds", DefaultBackground.values());
 
         boolean noPageId = pageId == null;
         if (noPageId) return modelAndView;

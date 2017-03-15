@@ -33,6 +33,22 @@
 		      <textarea class="form-control" id="css" name="css" rows="10" cols="60">${page.css}</textarea>
 		    </div>
 		  </div>
+      
+      <div class="form-group">
+        <label for="css" class="col-sm-3 control-label">Default Background</label>
+        <div class="col-sm-9">
+          <select class="form-control optional" name="defaultBackground">
+            <option value="">Random</option>
+            <c:forEach items="${defaultBackgrounds}" var="defaultBackground">
+              <option value="${defaultBackground}"
+                      <c:if test="${page.defaultBackground eq defaultBackground}">selected</c:if>>
+                ${defaultBackground.name}
+              </option>
+            </c:forEach>
+          </select>
+          <span class="help-block">Default background image of the entire page. Used when no page background is defined</span>
+        </div>
+      </div>
 		  
 		  <c:forEach items="${mediaTypes}" var="mediaType" varStatus="loopTagstatus">
       

@@ -1,6 +1,6 @@
 INSERT INTO moe_sounds.page 
-VALUES (1, 'Rip', 'p{color=red;}', 0),
-	   	 (2, 'Rip2', 'p{color=blue;}', 0);
+VALUES (1, 'Rip', 'p{color=red;}', null, 0),
+	   	 (2, 'Rip2', 'p{color=blue;}', null, 0);
 	   
 INSERT INTO moe_sounds.media
 VALUES (1, 1, 'BACKGROUND INNER', 'test', 'mp3', '', '420'),
