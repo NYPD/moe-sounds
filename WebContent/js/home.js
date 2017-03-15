@@ -18,6 +18,10 @@ pageHowl.once('load', function(){
   soundFileNotLoaded = false;
 });
 
+pageHowl.once('loaderror', function(){
+  $('.main-inner').addClass('load-error');
+});
+
 window.setInterval(fetchMoeCount, 10000);//10 Seconds
 
 /* Listeners **************************************************************************************/

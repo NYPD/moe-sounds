@@ -322,3 +322,44 @@ nav a:last-child {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently */
 }
+
+/* Load Error *************************************************************************************/
+.main-inner > span {
+  display: none;  
+}
+.main-inner.load-error > div {
+  display: none;
+}
+
+.main-inner.load-error > span {
+  display: block;
+  padding-left: 15px;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 180px;
+  -webkit-animation: pulse 0.4s alternate infinite ease-in-out;
+          animation: pulse 0.4s alternate infinite ease-in-out;
+}
+.main-inner.load-error > span:nth-child(odd) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.main-inner.load-error > span:nth-child(even) {
+  text-align: right;
+}
+
+
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+@keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+    opacity: 0.5;
+  }
+}

@@ -64,6 +64,8 @@
     <div class="main">
 
       <div class="main-inner">
+      
+        <span>Load</span><span>Error</span>
         
         <div class="thumb-large"></div>
         
