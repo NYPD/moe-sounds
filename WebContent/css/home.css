@@ -21,6 +21,7 @@ body {
   margin: 0;
   color: #ffffff;
   background: #3a3a3a;
+  position: relative;
 }
 
 body {
@@ -123,6 +124,7 @@ nav a:last-child {
 @media screen and (max-width: 700px) {
   .main .main-inner .thumb-large {
     display: none;
+    
   }
 }
 
@@ -161,6 +163,7 @@ nav a:last-child {
 @media screen and (max-width: 700px) {
   .main .main-inner .sound-play {
     display: flex;
+    height: calc(100% - 60px);
     align-items: center;
     background: none;
   }
@@ -254,6 +257,14 @@ nav a:last-child {
   width: 100%;
   font-family: 'Railway', sans-serif;
 }
+
+@media screen and (max-width: 700px) {
+ .main .main-inner .sound-footer {
+    height: 60px;
+  }
+}
+
+
 .main .main-inner .sound-footer .share-links {
   flex: 1;
   z-index: 9000;
@@ -262,15 +273,30 @@ nav a:last-child {
   line-height: 30px;
 }
 
+
 .main .main-inner .sound-footer .share-links .social-media {
   display: inline-block;
   vertical-align: middle;
 }
 
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-footer .share-links .social-media {
+    display: block;
+    vertical-align: baseline;
+    margin-top: 6px;
+  }
+}
+
 .main .main-inner .sound-footer .stutter-container {
   flex: 1;
-  line-height: 30px;
   text-align: center;
+}
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-footer .stutter-container {
+    padding-top: 20px;
+  }
 }
 
 .main .main-inner .sound-footer .stutter-container label {
@@ -284,6 +310,13 @@ nav a:last-child {
   padding-right: 5px;
   text-align: right;
   line-height: 30px;
+}
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-footer .project-info {
+    padding-top: 15px;
+    line-height: normal;
+  }
 }
 
 .main .main-inner .sound-footer .version-link {
