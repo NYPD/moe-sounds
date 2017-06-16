@@ -290,12 +290,14 @@ nav a:last-child {
 
 .main .main-inner .sound-footer .stutter-container {
   flex: 1;
+  line-height: 30px;
   text-align: center;
 }
 
 @media screen and (max-width: 700px) {
   .main .main-inner .sound-footer .stutter-container {
     padding-top: 20px;
+    line-height: normal;
   }
 }
 

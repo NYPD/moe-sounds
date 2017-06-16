@@ -15,5 +15,7 @@
   position: absolute; 
   bottom: 20px; 
   left: 15px; 
-  right: 15px; 
+  right: 15px;
+  height: 17px;
+  font-size: 90%;
 } 
