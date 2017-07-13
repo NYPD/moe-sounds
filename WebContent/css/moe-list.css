@@ -1,3 +1,7 @@
+.content-loading .row-thumbnails {
+  visibility: hidden;
+}
+
 .thumbnail .thumbnail-image {
   cursor: pointer;
 }

@@ -21,7 +21,7 @@
     
   </head>
   
-  <body data-tab-id="all-nav">
+  <body data-tab-id="all-nav" class="content-loading">
   
     <%@ include file = "fragments/navbar.jsp" %>
   
