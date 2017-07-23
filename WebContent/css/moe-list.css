@@ -1,3 +1,11 @@
+.content-loading .row-thumbnails {
+  visibility: hidden;
+}
+
+.row-total-clicks .total-clicks {
+  color: #ed308b;
+}
+
 .thumbnail .thumbnail-image {
   cursor: pointer;
 }

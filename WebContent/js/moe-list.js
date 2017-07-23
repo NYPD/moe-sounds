@@ -27,5 +27,10 @@ thumbnails.forEach(function(value, key, listObj, argument) {
 });
 
 thumbnails.forEach(function(value, key, listObj, argument) {
-	listObj[key].setAttribute('style','height:' + tallestThumbnailSize + 'px');
+	listObj[key].setAttribute('style','min-height:' + tallestThumbnailSize + 'px');
 });
+
+
+//After thumbnail processing, remove the page-loading blocker
+document.querySelector('body').classList.remove('content-loading');
+

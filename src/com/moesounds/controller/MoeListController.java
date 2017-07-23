@@ -19,11 +19,16 @@ public class MoeListController {
     @RequestMapping(value = {"/all", "/moe-list"})
     public ModelAndView getSpecificPage() {
 
+        long totalClickCount = 0l;
         Collection<Page> allPages = moeSoundsService.getAllPages();
+
+        for (Page page : allPages)
+            totalClickCount += page.getClickCount();
 
         ModelAndView mav = new ModelAndView("moe-list");
 
         mav.addObject("allPages", allPages);
+        mav.addObject("totalClickCount", totalClickCount);
 
         return mav;
     }

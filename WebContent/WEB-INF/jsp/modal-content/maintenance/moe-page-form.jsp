@@ -40,8 +40,12 @@
           <select class="form-control optional" name="defaultBackground">
             <option value="">Random</option>
             <c:forEach items="${defaultBackgrounds}" var="defaultBackground">
-              <option value="${defaultBackground}"
-                      <c:if test="${page.defaultBackground eq defaultBackground}">selected</c:if>>
+            
+              <c:if test="${page.defaultBackground eq defaultBackground}">
+                <c:set value="selected" var="selected" />
+              </c:if>
+              
+              <option value="${defaultBackground}" ${selected}>
                 ${defaultBackground.name}
               </option>
             </c:forEach>

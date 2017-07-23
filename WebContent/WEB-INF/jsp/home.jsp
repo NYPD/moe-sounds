@@ -107,7 +107,7 @@
   
           <div class="project-info">
             <span id="misc_text">
-              <span>${projectName}</span>
+              <span class="project-name">${projectName}</span>
               <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases" target="_blank">v${projectVersion}</a>
             </span>
           </div>

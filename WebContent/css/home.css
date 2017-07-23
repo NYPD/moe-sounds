@@ -258,12 +258,6 @@ nav a:last-child {
   font-family: 'Railway', sans-serif;
 }
 
-@media screen and (max-width: 700px) {
- .main .main-inner .sound-footer {
-    height: 60px;
-  }
-}
-
 
 .main .main-inner .sound-footer .share-links {
   flex: 1;
@@ -271,6 +265,17 @@ nav a:last-child {
   padding-left: 5px;
   padding-right: 5px;
   line-height: 30px;
+}
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-footer .share-links  {
+    flex: 2;
+  }
+  
+  .main .main-inner .sound-footer .share-links .twttr-share-counts  {
+    display: none;
+  }
+  
 }
 
 
@@ -282,7 +287,6 @@ nav a:last-child {
 
 @media screen and (max-width: 700px) {
   .main .main-inner .sound-footer .share-links .social-media {
-    display: block;
     vertical-align: baseline;
     margin-top: 6px;
   }
@@ -296,7 +300,8 @@ nav a:last-child {
 
 @media screen and (max-width: 700px) {
   .main .main-inner .sound-footer .stutter-container {
-    padding-top: 20px;
+    flex: 2;
+    padding-top: 10px;
     line-height: normal;
   }
 }
@@ -316,7 +321,7 @@ nav a:last-child {
 
 @media screen and (max-width: 700px) {
   .main .main-inner .sound-footer .project-info {
-    padding-top: 15px;
+    padding-top: 10px;
     line-height: normal;
   }
 }
@@ -325,6 +330,14 @@ nav a:last-child {
   color: #FFFFFF;
   text-decoration: underline;
 }
+
+@media screen and (max-width: 700px) {
+  .main .main-inner .sound-footer .project-name {
+    display: none;
+  }
+}
+
+
 
 /* footer *****************************************************************************************/
 .footer {

@@ -5,11 +5,9 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.moesounds.annotation.MoeSoundsDataSource;
@@ -25,16 +23,6 @@ import com.moesounds.annotation.TestProfile;
 @TestProfile
 public class EmbeddedDataSourceConfiguration {
     
-	@Bean
-    public PlatformTransactionManager annotationDrivenTransactionManager() throws NamingException {	
-        DataSource dataSource = getMoeSoundsDataSource();
-
-        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
-        dataSourceTransactionManager.setDataSource(dataSource);
-
-        return dataSourceTransactionManager;
-    }
-
     @Bean
     @MoeSoundsDataSource
     public DataSource getMoeSoundsDataSource() throws NamingException {

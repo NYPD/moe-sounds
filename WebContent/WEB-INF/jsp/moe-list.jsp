@@ -21,7 +21,7 @@
     
   </head>
   
-  <body data-tab-id="all-nav">
+  <body data-tab-id="all-nav" class="content-loading">
   
     <%@ include file = "fragments/navbar.jsp" %>
   
@@ -32,6 +32,13 @@
           <h1>Moe Pages</h1>
         </div>
       </div>  
+      
+      <div class="row row-total-clicks">
+        <div class="col-xs-12">
+          <h3 class="text-center">
+            (<span class="total-clicks">${totalClickCount}</span> total clicks)</h3>
+        </div>
+      </div>
       
       <div class="row row-thumbnails">
         
