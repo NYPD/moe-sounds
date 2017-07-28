@@ -21,16 +21,14 @@ function moeRedirect(event) {
 var thumbnails = window.document.querySelectorAll('.thumbnail');
 var tallestThumbnailSize = 0;
 
-thumbnails.forEach(function(value, key, listObj, argument) {
-	var offsetHeight = listObj[key].offsetHeight;
-	if(offsetHeight > tallestThumbnailSize) tallestThumbnailSize = offsetHeight;
-});
+for (var i = 0; i < thumbnails.length; i++) {
+  var offsetHeight = thumbnails[i].offsetHeight;
+  if(offsetHeight > tallestThumbnailSize) tallestThumbnailSize = offsetHeight;
+};
 
-thumbnails.forEach(function(value, key, listObj, argument) {
-	listObj[key].setAttribute('style','min-height:' + tallestThumbnailSize + 'px');
-});
-
+for (var i = 0; i < thumbnails.length; i++) {
+  thumbnails[i].setAttribute('style','min-height:' + tallestThumbnailSize + 'px');
+};
 
 //After thumbnail processing, remove the page-loading blocker
 document.querySelector('body').classList.remove('content-loading');
-
