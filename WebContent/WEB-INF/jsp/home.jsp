@@ -67,7 +67,7 @@
       
         <span>Load</span><span>Error</span>
         
-        <div class="thumb-large"></div>
+        <div class="thumb-large mobile-hide"></div>
         
         <div class="hit-count">
           <span id="count">${page.clickCount}</span>
@@ -101,13 +101,13 @@
           
           <div class="stutter-container">
             <label>
-              <input type="checkbox" id="stutter-setting"/> Stutter Effect
+              <input type="checkbox" id="stutter-setting"/> Stutter <span class="mobile-hide">Effect</span>
             </label>
           </div>
   
           <div class="project-info">
             <span id="misc_text">
-              <span class="project-name">${projectName}</span>
+              <span class="mobile-hide">${projectName}</span>
               <a class="version-link" href="https://github.com/NYPD/moe-sounds/releases" target="_blank">v${projectVersion}</a>
             </span>
           </div>
