@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
-<!DOCTYPE>
-<html lang="en-us">
+<!DOCTYPE html>
+<html lang="en-US">
 
   <head>
     
@@ -157,5 +157,5 @@
         }
       }(document, 'script', 'twitcount_plugins');
     </script>
-</body>
+  </body>
 </html>

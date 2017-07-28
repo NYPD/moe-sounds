@@ -18,6 +18,7 @@
 
 html,
 body {
+  height: 100%;
   margin: 0;
   color: #ffffff;
   background: #3a3a3a;
@@ -219,7 +220,7 @@ nav a:last-child {
 /* Moe sound name container ***********************************************************************/
 .main .main-inner .sound-name {
   position: absolute;
-  bottom: 60;
+  bottom: 60px;
   width: 100%;
   text-align: center;
   border-radius: 15px;
@@ -252,19 +253,27 @@ nav a:last-child {
 .main .main-inner .sound-footer {
   position: absolute;
   display: flex;
+  align-items: center;
   bottom: 0;
   height: 30px;
   width: 100%;
   font-family: 'Railway', sans-serif;
+  
+}
+
+.main .main-inner .sound-footer > div:first-child {
+  padding-left: 5px;
+}
+
+.main .main-inner .sound-footer > div:last-child {
+  padding-right: 5px;
 }
 
 
 .main .main-inner .sound-footer .share-links {
+  padding-top: 5px;
   flex: 1;
   z-index: 9000;
-  padding-left: 5px;
-  padding-right: 5px;
-  line-height: 30px;
 }
 
 @media screen and (max-width: 700px) {
@@ -294,7 +303,6 @@ nav a:last-child {
 
 .main .main-inner .sound-footer .stutter-container {
   flex: 1;
-  line-height: 30px;
   text-align: center;
 }
 
@@ -313,10 +321,7 @@ nav a:last-child {
 
 .main .main-inner .sound-footer .project-info {
   flex: 1;
-  padding-left: 5px;
-  padding-right: 5px;
   text-align: right;
-  line-height: 30px;
 }
 
 @media screen and (max-width: 700px) {
