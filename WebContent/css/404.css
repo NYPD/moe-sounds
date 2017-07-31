@@ -10,3 +10,8 @@
 .col-text-container p {
   font-size: 22px;
 }
+
+.four-o-four-image {
+  width: 100%;
+  max-width: 400px;
+}
