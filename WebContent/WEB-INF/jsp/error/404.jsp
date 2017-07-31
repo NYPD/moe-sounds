@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
   <head>
     <meta charset="utf-8">
@@ -36,7 +36,7 @@
         </div>
         
         <div class="col-md-6">
-          <img alt="pekoe confused" src="${context}/images/pekoe-404.png" class="center-block 404-image">
+          <img alt="pekoe confused" src="${context}/images/pekoe-404.png" class="center-block four-o-four-image">
         </div>
         
       </div>
