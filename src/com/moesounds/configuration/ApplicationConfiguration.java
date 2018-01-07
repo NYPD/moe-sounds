@@ -38,9 +38,10 @@ import ch.qos.logback.core.Appender;
  * @author NYPD
  */
 @Configuration
-@Import(value = {LoggingConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
+@Import(value = {LogbackConfiguration.class, MyBatisConfiguration.class, GoogleConfiguration.class})
 @ComponentScan(basePackageClasses = {DAO.class, Service.class})
-@PropertySource(value = "classpath:resource/project.properties")
+@PropertySource(value = {"classpath:resource/project.properties",
+"classpath:resource/logback-email-config.properties"}, ignoreResourceNotFound = true)
 public class ApplicationConfiguration {
 
     @Autowired(required = false)
@@ -79,6 +80,7 @@ public class ApplicationConfiguration {
         Level loggingLevel = isDevelopment ? Level.DEBUG : Level.INFO;
 
         root.setLevel(loggingLevel);
+
     }
 
     @PostConstruct
