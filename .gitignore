@@ -37,5 +37,5 @@ $RECYCLE.BIN/
 ## Sensitive Stuff Bruh ##
 ##########################
 
-logback-email-config.md
+logback-email-config.properties
 client_secret.json
