@@ -45,6 +45,9 @@ $stutterSetting.on('click', function() {
 
 /* Functions **************************************************************************************/
 function fetchMoeCount() {
+  
+  if(soundFileNotLoaded) return;
+  
   var $getClickCountPromise = $.get('/get-click-count', {pageId: currentPageId});
   
   $getClickCountPromise.done(function(clickCount) {
