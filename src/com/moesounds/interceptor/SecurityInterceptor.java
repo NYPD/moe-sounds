@@ -48,6 +48,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws IOException {
 
+        if (request == null) return false;
+
         User user = moeSoundsSessionBean.getUser();
         boolean isAllowedUser = user != null && user.getUserRole() == this.allowedRole;
         if (isAllowedUser) return true;
