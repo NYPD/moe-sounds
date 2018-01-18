@@ -113,12 +113,17 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
                 for (String methodMapping : mappings) {
 
-                    String[] classMappings = classRequestMapping.value();
+                    if (classRequestMapping != null) {
+                        String[] classMappings = classRequestMapping.value();
 
-                    for (String classMapping : classMappings) {
+                        for (String classMapping : classMappings) {
 
-                        String uri = classMapping + methodMapping;
-                        isAjax = uri.contains(request.getRequestURI());
+                            String uri = classMapping + methodMapping;
+                            isAjax = uri.contains(request.getRequestURI());
+                            if (isAjax) break outerloop;
+                        }
+                    } else {
+                        isAjax = methodMapping.contains(request.getRequestURI());
                         if (isAjax) break outerloop;
                     }
 
