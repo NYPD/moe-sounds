@@ -27,7 +27,7 @@ import com.moesounds.util.AppConstants;
  * in the session It checks and see if the user has any cookies created from previous sessions. If
  * so, it attempts to use the appropriate third party API to re authenticate the user. If no cookies
  * are found, the user is redirected to an error page.
- * 
+ * <br><br>
  * Keep in mind if for some reason the user does have the appropriate cookies, but does not have the
  * correct access the particular part in the system, this security filter should intercept the
  * request again and verify.
