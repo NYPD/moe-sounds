@@ -54,6 +54,12 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         boolean isAllowedUser = user != null && user.getUserRole() == this.allowedRole;
         if (isAllowedUser) return true;
 
+        boolean noCookies = request.getCookies() == null;
+        if (noCookies) {
+            response.sendRedirect("error/access-denied");
+            return false;
+        }
+
         ApiType apiType = null;
 
         for (Cookie cookie : request.getCookies()) {
