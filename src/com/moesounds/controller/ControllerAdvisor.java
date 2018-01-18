@@ -10,7 +10,7 @@ import com.moesounds.annotation.DefaultController;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.LoginIOException;
 import com.moesounds.exception.UnauthorizedUserException;
-import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
+import com.moesounds.exception.google.AuthorizationCodeResponseException;
 import com.moesounds.util.AppConstants;
 
 /**
@@ -33,8 +33,8 @@ public class ControllerAdvisor {
         return modelAndView;
     }
 
-    @ExceptionHandler(value = AuthorizationCodeResponseExcpetion.class)
-    public ModelAndView handleAuthorizationCodeResponseExcpetion(AuthorizationCodeResponseExcpetion exception) {
+    @ExceptionHandler(value = AuthorizationCodeResponseException.class)
+    public ModelAndView handleAuthorizationCodeResponseExcpetion(AuthorizationCodeResponseException exception) {
 
         String error = exception.getError();
         String errorDescription = exception.getErrorDescription();

@@ -34,7 +34,7 @@ import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.LoginIOException;
-import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
+import com.moesounds.exception.google.AuthorizationCodeResponseException;
 import com.moesounds.util.AppConstants;
 
 @Service
@@ -94,7 +94,7 @@ public class GoogleLoginService extends ApiLoginService {
         String error = authorizationCodeResponseUrl.getError();
 
         boolean hasError = error != null;
-        if (hasError) throw new AuthorizationCodeResponseExcpetion(authorizationCodeResponseUrl);
+        if (hasError) throw new AuthorizationCodeResponseException(authorizationCodeResponseUrl);
 
         String googleStateToken = authorizationCodeResponseUrl.getState();
         String sessionStateToken = googleSessionBean.getGoogleStateToken();
