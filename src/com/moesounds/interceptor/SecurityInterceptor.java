@@ -75,12 +75,16 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
         boolean noApiTypeCookieFound = apiType == null;
-        if (noApiTypeCookieFound) response.sendRedirect("error/access-denied");
+        if (noApiTypeCookieFound) {
+            response.sendRedirect("error/access-denied");
+            return false;
+        }
 
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
 
         /*
-         * We should theoretically find a api tYpe, if for some unknown reason we don't, send the user to the login page
+         * We should theoretically find a API Type, if for some unknown reason we don't, send the
+         * user to the login page
          */
         boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
         if (noApiLoginService) {
@@ -89,8 +93,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
         ApiLoginService apiLoginService = (ApiLoginService) beansWithAnnotation.values().toArray()[0];
-
         apiLoginService.reAuthenticateUser(response);
+
         return false;
     }
 
