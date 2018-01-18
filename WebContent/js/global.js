@@ -12,9 +12,14 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   $allModals.modal('hide');
   
   var isServerError = jqXHR.status >= 500 && jqXHR.status < 600;
+  var isUnauthorized = jqXHR.status === 401;
   
   if(isServerError)
     $globalSmallModal.find('.modal-dialog').html(jqXHR.responseText);
+  else if(isUnauthorized) {
+    window.sessionStorage.setItem('unauthorizedLastURL', ajaxSettings.url)
+    window.location.reload(true); //Should cause a page redirect to itself keeping the user's location, but authenticating them in the back-end
+  }
   else
     $globalSmallModal.find('.modal-dialog').html(getGenericErrorModal());
   
@@ -25,7 +30,6 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
 $('#submit-bug-report').on('click', function() {
   popupCenter('https://gitreports.com/issue/moe-bugs/moe-sounds', 'Submit Bug Report', 650, 900);
 });
-
 
 /* Functions **************************************************************************************/
 function popupCenter(url, title, w, h) {
@@ -70,5 +74,19 @@ function getGenericErrorModal() {
 
 /* Document Ready Stuff ***************************************************************************/
 $(document).ready(function() {
+  
   $('.table-container').removeClass('table-loading');
+  
+  var unauthorizedLastURL = window.sessionStorage.getItem('unauthorizedLastURL');
+  if(unauthorizedLastURL !== null) {
+    
+    var $getUnauthorizedLastURLPromise = $.get(unauthorizedLastURL);
+    
+    $getUnauthorizedLastURLPromise.done(function(modalContent) {
+      $maintenanceModalLarge.find('.modal-dialog').html(modalContent);
+      $maintenanceModalLarge.modal('show');
+    }).always(function() {
+      window.sessionStorage.removeItem('unauthorizedLastURL');
+    });
+  }
 });

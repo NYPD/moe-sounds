@@ -34,6 +34,7 @@ import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.LoginIOException;
+import com.moesounds.exception.NoUserInSessionException4Ajax;
 import com.moesounds.exception.google.AuthorizationCodeResponseException;
 import com.moesounds.util.AppConstants;
 
@@ -174,6 +175,7 @@ public class GoogleLoginService extends ApiLoginService {
     public void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response) {
 
         boolean isAjax = this.isHttpServletRequestAjax(request);
+        if (isAjax) throw new NoUserInSessionException4Ajax();
 
         try {
             response.sendRedirect("/admin/api/google-oauth-login");

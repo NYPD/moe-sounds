@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.moesounds.exception.FileReadException;
+import com.moesounds.exception.NoUserInSessionException4Ajax;
 import com.moesounds.model.AjaxError;
 
 @RestControllerAdvice(annotations = RestController.class)
@@ -35,6 +36,14 @@ public class RestControllerAdvisor {
         return modelAndView;
     }
 
+    @ExceptionHandler(value = NoUserInSessionException4Ajax.class)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public void handleFileReadException(NoUserInSessionException4Ajax exception) {
+
+        logger.info("User not found in session for AJAX call, redirecting to login page ", exception);
+
+    }
+
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public ModelAndView handleGeneralException(Exception exception) {
@@ -52,5 +61,6 @@ public class RestControllerAdvisor {
 
         return modelAndView;
     }
+
 
 }
