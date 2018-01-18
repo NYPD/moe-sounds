@@ -1,6 +1,7 @@
 package com.moesounds.interceptor;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.moesounds.beans.MoeSoundsSessionBean;
@@ -80,19 +83,50 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
 
-        Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
+        Map<String, Object> apiLoginServices = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
 
         /*
          * We should theoretically find a API Type, if for some unknown reason we don't, send the
          * user to the login page
          */
-        boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
+        boolean noApiLoginService = apiLoginServices == null || apiLoginServices.size() == 0;
         if (noApiLoginService) {
             response.sendRedirect("admin");
             return false;
         }
 
-        ApiLoginService apiLoginService = (ApiLoginService) beansWithAnnotation.values().toArray()[0];
+        boolean isAjax = false;
+        Object[] restControllers = applicationContext.getBeansWithAnnotation(RestController.class).values().toArray();
+
+        outerloop: for (Object restController : restControllers) {
+
+            RequestMapping classRequestMapping = restController.getClass().getAnnotation(RequestMapping.class);
+
+            Method[] methods = restController.getClass().getMethods();
+
+            for (Method method : methods) {
+
+                RequestMapping methodRequestMapping = method.getAnnotation(RequestMapping.class);
+                if (methodRequestMapping == null) continue;
+
+                String[] mappings = methodRequestMapping.value();
+
+                for (String methodMapping : mappings) {
+
+                    String[] classMappings = classRequestMapping.value();
+
+                    for (String classMapping : classMappings) {
+
+                        String uri = classMapping + methodMapping;
+                        isAjax = uri.contains(request.getRequestURI());
+                        if (isAjax) break outerloop;
+                    }
+
+                }
+            }
+        }
+
+        ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
         apiLoginService.reAuthenticateUser(response);
 
         return false;
