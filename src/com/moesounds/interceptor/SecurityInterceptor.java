@@ -59,7 +59,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
         boolean noCookies = request.getCookies() == null;
         if (noCookies) {
-            response.sendRedirect("error/access-denied");
+            response.sendRedirect("/admin");
             return false;
         }
 
@@ -79,7 +79,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 
         boolean noApiTypeCookieFound = apiType == null;
         if (noApiTypeCookieFound) {
-            response.sendRedirect("error/access-denied");
+            response.sendRedirect("/admin");
             return false;
         }
 
@@ -91,9 +91,17 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
          */
         boolean noApiLoginService = apiLoginServices == null || apiLoginServices.size() == 0;
         if (noApiLoginService) {
-            response.sendRedirect("admin");
+            response.sendRedirect("/admin");
             return false;
         }
+
+        ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
+        apiLoginService.reAuthenticateUser(response);
+
+        return false;
+    }
+
+    private boolean isHttpServletRequestAjax(HttpServletRequest request) {
 
         boolean isAjax = false;
         Object[] restControllers = applicationContext.getBeansWithAnnotation(RestController.class).values().toArray();
@@ -131,10 +139,8 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-        ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
-        apiLoginService.reAuthenticateUser(response);
+        return isAjax;
 
-        return false;
     }
 
 }
