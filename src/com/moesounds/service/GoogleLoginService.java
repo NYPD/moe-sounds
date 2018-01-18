@@ -192,7 +192,6 @@ public class GoogleLoginService extends ApiLoginService {
 
         Details webDetails = googleClientSecrets.getWeb();
 
-        GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0);
         CLIENT_ID = webDetails.getClientId();
         CLIENT_SECRET = webDetails.getClientSecret();
 
@@ -208,6 +207,8 @@ public class GoogleLoginService extends ApiLoginService {
                 GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
             else if (!isLocalHost && !isDevelopment)
                 GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
+
+            if (GOOGLE_OAUTH_REDIRECT_URI != null) break;
 
         }
 
