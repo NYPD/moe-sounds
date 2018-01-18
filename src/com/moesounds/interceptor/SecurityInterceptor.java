@@ -1,7 +1,6 @@
 package com.moesounds.interceptor;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.moesounds.beans.MoeSoundsSessionBean;
@@ -96,51 +93,9 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
         ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
-        apiLoginService.reAuthenticateUser(response);
+        apiLoginService.reAuthenticateUser(request, response);
 
         return false;
-    }
-
-    private boolean isHttpServletRequestAjax(HttpServletRequest request) {
-
-        boolean isAjax = false;
-        Object[] restControllers = applicationContext.getBeansWithAnnotation(RestController.class).values().toArray();
-
-        outerloop: for (Object restController : restControllers) {
-
-            RequestMapping classRequestMapping = restController.getClass().getAnnotation(RequestMapping.class);
-
-            Method[] methods = restController.getClass().getMethods();
-
-            for (Method method : methods) {
-
-                RequestMapping methodRequestMapping = method.getAnnotation(RequestMapping.class);
-                if (methodRequestMapping == null) continue;
-
-                String[] mappings = methodRequestMapping.value();
-
-                for (String methodMapping : mappings) {
-
-                    if (classRequestMapping != null) {
-                        String[] classMappings = classRequestMapping.value();
-
-                        for (String classMapping : classMappings) {
-
-                            String uri = classMapping + methodMapping;
-                            isAjax = uri.contains(request.getRequestURI());
-                            if (isAjax) break outerloop;
-                        }
-                    } else {
-                        isAjax = methodMapping.contains(request.getRequestURI());
-                        if (isAjax) break outerloop;
-                    }
-
-                }
-            }
-        }
-
-        return isAjax;
-
     }
 
 }

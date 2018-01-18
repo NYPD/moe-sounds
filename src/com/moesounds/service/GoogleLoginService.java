@@ -39,7 +39,7 @@ import com.moesounds.util.AppConstants;
 
 @Service
 @GoogleLogin
-public class GoogleLoginService implements ApiLoginService {
+public class GoogleLoginService extends ApiLoginService {
 
     @Autowired
     private GoogleClientSecrets googleClientSecrets;
@@ -171,7 +171,9 @@ public class GoogleLoginService implements ApiLoginService {
     }
 
     @Override
-    public void reAuthenticateUser(HttpServletResponse response) {
+    public void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response) {
+
+        boolean isAjax = this.isHttpServletRequestAjax(request);
 
         try {
             response.sendRedirect("/admin/api/google-oauth-login");
