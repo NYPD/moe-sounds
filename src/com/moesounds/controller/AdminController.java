@@ -34,19 +34,22 @@ public class AdminController {
     private ApiLoginService googleLoginService;
 
     @RequestMapping
-    public ModelAndView getLoginPage() {
+    public ModelAndView getLoginPage(@RequestParam(value = "prevPath", required = false) String prevPath) {
 
         User user = moeSoundsSessionBean.getUser();
 
         if (user != null)
             return new ModelAndView("redirect:/admin/maintenance");
         else
-            return new ModelAndView("login");
+            return new ModelAndView("login").addObject("prevPath", prevPath);
     }
 
     @RequestMapping(value = "api/google-oauth-login")
-    public void googleOAuthLogin(HttpServletResponse response, @RequestParam(value = "rememberMe", required = false) boolean rememberMe) throws IOException {
+    public void googleOAuthLogin(HttpServletResponse response,
+            @RequestParam(value = "rememberMe", required = false) boolean rememberMe,
+            @RequestParam(value = "prevPath", required = false) String prevPath) throws IOException {
 
+        prevPath;
         moeSoundsSessionBean.setRememberMe(rememberMe);
 
         String authenticationRequestUrl = googleLoginService.getAuthenticationRequestUrl();

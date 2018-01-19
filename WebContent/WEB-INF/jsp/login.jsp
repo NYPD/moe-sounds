@@ -33,7 +33,7 @@
         <div class="vertical-rule"></div>
         
         <div class="login-options">
-          <img class="login-image" alt="Google Login" src="${context}/images/btn_google_signin_dark_normal_web.png" data-href="admin/api/google-oauth-login">
+          <img class="login-image" alt="Google Login" src="${context}/images/btn_google_signin_dark_normal_web.png" data-href="admin/api/google-oauth-login" data-prev-path="${prevPath}">
         </div>
         
       </div>

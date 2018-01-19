@@ -74,6 +74,7 @@ public class GoogleLoginService extends ApiLoginService {
                 Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
 
         googleAuthorizationCodeRequestUrl.setState(stateToken);
+
         googleSessionBean.setGoogleStateToken(stateToken);
 
         return googleAuthorizationCodeRequestUrl.build();
