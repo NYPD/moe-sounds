@@ -40,8 +40,10 @@ public class AdminController {
 
         if (user != null)
             return new ModelAndView("redirect:/admin/maintenance");
-        else
-            return new ModelAndView("login").addObject("prevPath", prevPath);
+        else if (prevPath != null)
+            return new ModelAndView("redirect:" + prevPath);
+
+        return new ModelAndView("login");
     }
 
     @RequestMapping(value = "api/google-oauth-login")
@@ -49,8 +51,8 @@ public class AdminController {
             @RequestParam(value = "rememberMe", required = false) boolean rememberMe,
             @RequestParam(value = "prevPath", required = false) String prevPath) throws IOException {
 
-        prevPath;
         moeSoundsSessionBean.setRememberMe(rememberMe);
+        moeSoundsSessionBean.setPrevPath(prevPath);
 
         String authenticationRequestUrl = googleLoginService.getAuthenticationRequestUrl();
 
@@ -73,7 +75,16 @@ public class AdminController {
         boolean rememberMe = moeSoundsSessionBean.isRememberMe();
         if (rememberMe) googleLoginService.createUserCookies(response);
 
-        return new ModelAndView("redirect:/admin/maintenance");
+        String prevPath = moeSoundsSessionBean.getPrevPath();
+        boolean hasPrevPath = prevPath != null;
+
+        if (hasPrevPath) {
+            moeSoundsSessionBean.setPrevPath(null);
+            return new ModelAndView("redirect:" + prevPath);
+        } else {
+            return new ModelAndView("redirect:/admin/maintenance");
+        }
+
     }
 
     @RequestMapping(value = "maintenance")
