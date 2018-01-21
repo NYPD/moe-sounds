@@ -114,4 +114,5 @@ public abstract class ApiLoginService {
         return isAjax;
 
     }
+
 }

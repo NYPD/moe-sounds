@@ -3,6 +3,7 @@ package com.moesounds.controller;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.moesounds.domain.User;
 import com.moesounds.exception.UnauthorizedUserException;
 import com.moesounds.service.ApiLoginService;
 import com.moesounds.service.MoeSoundsService;
+import com.moesounds.util.AppConstants;
 
 @DefaultController
 @RequestMapping(value = "/admin")
@@ -44,6 +46,32 @@ public class AdminController {
             return new ModelAndView("redirect:" + prevPath);
 
         return new ModelAndView("login");
+    }
+
+    @RequestMapping(value = "logout")
+    public ModelAndView logout(HttpSession session,HttpServletRequest request, HttpServletResponse response) {
+
+        moeSoundsSessionBean.setUser(null);
+        session.invalidate();
+
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin");
+
+        if (request == null || request.getCookies() == null) return modelAndView;
+
+        for (Cookie cookie : request.getCookies()) {
+            String cookieName = cookie.getName();
+
+            boolean isNotApiTypeCookie = !AppConstants.API_TYPE_COOKIE_NAME.equals(cookieName);
+            if (isNotApiTypeCookie) continue;
+
+            cookie.setValue(null);
+            cookie.setMaxAge(0);
+            cookie.setPath("/admin");
+
+            response.addCookie(cookie);
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "api/google-oauth-login")
