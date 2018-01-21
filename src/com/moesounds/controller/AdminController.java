@@ -35,7 +35,7 @@ public class AdminController {
     @GoogleLogin
     private ApiLoginService googleLoginService;
 
-    @RequestMapping
+    @RequestMapping(value = {"", "login"})
     public ModelAndView getLoginPage(@RequestParam(value = "prevPath", required = false) String prevPath) {
 
         User user = moeSoundsSessionBean.getUser();
