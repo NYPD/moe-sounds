@@ -15,6 +15,7 @@ public class MoeSoundsSessionBean {
 
     private User user;
     private boolean rememberMe;
+    private String prevPath;
 
     public User getUser() {
         return user;
@@ -27,6 +28,12 @@ public class MoeSoundsSessionBean {
     }
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+    }
+    public String getPrevPath() {
+        return prevPath;
+    }
+    public void setPrevPath(String prevPath) {
+        this.prevPath = prevPath;
     }
 
 }

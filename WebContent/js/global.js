@@ -12,10 +12,17 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
   $allModals.modal('hide');
   
   var isServerError = jqXHR.status >= 500 && jqXHR.status < 600;
+  var isUnauthorized = jqXHR.status === 401;
   
-  if(isServerError) {
-    $globalSmallModal.find('.modal-dialog').html(jqXHR.responseText);
+  if(isUnauthorized) {
+    window.location.href = window.location.origin + '/admin?prevPath=' + window.location.pathname; 
+    return;
   }
+  
+  if(isServerError)
+    $globalSmallModal.find('.modal-dialog').html(jqXHR.responseText);
+  else
+    $globalSmallModal.find('.modal-dialog').html(getGenericErrorModal());
   
   $globalSmallModal.modal('show');
   
@@ -24,7 +31,6 @@ $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
 $('#submit-bug-report').on('click', function() {
   popupCenter('https://gitreports.com/issue/moe-bugs/moe-sounds', 'Submit Bug Report', 650, 900);
 });
-
 
 /* Functions **************************************************************************************/
 function popupCenter(url, title, w, h) {
@@ -45,6 +51,26 @@ function popupCenter(url, title, w, h) {
 
 function selectTab(id) {
   $('#' + id).addClass('active');
+}
+
+function getGenericErrorModal() {
+  
+  return '<div class="modal-content">' +
+
+            '<div class="modal-header">' +
+              '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+              '<h4 class="modal-title">Error</h4>' +
+            '</div>' +
+            
+            '<div class="modal-body">' +
+             '<p>Something is goofed up. If this keeps happening please submit a bug report.</p>' +
+            '</div>' +
+            
+            '<div class="modal-footer">' +
+              '<button type="button" class="btn btn-warning" data-dismiss="modal">OK</button>' +
+            '</div>' +
+            
+          '</div>';
 }
 
 /* Document Ready Stuff ***************************************************************************/

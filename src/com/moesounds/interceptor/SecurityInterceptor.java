@@ -24,7 +24,7 @@ import com.moesounds.util.AppConstants;
  * in the session It checks and see if the user has any cookies created from previous sessions. If
  * so, it attempts to use the appropriate third party API to re authenticate the user. If no cookies
  * are found, the user is redirected to an error page.
- * 
+ * <br><br>
  * Keep in mind if for some reason the user does have the appropriate cookies, but does not have the
  * correct access the particular part in the system, this security filter should intercept the
  * request again and verify.
@@ -54,6 +54,12 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         boolean isAllowedUser = user != null && user.getUserRole() == this.allowedRole;
         if (isAllowedUser) return true;
 
+        boolean noCookies = request.getCookies() == null;
+        if (noCookies) {
+            response.sendRedirect("/admin");
+            return false;
+        }
+
         ApiType apiType = null;
 
         for (Cookie cookie : request.getCookies()) {
@@ -69,22 +75,26 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
         }
 
         boolean noApiTypeCookieFound = apiType == null;
-        if (noApiTypeCookieFound) response.sendRedirect("error/access-denied");
-
-        Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
-
-        /*
-         * We should theoretically find a api tYpe, if for some unknown reason we don't, send the user to the login page
-         */
-        boolean noApiLoginService = beansWithAnnotation == null || beansWithAnnotation.size() == 0;
-        if (noApiLoginService) {
-            response.sendRedirect("admin");
+        if (noApiTypeCookieFound) {
+            response.sendRedirect("/admin");
             return false;
         }
 
-        ApiLoginService apiLoginService = (ApiLoginService) beansWithAnnotation.values().toArray()[0];
+        Map<String, Object> apiLoginServices = applicationContext.getBeansWithAnnotation(apiType.getApiLoginServiceClass());
 
-        apiLoginService.reAuthenticateUser(response);
+        /*
+         * We should theoretically find a API Type, if for some unknown reason we don't, send the
+         * user to the login page
+         */
+        boolean noApiLoginService = apiLoginServices == null || apiLoginServices.size() == 0;
+        if (noApiLoginService) {
+            response.sendRedirect("/admin");
+            return false;
+        }
+
+        ApiLoginService apiLoginService = (ApiLoginService) apiLoginServices.values().toArray()[0];
+        apiLoginService.reAuthenticateUser(request, response);
+
         return false;
     }
 

@@ -10,7 +10,7 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeResponseUrl;
  * @author NYPD
  *
  */
-public class AuthorizationCodeResponseExcpetion extends RuntimeException {
+public class AuthorizationCodeResponseException extends RuntimeException {
 
     private static final long serialVersionUID = 8348153829305231702L;
 
@@ -18,7 +18,7 @@ public class AuthorizationCodeResponseExcpetion extends RuntimeException {
     private String errorDescription;
     private String errorUri;
 
-    public AuthorizationCodeResponseExcpetion(AuthorizationCodeResponseUrl authorizationCodeResponseUrl) {
+    public AuthorizationCodeResponseException(AuthorizationCodeResponseUrl authorizationCodeResponseUrl) {
         super();
         this.error = authorizationCodeResponseUrl.getError();
         this.errorDescription = authorizationCodeResponseUrl.getErrorDescription();

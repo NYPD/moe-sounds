@@ -30,8 +30,9 @@
       </ul>
       
       <c:if test="${userLoggedIn}">
-        <p class="navbar-text navbar-right">
+        <p class="navbar-text navbar-right navabar-user-info">
           <span>Signed in as ${moeSoundsSessionBean.user.nickname}</span>
+          <a class="logout-link" href="/admin/logout">Logout</a>
           <img class="user-profile-picture" src="${moeSoundsSessionBean.user.userProfilePicture}">
         </p>
       </c:if>

@@ -34,12 +34,13 @@ import com.moesounds.domain.User;
 import com.moesounds.domain.enums.ApiType;
 import com.moesounds.exception.InvalidStateTokenException;
 import com.moesounds.exception.LoginIOException;
-import com.moesounds.exception.google.AuthorizationCodeResponseExcpetion;
+import com.moesounds.exception.NoUserInSessionException4Ajax;
+import com.moesounds.exception.google.AuthorizationCodeResponseException;
 import com.moesounds.util.AppConstants;
 
 @Service
 @GoogleLogin
-public class GoogleLoginService implements ApiLoginService {
+public class GoogleLoginService extends ApiLoginService {
 
     @Autowired
     private GoogleClientSecrets googleClientSecrets;
@@ -73,6 +74,7 @@ public class GoogleLoginService implements ApiLoginService {
                 Arrays.asList(OPEN_ID_SCOPE, PROFILE_SCOPE));
 
         googleAuthorizationCodeRequestUrl.setState(stateToken);
+
         googleSessionBean.setGoogleStateToken(stateToken);
 
         return googleAuthorizationCodeRequestUrl.build();
@@ -94,7 +96,7 @@ public class GoogleLoginService implements ApiLoginService {
         String error = authorizationCodeResponseUrl.getError();
 
         boolean hasError = error != null;
-        if (hasError) throw new AuthorizationCodeResponseExcpetion(authorizationCodeResponseUrl);
+        if (hasError) throw new AuthorizationCodeResponseException(authorizationCodeResponseUrl);
 
         String googleStateToken = authorizationCodeResponseUrl.getState();
         String sessionStateToken = googleSessionBean.getGoogleStateToken();
@@ -171,7 +173,10 @@ public class GoogleLoginService implements ApiLoginService {
     }
 
     @Override
-    public void reAuthenticateUser(HttpServletResponse response) {
+    public void reAuthenticateUser(HttpServletRequest request, HttpServletResponse response) {
+
+        boolean isAjax = this.isHttpServletRequestAjax(request);
+        if (isAjax) throw new NoUserInSessionException4Ajax();
 
         try {
             response.sendRedirect("/admin/api/google-oauth-login");
@@ -190,7 +195,6 @@ public class GoogleLoginService implements ApiLoginService {
 
         Details webDetails = googleClientSecrets.getWeb();
 
-        GOOGLE_OAUTH_REDIRECT_URI = webDetails.getRedirectUris().get(0);
         CLIENT_ID = webDetails.getClientId();
         CLIENT_SECRET = webDetails.getClientSecret();
 
@@ -206,6 +210,8 @@ public class GoogleLoginService implements ApiLoginService {
                 GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
             else if (!isLocalHost && !isDevelopment)
                 GOOGLE_OAUTH_REDIRECT_URI = redirectUri;
+
+            if (GOOGLE_OAUTH_REDIRECT_URI != null) break;
 
         }
 
