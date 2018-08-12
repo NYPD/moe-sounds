@@ -147,8 +147,7 @@
     <!-- Twitter Share Script from twitcount.com -->
     <script type='text/javascript'>
       !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/
-            .test(d.location) ? 'http' : 'http';
+        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
         if (!d.getElementById(id)) {
           js = d.createElement(s);
           js.id = id;
