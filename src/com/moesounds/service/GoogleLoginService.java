@@ -133,7 +133,7 @@ public class GoogleLoginService implements ApiLoginService {
     }
 
     @Override
-    public User getMoeSoundsUser() {
+    public User getUser() {
 
         GoogleCredential googleCredential = googleSessionBean.getGoogleCredential();
         Oauth2 oauth2 = new Oauth2.Builder(netHttpTransport,

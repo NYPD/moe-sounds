@@ -93,7 +93,7 @@ public class AdminController {
 
         googleLoginService.verifyAuthenticationResponse(request);
 
-        User moeSoundsUser = googleLoginService.getMoeSoundsUser();
+        User moeSoundsUser = googleLoginService.getUser();
 
         boolean unauthorized = moeSoundsUser == null;
         if (unauthorized) throw new UnauthorizedUserException(request);

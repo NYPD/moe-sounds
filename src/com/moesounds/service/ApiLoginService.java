@@ -33,13 +33,13 @@ public interface ApiLoginService {
     public void verifyAuthenticationResponse(HttpServletRequest request);
 
     /**
-     * Return the corresponding Moe Sounds user using the unique API's user id. If no user is found null is returned.
+     * Return the corresponding application user using the unique API's user id. If no user is found null is returned.
      * 
      * If available, sets the URL API profile picture for the user
      * 
      * @return Moe Sounds User
      */
-    public User getMoeSoundsUser();
+    public User getUser();
 
     /**
      * Creates API specific cookies to be able to authenticate the user again without having them login again and sets them
