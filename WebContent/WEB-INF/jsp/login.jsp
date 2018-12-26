@@ -50,7 +50,7 @@
     </div>
     
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
     <script src="${context}/js/login.js?v=${projectVersion}"></script>
     
