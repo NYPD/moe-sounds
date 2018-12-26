@@ -25,7 +25,7 @@
     </init-param>
     <init-param>
       <param-name>spring.profiles.active</param-name>
-      <param-value>PRODUCTION</param-value>
+      <param-value>DEVELOPMENT</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
