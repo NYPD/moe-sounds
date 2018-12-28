@@ -63,6 +63,12 @@
      WHERE page_id = #{pageId}
   </select>
   
+  <select id="getTotalClickCount" resultType="_long">
+    SELECT SUM(click_count) AS total_click_count
+      FROM moe_sounds.page
+  </select>
+  
+  
   <!-- Page Media Queries ****************************************************-->
   <select id="getMediaWithPageId" resultType="Media">
     SELECT media_id,

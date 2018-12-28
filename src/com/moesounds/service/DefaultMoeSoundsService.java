@@ -107,6 +107,11 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
         return moeSoundsDAO.getClickCount(pageId);
     }
 
+    @Override
+    public long getTotalClickCount() {
+        return moeSoundsDAO.getTotalClickCount();
+    }
+
     // Private helper methods ****************************************
 
     /**
@@ -157,7 +162,6 @@ public class DefaultMoeSoundsService implements MoeSoundsService {
 
     // For JUnit Tests ************************************
     public void setMoeSoundsDAO(MoeSoundsDAO moeSoundsDAO) {
-
         this.moeSoundsDAO = moeSoundsDAO;
     }
 

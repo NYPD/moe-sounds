@@ -30,4 +30,6 @@ public interface MoeSoundsDAO {
     public void updateClickCount(int pageId);
 
     public long getClickCount(int pageId);
+
+    public long getTotalClickCount();
 }
