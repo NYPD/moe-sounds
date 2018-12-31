@@ -119,6 +119,8 @@
     </div>
 
     <footer class="footer">
+      <a id="submit-bug-report" class="bug-report">Report Bug</a>
+      <br>
       <span class="copyright">&copy;<span id="copyright-year"></span> moe-sounds</span>
     </footer>
   
