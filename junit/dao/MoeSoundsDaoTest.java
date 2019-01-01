@@ -152,6 +152,19 @@ public class MoeSoundsDaoTest {
 
     }
 
+    @Test
+    public void shouldGetTotalClickCount() {
+
+        moeSoundsDAO.updateClickCount(1);
+        moeSoundsDAO.updateClickCount(2);
+        moeSoundsDAO.updateClickCount(2);
+        moeSoundsDAO.updateClickCount(2);
+
+        long totalClickCount = moeSoundsDAO.getTotalClickCount();
+
+        assertThat(totalClickCount, is(4L));
+
+    }
 
 
     //Page Media Stuff ******************************************************************

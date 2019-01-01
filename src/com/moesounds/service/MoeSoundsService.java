@@ -63,4 +63,11 @@ public interface MoeSoundsService {
      *            The Id of the page to retrieve the click count
      */
     public long getClickCount(int pageId);
+
+    /**
+     * Get the total click count across all pages
+     * 
+     */
+    public long getTotalClickCount();
+
 }

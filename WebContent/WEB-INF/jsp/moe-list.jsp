@@ -84,7 +84,7 @@
     <%@ include file = "fragments/footer.jsp" %>
   
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="${context}/js/vendor/bootstrap.min.js"></script>
     <script src="${context}/js/global.js?v=${projectVersion}"></script>
     <script src="${context}/js/moe-list.js?v=${projectVersion}"></script>

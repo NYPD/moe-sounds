@@ -32,3 +32,11 @@ for (var i = 0; i < thumbnails.length; i++) {
 
 //After thumbnail processing, remove the page-loading blocker
 document.querySelector('body').classList.remove('content-loading');
+
+window.setInterval(function() {
+  
+  $.get('get-total-click-count').done(function(totalClicks) {
+    document.querySelector('.total-clicks').innerHTML = totalClicks;
+  });
+  
+}, 5000);
