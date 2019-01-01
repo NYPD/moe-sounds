@@ -151,6 +151,11 @@
       <artifactId>google-api-services-oauth2</artifactId>
       <version>v2-rev141-1.25.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava-jdk5</artifactId>
+      <version>17.0</version>
+    </dependency>
 
 
     <!-- Apache Commons -->
