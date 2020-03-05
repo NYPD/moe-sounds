@@ -45,7 +45,7 @@
 
   <properties>
     <spring.version>4.3.21.RELEASE</spring.version>
-    <msJackson.version>2.9.8</msJackson.version>
+    <msJackson.version>2.10.3</msJackson.version>
     <logback.version>1.2.3</logback.version>
   </properties>
 
