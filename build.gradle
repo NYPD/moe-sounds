@@ -1,0 +1,41 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    id 'java'
+}
+
+group = "com.moesounds"
+version = "0.2.10"
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation libs.spring.boot.starter.jdbc
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.webmvc
+    
+    // Using the bundle for Google APIs
+    implementation libs.bundles.google.stack
+    
+    // Using the bundle for MyBatis
+    implementation libs.bundles.mybatis.stack
+    
+    implementation libs.jackson.databind
+    implementation libs.commons.lang3
+    implementation libs.commons.io
+
+    testImplementation libs.spring.boot.starter.test
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

@@ -1,0 +1,46 @@
+[versions]
+# Plugins
+springBoot = "4.0.3"
+springDependencyManagement = "1.1.7"
+
+# Libraries
+googleApiClient = "2.7.0"
+googleOauth2 = "v2-rev20200213-2.0.0"
+googleHttpClient = "1.45.0"
+jackson = "2.18.2"
+commonsLang = "3.17.0"
+commonsIo = "2.18.0"
+mybatis = "3.5.19"
+mybatisSpring = "3.0.4"
+
+[libraries]
+# Spring Boot Starters
+spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-jdbc", version.ref = "springBoot" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
+spring-boot-starter-webmvc = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc", version.ref = "springBoot" }
+
+# Google APIs
+google-api-client = { group = "com.google.api-client", name = "google-api-client", version.ref = "googleApiClient" }
+google-api-services-oauth2 = { group = "com.google.apis", name = "google-api-services-oauth2", version.ref = "googleOauth2" }
+google-http-client-jackson2 = { group = "com.google.http-client", name = "google-http-client-jackson2", version.ref = "googleHttpClient" }
+
+# MyBatis
+mybatis = { group = "org.mybatis", name = "mybatis", version.ref = "mybatis" }
+mybatis-spring = { group = "org.mybatis", name = "mybatis-spring", version.ref = "mybatisSpring" }
+
+# Utils & JSON
+jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
+commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonsLang" }
+commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
+
+# Test
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc-test", version.ref = "springBoot" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+
+[bundles]
+# You can group related libraries to include them with one line
+google-stack = ["google-api-client", "google-api-services-oauth2", "google-http-client-jackson2"]
+mybatis-stack = ["mybatis", "mybatis-spring"]

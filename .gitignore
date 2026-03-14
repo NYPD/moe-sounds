@@ -5,9 +5,20 @@ node_modules
 .sass-cache
 
 #################
+## Gradle Stuff ##
+#################
+.gradle/
+build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+gradlew
+gradlew.bat
+
+#################
 ## Maven Stuff ##
 #################
 target
+pom.xml.bak
 
 ###################
 ## Eclipse Stuff ##
