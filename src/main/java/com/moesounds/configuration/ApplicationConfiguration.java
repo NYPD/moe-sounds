@@ -3,7 +3,7 @@ package com.moesounds.configuration;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

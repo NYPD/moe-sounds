@@ -32,6 +32,9 @@ dependencies {
     implementation libs.commons.lang3
     implementation libs.commons.io
 
+    runtimeOnly libs.hsqldb
+    testImplementation libs.hsqldb
+
     testImplementation libs.spring.boot.starter.test
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

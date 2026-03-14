@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.CoreMatchers.is;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +27,13 @@ import com.moesounds.service.DefaultMoeSoundsService;
 
 public class DefaultMoeSoundServiceTest {
 
-	private DefaultMoeSoundsService defaultMoeSoundsService;
+	private static DefaultMoeSoundsService defaultMoeSoundsService;
 	
+	@BeforeAll
+	public static void setUp() {
+		defaultMoeSoundsService = new DefaultMoeSoundsService();
+	}
+
 	@Test
 	public void shouldInsertPageForm() throws IOException {
 		
@@ -167,11 +174,6 @@ public class DefaultMoeSoundServiceTest {
 		verify(mockMoeSoundsDAO).deleteMediaWithPageId(eq(420));
 		verify(mockMoeSoundsDAO).deletePage(eq(420));
 		
-	}
-	
-	@Before
-	public void setUp() {
-		defaultMoeSoundsService = new DefaultMoeSoundsService();
 	}
 	
 }

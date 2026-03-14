@@ -1,19 +1,17 @@
 package dao;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.List;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.moesounds.configuration.ApplicationConfiguration;
@@ -25,8 +23,7 @@ import com.moesounds.domain.enums.UserRole;
 
 import configuration.EmbeddedDataSourceConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={ApplicationConfiguration.class, EmbeddedDataSourceConfiguration.class})
+@SpringBootTest(classes={ApplicationConfiguration.class, EmbeddedDataSourceConfiguration.class})
 @SqlGroup({
     @Sql(scripts = "/setup/create-moe-sounds-schema.sql"),
     @Sql(scripts = "/setup/dao/insert-admin-dao-test-info.sql"),

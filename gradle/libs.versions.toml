@@ -4,6 +4,7 @@ springBoot = "4.0.3"
 springDependencyManagement = "1.1.7"
 
 # Libraries
+hsqldb = "2.7.4" # Latest stable version for 2026
 googleApiClient = "2.7.0"
 googleOauth2 = "v2-rev20200213-2.0.0"
 googleHttpClient = "1.45.0"
@@ -12,8 +13,11 @@ commonsLang = "3.17.0"
 commonsIo = "2.18.0"
 mybatis = "3.5.19"
 mybatisSpring = "3.0.4"
+jakartaNaming = "2.0.0"
 
 [libraries]
+jakarta-naming-api = { group = "jakarta.naming", name = "jakarta.naming-api", version.ref = "jakartaNaming" }
+
 # Spring Boot Starters
 spring-boot-starter-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-jdbc", version.ref = "springBoot" }
 spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web", version.ref = "springBoot" }
@@ -32,6 +36,8 @@ mybatis-spring = { group = "org.mybatis", name = "mybatis-spring", version.ref =
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.ref = "commonsLang" }
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
+
+hsqldb = { group = "org.hsqldb", name = "hsqldb", version.ref = "hsqldb" }
 
 # Test
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc-test", version.ref = "springBoot" }

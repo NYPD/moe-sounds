@@ -19,7 +19,7 @@ import com.moesounds.beans.GoogleSessionBean;
 @Configuration
 public class GoogleConfiguration {
 
-    @Value("classpath:resource/api/google/client_secret.json")
+    @Value("classpath:api/google/client_secret.json")
     private Resource clientSecretsResource;
 
     @Bean

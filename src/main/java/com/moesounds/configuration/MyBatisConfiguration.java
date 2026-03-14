@@ -61,7 +61,7 @@ public class MyBatisConfiguration {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         PathMatchingResourcePatternResolver patternResolver = new PathMatchingResourcePatternResolver();
 
-        Resource[] mapperLocations = patternResolver.getResources("classpath:resource/mybatis/mapper/*-mapper.xml");
+        Resource[] mapperLocations = patternResolver.getResources("classpath:mybatis/mapper/*-mapper.xml");
 
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
         configuration.setUseGeneratedKeys(true);
