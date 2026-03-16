@@ -14,6 +14,7 @@ commonsIo = "2.18.0"
 mybatis = "3.5.19"
 mybatisSpring = "3.0.4"
 jakartaNaming = "2.0.0"
+mysql = "9.2.0" # Latest 2026 version
 
 [libraries]
 jakarta-naming-api = { group = "jakarta.naming", name = "jakarta.naming-api", version.ref = "jakartaNaming" }
@@ -38,6 +39,7 @@ commons-lang3 = { group = "org.apache.commons", name = "commons-lang3", version.
 commons-io = { group = "commons-io", name = "commons-io", version.ref = "commonsIo" }
 
 hsqldb = { group = "org.hsqldb", name = "hsqldb", version.ref = "hsqldb" }
+mysql-connector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql" }
 
 # Test
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-webmvc-test", version.ref = "springBoot" }

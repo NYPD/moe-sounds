@@ -43,12 +43,17 @@ import jakarta.annotation.PostConstruct;
 "classpath:resource/logback-email-config.properties"}, ignoreResourceNotFound = true)
 public class ApplicationConfiguration {
 
-    @Autowired(required = false)
-    private ServletContext servletContext;
-    @Autowired
-    private Environment springEnvironment;
-    @Autowired
-    private List<Appender<ILoggingEvent>> appenders;
+    private final ServletContext servletContext;
+    private final Environment springEnvironment;
+    private final List<Appender<ILoggingEvent>> appenders;
+
+    public ApplicationConfiguration(@Autowired(required = false) ServletContext servletContext,
+                                    Environment springEnvironment,
+                                    List<Appender<ILoggingEvent>> appenders) {
+        this.servletContext = servletContext;
+        this.springEnvironment = springEnvironment;
+        this.appenders = appenders;
+    }
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
